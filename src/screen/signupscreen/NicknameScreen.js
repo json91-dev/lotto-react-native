@@ -73,13 +73,12 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    // fontFamily: "AppleSDGothicNeo",
     fontSize: 34,
     fontWeight: "bold",
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#3b3f4a",
-    marginTop: 65,
+    marginTop: '10%',
     marginLeft: 20,
   },
 

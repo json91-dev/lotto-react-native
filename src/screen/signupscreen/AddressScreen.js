@@ -7,9 +7,16 @@ import {
   SafeAreaView, TextInput, TouchableOpacity,
 } from 'react-native';
 
-export default function AddressScreen(){
+
+import AddressSearch from '../../components/address/SearchAddress'
+
+import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
+import { connect } from 'react-redux';
+
+const AddressScreen = (props) => {
   const [inputText, setInputText] = React.useState('');
   const textInputRef = React.useRef('');
+  const [isOpenKeyboard, setIsOpenKeyboard] = React.useState('');
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -23,24 +30,57 @@ export default function AddressScreen(){
 
   const _keyboardDidShow = () => {
     console.log("Keyboard Shown");
-    // setIsOpenKeyboard(true);
+    setIsOpenKeyboard(true);
   };
 
   const _keyboardDidHide = () => {
     console.log("Keyboard Hidden");
     textInputRef.current.blur();
-    // setIsOpenKeyboard(false)
+    setIsOpenKeyboard(false);
+  };
+
+  const onSearchPressed = () => {
+    console.log(props.isAddressSelected);
+  };
+
+
+  const BottomButton = () => {
+    console.log(props.isAddressSelected);
+
+    if(isOpenKeyboard) {
+      return (
+        <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
+          <Text style={styles.searchButtonText}>검색</Text>
+        </TouchableOpacity>
+      )
+    }
+
+    else if (!props.isAddressSelected) {
+      return (
+        <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
+          <Text style={styles.searchButtonText}>검색</Text>
+        </TouchableOpacity>
+      )
+    }
+
+    else {
+      return (
+      <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
+        <Text style={styles.searchButtonText}>확인</Text>
+      </TouchableOpacity>
+      )
+    }
   };
 
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.label}>Address 스크린</Text>
+      <Text style={styles.label}>지역을 {"\n"}등록해주세요.</Text>
       <Text style={styles.labelSub}>해당 지역의 명당 정보를 매주 무료로 드려요.</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
-          placeholder="한글, 영문, 숫자 최대 16byte로 입력해주세요."
+          placeholder="동/읍/면으로 검색 (예. 역삼동)"
           onChangeText={(text) => {
             setInputText(text);
           }}
@@ -60,16 +100,41 @@ export default function AddressScreen(){
         <Text style={styles.searchText}>내 위치</Text>
       </TouchableOpacity>
 
+      <Text style={styles.searchResultLabel}>'신' 검색 결과</Text>
+      <AddressSearch/>
+
+      {BottomButton()}
+
+
+
     </SafeAreaView>
   )
 
-}
+};
+
+const mapStateToProps = ({address}) =>{
+  const { isAddressSelected, selectedAddressItem, addressItems } = address;
+
+  return {
+    isAddressSelected,
+    selectedAddressItem,
+    addressItems
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  {selectAddressItem, deselectAddressItem}
+)(AddressScreen)
+
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    justifyContent: 'flex-start',
+    borderWidth: 1,
   },
 
   label: {
@@ -79,7 +144,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#3b3f4a",
-    marginTop: 65,
+    marginTop: '10%',
     marginLeft: 20,
   },
 
@@ -167,8 +232,52 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: "#2157f3",
     marginLeft: 10,
+  },
+
+  searchResultLabel: {
+    fontSize: 18,
+    fontWeight: "600",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: "#3b3f4a",
+    marginTop: 32,
+    marginLeft: 20,
+  },
+
+  searchButtonTouch: {
+    width: '100%',
+    height: 60,
+    backgroundColor: "#2157f3",
+    position:'absolute',
+    bottom: 0,
+    justifyContent: 'center'
+  },
+
+  searchButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
+  },
+
+  confirmButtonTouch: {
+    width: '100%',
+    height: 60,
+    backgroundColor: "#2157f3",
+    position:'absolute',
+    bottom: 0,
+    justifyContent: 'center'
+  },
+
+  confirmButtonText: {
+    fontSize: 16,
+    fontWeight: "600",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#ffffff"
   }
-
-
 
 });
