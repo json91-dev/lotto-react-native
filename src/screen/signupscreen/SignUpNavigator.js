@@ -6,7 +6,7 @@ import AddressScreen from './AddressScreen'
 const Stack = createStackNavigator();
 
 
-function MainScreenNavigator () {
+function SignUpNavigator () {
   return (
     <Stack.Navigator initialRouteName = "NicknameScreen">
       <Stack.Screen name="NicknameScreen" options={{title: '앱 버전', headerTitleAlign: 'center', headerBackTitle: '', headerShown: false}} component={NicknameScreen}/>
@@ -15,4 +15,4 @@ function MainScreenNavigator () {
   )
 }
 
-export default MainScreenNavigator;
+export default SignUpNavigator;
