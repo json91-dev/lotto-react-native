@@ -11,6 +11,7 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollPicker} from 'react-native-value-picker';
+import LottoNumbers from '../../components/checkprize/LottoNumbers';
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
 // import { connect } from 'react-redux';
@@ -83,6 +84,10 @@ const CheckPrizeScreen = (props) => {
             </View>
           </TouchableOpacity>
         </View>
+        <Text style={styles.lottoNumberLabel}>898회차 당첨번호</Text>
+        <LottoNumbers/>
+
+        <Text style={styles.lottoDetailLabel}>898회차 상세정보</Text>
       </View>
 
       <RBSheet
@@ -320,4 +325,17 @@ const styles = StyleSheet.create({
     paddingBottom: 32,
     alignItems: 'center',
   },
+
+  lottoNumberLabel: {
+    marginTop: '10%',
+    marginLeft: 20,
+    fontSize: 18,
+  },
+
+  lottoDetailLabel: {
+    marginTop: '10%',
+    marginLeft: 20,
+    fontSize: 18,
+
+  }
 });
