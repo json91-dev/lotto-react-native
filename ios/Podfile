@@ -34,6 +34,10 @@ target 'LottoProject' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  # Permissions => For react-native-qrcode scanner
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+
   target 'LottoProjectTests' do
     inherit! :search_paths
     # Pods for testing

@@ -133,6 +133,11 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // for react-native-qrcode-scanner
+        missingDimensionStrategy 'react-native-camera', 'general'
+        missingDimensionStrategy 'react-native-camera', 'mlkit'
+        multiDexEnabled true
     }
     splits {
         abi {
