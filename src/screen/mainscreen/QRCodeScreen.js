@@ -4,7 +4,8 @@ import {
   View,
   Text,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView, Image,
 } from 'react-native';
 
 import { Dimensions } from 'react-native';
@@ -19,9 +20,9 @@ const QRCodeScreen = (props) => {
   const [scan, setScan] = useState(false);
   const [scanResult, setScanResult] = useState(false);
   const [result, setResult] = useState(null);
-
   const scanner = React.useRef('');
-
+  
+  // qrcode 인식 성공시 콜백
   const onSuccess = (e) => {
     const check = e.data.substring(0, 4);
     console.log('scanned data' + check);
@@ -29,7 +30,8 @@ const QRCodeScreen = (props) => {
     setResult(e);
     setScan(false);
     setScanResult(true);
-
+    
+    console.log(e);
 
     if (check === 'http') {
       Linking
@@ -40,85 +42,40 @@ const QRCodeScreen = (props) => {
       setResult(e);
       setScan(false);
       setScanResult(true);
-
     }
   };
-
-  const activeQR = () => {
-    setScan(true)
-  };
-
-
-  const scanAgain = () => {
-    setScan(true);
-    setScanResult(false);
-  };
-
-  const desccription = 'QR code (abbreviated from Quick Response Code) is the trademark for a type of matrix barcode (or two-dimensional barcode) first designed in 1994 for the automotive industry in Japan. A barcode is a machine-readable optical label that contains information about the item to which it is attached. In practice, QR codes often contain data for a locator, identifier, or tracker that points to a website or application. A QR code uses four standardized encoding modes (numeric, alphanumeric, byte/binary, and kanji) to store data efficiently; extensions may also be used.'
-
 
   useEffect(() => {
 
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View>
-        {/*<StatusBar barStyle="dark-content" />*/}
-        <Text style={styles.textTitle}>Welcome To React-Native QR Code Tutorial !</Text>
-        {!scan && !scanResult &&
-        <View style={styles.cardView} >
-          <Text numberOfLines={8} style={styles.descText}>{desccription}</Text>
-
-          <TouchableOpacity onPress={activeQR} style={styles.buttonTouchable}>
-            <Text style={styles.buttonTextStyle}>Click to Scan !</Text>
-          </TouchableOpacity>
-
-        </View>
-        }
-
-        {scanResult &&
-        <Fragment>
-          <Text style={styles.textTitle1}>Result !</Text>
-          <View style={ScanResult ? styles.scanCardView : styles.cardView}>
-            <Text>Type : {result.type}</Text>
-            <Text>Result : {result.data}</Text>
-            <Text numberOfLines={1}>RawData: {result.rawData}</Text>
-            <TouchableOpacity onPress={scanAgain} style={styles.buttonTouchable}>
-              <Text style={styles.buttonTextStyle}>Click to Scan again!</Text>
-            </TouchableOpacity>
-
-          </View>
-        </Fragment>
-        }
-
-
-        {scan &&
+    <SafeAreaView style={styles.container}>
+      <View style={styles.qrScannerView}>
         <QRCodeScanner
+          cameraStyle={styles.qrScannerCamera}
           reactivate={true}
-          showMarker={true}
+          showMarker={false}
           ref={(node) => { scanner.current = node }}
-          onRead={this.onSuccess}
-          topContent={
-            <Text style={styles.centerText}>
-              Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code to test.</Text>
-          }
-          bottomContent={
-            <View>
-              <TouchableOpacity style={styles.buttonTouchable} onPress={() => scanner.current.reactivate()}>
-                <Text style={styles.buttonTextStyle}>OK. Got it!</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.buttonTouchable} onPress={() => setScan(false)}>
-                <Text style={styles.buttonTextStyle}>Stop Scan</Text>
-              </TouchableOpacity>
-            </View>
-
-          }
+          onRead={onSuccess}
         />
-        }
       </View>
-    </View>
+      
+      <View style={styles.backButtonView}>
+        <TouchableOpacity style={styles.backButtonTouch}>
+          <Image style={styles.backButtonImage} source={require('../../assets/btn_back.png')} />
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.searchButtonView}>
+        <TouchableOpacity style={styles.searchButtonTouch}>
+          <Image style={styles.searchButtonImage} source={require('../../assets/btn_search.png')} />
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.qrGuideView}></View>
+      
+    </SafeAreaView>
   )
 };
 
@@ -145,9 +102,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-
-
-
+  
   scrollViewStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -161,6 +116,7 @@ const styles = StyleSheet.create({
     padding: 16,
     color: 'white'
   },
+  
   textTitle1: {
     fontWeight: 'bold',
     fontSize: 18,
@@ -168,50 +124,11 @@ const styles = StyleSheet.create({
     padding: 16,
     color: 'black'
   },
-  cardView: {
-    width: deviceWidth - 32,
-    height: deviceHeight / 2,
-    alignSelf: 'center',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 4,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-    backgroundColor: 'white'
-  },
-  scanCardView: {
-    width: deviceWidth - 32,
-    height: deviceHeight / 2,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 4,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-    backgroundColor: 'white'
-  },
+
   buttonScan: {
     width: 42,
-
   },
+  
   descText: {
     padding: 16,
     textAlign: 'justify',
@@ -246,6 +163,59 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  
+  qrScannerCamera: {
+    height: deviceHeight,
+    width: deviceWidth
+  },
+  
+  qrScannerView: {
+    position: 'absolute'
+  },
+  
+  qrGuideView: {
+  
+  },
+  
+  backButtonView: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  
+  backButtonTouch: {
+    width: 40,
+    height: 40,
+    padding: 10,
+    borderRadius: 15,
+    backgroundColor: "rgba(116, 121, 138, 0.5)"
+  },
+  
+  backButtonImage: {
+    resizeMode: 'cover',
+    width:'100%',
+    height: '100%'
+  },
+  
+  searchButtonView: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  },
+  
+  searchButtonTouch: {
+    width: 40,
+    height: 40,
+    padding: 10,
+    borderRadius: 15,
+    backgroundColor: "rgba(116, 121, 138, 0.5)"
+  },
+  
+  searchButtonImage: {
+    resizeMode: 'cover',
+    width:'100%',
+    height: '100%'
   }
 
 });
