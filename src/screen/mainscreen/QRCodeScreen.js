@@ -11,38 +11,109 @@ import {
 import { Dimensions } from 'react-native';
 const deviceWidth = Dimensions.get('screen').width;
 const deviceHeight = Dimensions.get('screen').height;
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
 // import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import BottomSheet from 'reanimated-bottom-sheet';
+import QrBottomSheet from '../../components/qrcode/QrBottomSheet';
+import WinningBottomSheet from '../../components/qrcode/WinningBottomSheet';
+
 
 const QRCodeScreen = (props) => {
-  const [scan, setScan] = useState(false);
-  const [scanResult, setScanResult] = useState(false);
-  const [result, setResult] = useState(null);
   const scanner = React.useRef('');
+  const [sheetIndex, setSheetIndex]  = React.useState(0);
   
   // qrcode 인식 성공시 콜백
   const onSuccess = (e) => {
     const check = e.data.substring(0, 4);
     console.log('scanned data' + check);
-
-    setResult(e);
-    setScan(false);
-    setScanResult(true);
     
-    console.log(e);
-
+    // 데이터가 http주소라면 해당 주소로 이동
+    // TODO: 추후 스캔이 일어났을때는 스캔을 막아줘야함.
     if (check === 'http') {
-      Linking
-        .openURL(e.data)
-        .catch(err => console.error('An error occured', err));
-
+      // Linking.openURL(e.data).catch(err => console.error('An error occured', err));
+      console.log(e.data);
     } else {
-      setResult(e);
-      setScan(false);
-      setScanResult(true);
+    
     }
+  };
+  
+  // 바텀시트의 컨텐츠를 나타내는 함수.
+  const renderContent = () => {
+    if (sheetIndex === 0) {
+      return <QrBottomSheet/>
+    } else {
+      return <WinningBottomSheet/>
+    }
+  };
+  
+  // 바텀시트의 header의 탭 클릭시 콜백함수.
+  const changeSheet = (index) => () => {
+    setSheetIndex(index);
+  };
+  
+  // 바텀시트의 헤더를 나타내는 함수.
+  const renderHeader = () => {
+    return (
+      <View style={styles.sheetHeaderView}>
+        <View style={{ width: 50,
+          height: 5,
+          borderRadius: 2.5,
+          backgroundColor: "#abbdbe"}}>
+        </View>
+        {
+          (sheetIndex === 0)?
+            <Row>
+              <Col>
+                <TouchableOpacity style={styles.sheetActiveTouch} onPress={changeSheet(0)}>
+                  <View>
+                    <Text>QR 입력</Text>
+                  </View>
+                </TouchableOpacity>
+              </Col>
+              <Col>
+                <TouchableOpacity style={styles.sheetInActiveTouch} onPress={changeSheet(1)}>
+                  <View>
+                    <Text>당첨 내역</Text>
+                  </View>
+                </TouchableOpacity>
+              </Col>
+            </Row>
+            :
+            <Row>
+              <Col>
+                <TouchableOpacity style={styles.sheetInActiveTouch} onPress={changeSheet(0)}>
+                  <View>
+                    <Text>QR 입력</Text>
+                  </View>
+                </TouchableOpacity>
+              </Col>
+              <Col>
+                <TouchableOpacity style={styles.sheetActiveTouch} onPress={changeSheet(1)}>
+                  <View>
+                    <Text>당첨 내역</Text>
+                  </View>
+                </TouchableOpacity>
+              </Col>
+            </Row>
+        }
+        
+        <View style={{backgroundColor: 'red', width: '100%'}}>
+      
+        </View>
+        
+        <View style={{
+          position: 'absolute',
+          bottom: 3,
+          width: 134,
+          height: 5,
+          borderRadius: 100,
+          backgroundColor: "#000000"}}>
+        </View>
+      </View>
+    )
   };
 
   useEffect(() => {
@@ -72,8 +143,13 @@ const QRCodeScreen = (props) => {
           <Image style={styles.searchButtonImage} source={require('../../assets/btn_search.png')} />
         </TouchableOpacity>
       </View>
-      
-      <View style={styles.qrGuideView}></View>
+  
+      <BottomSheet
+        snapPoints = {[400, 83, 83]}
+        renderContent = {renderContent}
+        renderHeader = {renderHeader}
+        initialSnap= {1}
+      />
       
     </SafeAreaView>
   )
@@ -108,62 +184,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#99003d'
   },
-
-  textTitle: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    padding: 16,
-    color: 'white'
-  },
-  
-  textTitle1: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    padding: 16,
-    color: 'black'
-  },
-
-  buttonScan: {
-    width: 42,
-  },
-  
-  descText: {
-    padding: 16,
-    textAlign: 'justify',
-    fontSize: 16
-  },
-
-
-  highlight: {
-    fontWeight: '700',
-  },
-
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonTouchable: {
-    fontSize: 21,
-    backgroundColor: '#ff0066',
-    marginTop: 32,
-
-    width: deviceWidth - 62,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 44
-  },
-  buttonTextStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
   
   qrScannerCamera: {
     height: deviceHeight,
@@ -174,9 +194,8 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   
-  qrGuideView: {
   
-  },
+  /* 상단 버튼 */
   
   backButtonView: {
     position: 'absolute',
@@ -216,6 +235,41 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width:'100%',
     height: '100%'
+  },
+  
+  /* 바텀 시트 */
+  sheetHeaderView: {
+    width: '100%',
+    height: 83,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 10,
+  },
+  
+  sheetContentView: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'red'
+  },
+  
+  sheetActiveTouch: {
+    borderBottomWidth: 1,
+    borderColor: 'blue',
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  
+  sheetInActiveTouch: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 
 });
