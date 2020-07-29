@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 
 function MainNavigator () {
   return (
-    <Stack.Navigator initialRouteName = "MapScreen">
+    <Stack.Navigator initialRouteName = "CheckPrizeScreen">
       <Stack.Screen name="CheckPrizeScreen" options={{ headerShown: false}} component={CheckPrizeScreen}/>
       <Stack.Screen name="QRCodeScreen" options={{ headerShown: false}} component={QRCodeScreen}/>
       <Stack.Screen name="MapScreen" options={{ headerShown: false}} component={MapScreen}/>

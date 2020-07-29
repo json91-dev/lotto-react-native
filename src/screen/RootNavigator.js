@@ -9,7 +9,7 @@ import MainNavigator from './mainscreen/MainNavigator';
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName = "MainNav">
+      <Stack.Navigator initialRouteName = "SignUpNav">
         <Stack.Screen name="SignUpNav" options={{ headerShown: false }} component={SignUpNavigator}/>
         <Stack.Screen name="MainNav" options={{ headerShown: false }} component={MainNavigator}/>
       </Stack.Navigator>

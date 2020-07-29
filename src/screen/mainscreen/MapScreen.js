@@ -68,7 +68,7 @@ const MapScreen = (props) => {
       </NaverMapView>
   
       <View style={styles.backButtonView}>
-        <TouchableOpacity style={styles.backButtonTouch}>
+        <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
           <Image style={styles.backButtonImage} source={require('../../assets/btn_back.png')} />
         </TouchableOpacity>
       </View>

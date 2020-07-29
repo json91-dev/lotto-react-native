@@ -21,8 +21,7 @@ const CheckPrizeScreen = (props) => {
   const pickerRef = useRef('');
   const [pickedValue, setPickedValue] = useState(7);
   const refRBSheet = useRef();
-
-
+  
   const MOCK_DATA = [
     {
       value: 1,
@@ -46,19 +45,19 @@ const CheckPrizeScreen = (props) => {
 
   }, []);
 
+  // 로또 Round Button Click시 동작하는 콜백함수
   const onLottoRoundButtonPress = () => {
     // pickerRef.current.togglePicker(true);
     console.log(pickerRef.current);
-    refRBSheet.current.open()
+    refRBSheet.current.open(); // 클릭시 하단 picker를 열어줌
   };
-
 
   return (
     <View style={styles.container}>
       <Image style={styles.topBackImg} source={require('../../assets/ic_prize_back.png')} />
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.qrCodeButtonView}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('QRCodeScreen')}>
             <Image style={styles.qrCodeButtonImg} source={require('../../assets/btn_qrcode.png')} />
           </TouchableOpacity>
         </View>

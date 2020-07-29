@@ -38,9 +38,10 @@ const AddressScreen = (props) => {
     textInputRef.current.blur();
     setIsOpenKeyboard(false);
   };
-
+  
   const onSearchPressed = () => {
     console.log(props.isAddressSelected);
+    props.navigation.replace('MainNav');
   };
 
 
