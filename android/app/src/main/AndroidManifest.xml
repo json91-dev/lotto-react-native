@@ -13,6 +13,11 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <!-- 네이버 지도 Client ID -->
+      <meta-data
+        android:name="com.naver.maps.map.CLIENT_ID"
+        android:value="9lu6hutn6b" />
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

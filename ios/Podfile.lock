@@ -19,6 +19,7 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - NMapsMap (3.7.0)
   - Permission-Camera (2.1.5):
     - RNPermissions
   - RCTRequired (0.61.5)
@@ -192,6 +193,9 @@ PODS:
     - React
   - react-native-camera/RN (3.32.0):
     - React
+  - react-native-nmap (0.0.51):
+    - NMapsMap (~> 3.7.0)
+    - React
   - react-native-safe-area-context (0.6.4):
     - React
   - React-RCTActionSheet (0.61.5):
@@ -260,6 +264,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-nmap (from `../node_modules/react-native-nmap`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -282,6 +287,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - NMapsMap
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -316,6 +322,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
+  react-native-nmap:
+    :path: "../node_modules/react-native-nmap"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
@@ -358,6 +366,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  NMapsMap: 46ce3d48d7976dd10c6ec63cd7eecf655a7dd955
   Permission-Camera: 53d46bd722aea28d796e20f05fb3cbe6cde6ccb6
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
@@ -369,6 +378,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-camera: 4e47bcac13263ef3cde5bbb4daa3c72703d6e256
+  react-native-nmap: a51fb2ea768c25cb6dd6d0b93b904a36162cec86
   react-native-safe-area-context: 042dfc9d4db17196841df962ba9497f6e7a5bd02
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -387,6 +397,6 @@ SPEC CHECKSUMS:
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: d4dfb592002c433bed2968a8f6215e048e2cb0a5
+PODFILE CHECKSUM: fdf9aabc93ae8fcc0da6c9067c55727b116866f5
 
 COCOAPODS: 1.8.4
