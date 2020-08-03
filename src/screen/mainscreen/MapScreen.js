@@ -13,11 +13,47 @@ const deviceWidth = Dimensions.get('screen').width;
 const deviceHeight = Dimensions.get('screen').height;
 import { Col, Row, Grid } from "react-native-easy-grid";
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon} from "react-native-nmap";
+import BottomSheet from 'reanimated-bottom-sheet';
+import LottoStoreSheetHeader from '../../components/map/LottoStoreSheetHeader';
 
 const MapScreen = (props) => {
   useEffect(() => {
   
   }, []);
+  
+  // 바텀시트의 컨텐츠를 나타내는 함수.
+  const renderContent = () => {
+    return (
+      <View>
+      
+      </View>
+    )
+  };
+
+  
+  // 바텀시트의 헤더를 나타내는 함수.
+  const renderHeader = () => {
+    return (
+      <View style={styles.sheetHeaderView}>
+        <View style={{ width: 50,
+          height: 5,
+          borderRadius: 2.5,
+          backgroundColor: "#abbdbe"}}>
+        </View>
+        
+        <LottoStoreSheetHeader/>
+  
+        <View style={{
+          position: 'absolute',
+          bottom: 3,
+          width: 134,
+          height: 5,
+          borderRadius: 100,
+          backgroundColor: "#000000"}}>
+        </View>
+      </View>
+    )
+  };
   
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
@@ -78,6 +114,13 @@ const MapScreen = (props) => {
           <Image style={styles.searchButtonImage} source={require('../../assets/btn_search.png')} />
         </TouchableOpacity>
       </View>
+  
+      <BottomSheet
+        snapPoints = {[400, 180, 180]}
+        renderContent = {renderContent}
+        renderHeader = {renderHeader}
+        initialSnap= {1}
+      />
     </SafeAreaView>
   )
 };
@@ -147,6 +190,19 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     width:'100%',
     height: '100%'
+  },
+  
+  /* 바텀 시트 */
+  sheetHeaderView: {
+    width: '100%',
+    height: 180,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 10,
   },
   
 });
