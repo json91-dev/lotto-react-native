@@ -15,19 +15,30 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon} from "react-native-nmap";
 import BottomSheet from 'reanimated-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/map/LottoStoreSheetHeader';
+import LottoStoreSheetContent from '../../components/map/LottoStoreSheetContent';
+import Animated from 'react-native-reanimated';
 
 const MapScreen = (props) => {
+  const {
+    call,
+    onChange
+  } = Animated;
+  
+  const [openRatio, setOpenRatio] = useState(1);
+  const drawerCallbackNode = new Animated.Value(0);
+  const onCallback = ([value]) => {
+    setOpenRatio(1 - value);
+    console.log(1 - value);
+  };
+  
+  
   useEffect(() => {
   
   }, []);
   
   // 바텀시트의 컨텐츠를 나타내는 함수.
   const renderContent = () => {
-    return (
-      <View>
-      
-      </View>
-    )
+    return <LottoStoreSheetContent/>
   };
 
   
@@ -59,9 +70,8 @@ const MapScreen = (props) => {
   const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292};
   
-  
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <NaverMapView
         style={{width: '100%', height: '100%'}}
         showsMyLocationButton={true}
@@ -75,32 +85,24 @@ const MapScreen = (props) => {
         onMapClick={e => this
           // console.warn('onMapClick', JSON.stringify(e))
         }
-        mapPadding={{bottom: 155}}
+        mapPadding={{bottom: 160}}
         logoGravity ={0}
       >
         <Marker
           coordinate={P0}
-          onClick={() => this
-          // console.warn('onClick! p0')
-        }/>
+          
+        />
         <Marker
           coordinate={P1}
           pinColor="blue"
-          onClick={() => this}
           />
         <Marker coordinate={P2} pinColor="red" onClick={() => this
           // console.warn('onClick! p2')
         }/>
-        <Path coordinates={[P0, P1]}
-              onClick={this}/>
-        <Polyline coordinates={[P1, P2]}
-                  onClick={this}/>
-        <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200} onClick={() => this
-          // console.warn('onClick! circle')
-        }/>
-        <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} onClick={() => this
-          // console.warn('onClick! polygon')
-        }/>
+        <Path coordinates={[P0, P1]}/>
+        <Polyline coordinates={[P1, P2]}/>
+        <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200}/>
+        <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} />
       </NaverMapView>
   
       <View style={styles.backButtonView}>
@@ -116,12 +118,19 @@ const MapScreen = (props) => {
       </View>
   
       <BottomSheet
-        snapPoints = {[400, 180, 180]}
+        snapPoints = {['90%', 180, 180]}
         renderContent = {renderContent}
         renderHeader = {renderHeader}
         initialSnap= {1}
+        callbackNode={drawerCallbackNode}
       />
-    </SafeAreaView>
+  
+      <Animated.Code
+        exec={onChange(
+          drawerCallbackNode,
+          call([drawerCallbackNode], onCallback))}
+      />
+    </View>
   )
 };
 
@@ -196,6 +205,7 @@ const styles = StyleSheet.create({
   sheetHeaderView: {
     width: '100%',
     height: 180,
+    borderWidth: 1,
     backgroundColor: 'white',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
