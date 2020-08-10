@@ -41,7 +41,7 @@ const AddressScreen = (props) => {
   
   const onSearchPressed = () => {
     console.log(props.isAddressSelected);
-    props.navigation.replace('MainNav');
+    props.navigation.replace('BottomNavigator');
   };
 
 

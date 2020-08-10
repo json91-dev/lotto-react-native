@@ -14,8 +14,8 @@ const deviceHeight = Dimensions.get('screen').height;
 import { Col, Row, Grid } from "react-native-easy-grid";
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon} from "react-native-nmap";
 import BottomSheet from 'reanimated-bottom-sheet';
-import LottoStoreSheetHeader from '../../components/map/LottoStoreSheetHeader';
-import LottoStoreSheetContent from '../../components/map/LottoStoreSheetContent';
+import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
+import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
 import Animated from 'react-native-reanimated';
 
 const MapScreen = (props) => {
@@ -107,13 +107,13 @@ const MapScreen = (props) => {
   
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
-          <Image style={styles.backButtonImage} source={require('../../assets/btn_back.png')} />
+          <Image style={styles.backButtonImage} source={require('../../../assets/btn_back.png')} />
         </TouchableOpacity>
       </View>
   
       <View style={styles.searchButtonView}>
         <TouchableOpacity style={styles.searchButtonTouch}>
-          <Image style={styles.searchButtonImage} source={require('../../assets/btn_search.png')} />
+          <Image style={styles.searchButtonImage} source={require('../../../assets/btn_search.png')} />
         </TouchableOpacity>
       </View>
   

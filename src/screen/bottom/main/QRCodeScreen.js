@@ -17,8 +17,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 // import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import BottomSheet from 'reanimated-bottom-sheet';
-import QrBottomSheet from '../../components/qrcode/QrBottomSheet';
-import WinningBottomSheet from '../../components/qrcode/WinningBottomSheet';
+import QrBottomSheet from '../../../components/qrcode/QrBottomSheet';
+import WinningBottomSheet from '../../../components/qrcode/WinningBottomSheet';
 
 
 const QRCodeScreen = (props) => {
@@ -134,13 +134,13 @@ const QRCodeScreen = (props) => {
       
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
-          <Image style={styles.backButtonImage} source={require('../../assets/btn_back.png')} />
+          <Image style={styles.backButtonImage} source={require('../../../assets/btn_back.png')} />
         </TouchableOpacity>
       </View>
       
       <View style={styles.searchButtonView}>
         <TouchableOpacity style={styles.searchButtonTouch} onPress={() => props.navigation.navigate('MapScreen')}>
-          <Image style={styles.searchButtonImage} source={require('../../assets/btn_search.png')} />
+          <Image style={styles.searchButtonImage} source={require('../../../assets/btn_search.png')} />
         </TouchableOpacity>
       </View>
   

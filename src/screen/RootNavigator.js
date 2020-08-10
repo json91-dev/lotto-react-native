@@ -3,15 +3,15 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-import SignUpNavigator from './signupscreen/SignUpNavigator';
-import MainNavigator from './mainscreen/MainNavigator';
+import SignUpStackNavigator from './signup/SignUpStackNavigator';
+import BottomNavigator from './bottom/BottomNavigator';
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName = "SignUpNav">
-        <Stack.Screen name="SignUpNav" options={{ headerShown: false }} component={SignUpNavigator}/>
-        <Stack.Screen name="MainNav" options={{ headerShown: false }} component={MainNavigator}/>
+      <Stack.Navigator initialRouteName = "SignUpNavigator">
+        <Stack.Screen name="SignUpNavigator" options={{ headerShown: false }} component={SignUpStackNavigator}/>
+        <Stack.Screen name="BottomNavigator" options={{ headerShown: false }} component={BottomNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

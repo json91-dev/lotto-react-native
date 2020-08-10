@@ -11,8 +11,8 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollPicker} from 'react-native-value-picker';
-import LottoNumbers from '../../components/checkprize/LottoNumbers';
-import LottoDetail from '../../components/checkprize/LottoDetail';
+import LottoNumbers from '../../../components/checkprize/LottoNumbers';
+import LottoDetail from '../../../components/checkprize/LottoDetail';
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
 // import { connect } from 'react-redux';
@@ -54,11 +54,11 @@ const CheckPrizeScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.topBackImg} source={require('../../assets/ic_prize_back.png')} />
+      <Image style={styles.topBackImg} source={require('../../../assets/ic_prize_back.png')} />
       <SafeAreaView style={styles.safeContainer}>
         <View style={styles.qrCodeButtonView}>
           <TouchableOpacity onPress={() => props.navigation.navigate('QRCodeScreen')}>
-            <Image style={styles.qrCodeButtonImg} source={require('../../assets/btn_qrcode.png')} />
+            <Image style={styles.qrCodeButtonImg} source={require('../../../assets/btn_qrcode.png')} />
           </TouchableOpacity>
         </View>
         <Text style={styles.titleText}>고객님의 당첨금액</Text>
@@ -69,7 +69,7 @@ const CheckPrizeScreen = (props) => {
         <View style={styles.detailButtonView}>
           <TouchableOpacity style={styles.detailButtonTouch}>
             <Text style={styles.detailButtonText}>자세히 보기</Text>
-            <Image style={styles.detailButtonImg} source={require('../../assets/ic_white_arrow_right.png')} />
+            <Image style={styles.detailButtonImg} source={require('../../../assets/ic_white_arrow_right.png')} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -80,7 +80,7 @@ const CheckPrizeScreen = (props) => {
             <Text style={styles.lottoRoundDate}>2020.02.15</Text>
             <View style={styles.lottoRoundRight}>
               <Text style={styles.lottoRoundText}>898</Text>
-              <Image style={styles.lottoRoundImg} source={require('../../assets/ic_black_arrow_bottom.png')} />
+              <Image style={styles.lottoRoundImg} source={require('../../../assets/ic_black_arrow_bottom.png')} />
             </View>
           </TouchableOpacity>
         </View>
