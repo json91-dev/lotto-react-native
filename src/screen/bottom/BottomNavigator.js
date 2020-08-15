@@ -1,10 +1,9 @@
-import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapStackNavigator from './map/MapStackNavigator';
 import MainStackNavigator from './main/MainStackNavigator';
-// import MyPageStackNavigator from './mypage/MyPageStackNavigator';
+import MyPageStackNavigator from './mypage/MyPageStackNavigator';
 const Tab = createBottomTabNavigator();
 import {
   Image,
@@ -24,7 +23,7 @@ const setBottomIconImagePath = (navName, focused) => {
 
 
 
-const  BottomNavigator = function(){
+function BottomNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="MainStackNavigator"
@@ -32,7 +31,7 @@ const  BottomNavigator = function(){
         tabBarIcon: ({ focused, color, size }) => {
           const iconPath = setBottomIconImagePath(route.name, focused);
           // You can return any component that you like here!
-          return <Image style={{width: 25, height: 25}} source={iconPath}/>;
+          return <Image style={{width: 25, height: 25, marginTop: 10}} source={iconPath}/>;
         },
       })}
     >
@@ -50,9 +49,15 @@ const  BottomNavigator = function(){
           tabBarLabel: '',
         })}
       />
- 
+      <Tab.Screen
+        name="MyPageStackNavigator"
+        component={MyPageStackNavigator}
+        options={{
+          tabBarLabel: '',
+        }}
+      />
     </Tab.Navigator>
   )
-};
+}
 
 export default BottomNavigator;

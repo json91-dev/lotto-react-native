@@ -112,7 +112,7 @@ const MapScreen = (props) => {
       </View>
   
       <View style={styles.searchButtonView}>
-        <TouchableOpacity style={styles.searchButtonTouch}>
+        <TouchableOpacity style={styles.searchButtonTouch} onPress={() => props.navigation.navigate('SearchStoreScreen')}>
           <Image style={styles.searchButtonImage} source={require('../../../assets/btn_search.png')} />
         </TouchableOpacity>
       </View>

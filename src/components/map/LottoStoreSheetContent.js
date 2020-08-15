@@ -117,14 +117,14 @@ const LottoStoreSheetContent = (props) =>{
         <View style={styles.lottoWinningCard}>
           <Grid>
             <Col>
-              <Row>
-                <Text>로또투어 추천</Text>
+              <Row style={{justifyContent: 'center', height: '20%'}}>
+                <Text style={{fontSize: 12,}}>로또투어 추천</Text>
               </Row>
-              <Row>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_1.jpg')}></Image>
+              <Row style={{justifyContent: 'center'}}>
+                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../../assets/ic_recommend_good.png')}></Image>
               </Row>
-              <Row>
-                <Text>좋지 않아요</Text>
+              <Row style={{justifyContent: 'center', marginTop: 30}}>
+                <Text style={{fontSize: 14, fontWeight: 'bold'}}>좋지 않아요</Text>
               </Row>
             </Col>
           </Grid>
