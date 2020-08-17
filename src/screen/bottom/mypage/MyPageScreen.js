@@ -5,7 +5,10 @@ import {
   Text,
   Linking,
   TouchableOpacity,
-  SafeAreaView, Image, ScrollView,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  Switch
 } from 'react-native';
 
 const deviceWidth = Dimensions.get('screen').width;
@@ -163,10 +166,72 @@ const MyPageScreen = (props) => {
           <TouchableOpacity style={styles.favoriteStoreItemButton}>
             <Text style={styles.favoriteStoreItemButtonText}>접기</Text>
           </TouchableOpacity>
-
-
+        </View>
+  
+        <View style={styles.labelView}>
+          <Text style={styles.labelText}>알림 설정</Text>
         </View>
         
+        <View style={styles.alertView}>
+          <View style={styles.alertMoveNearStoreView}>
+            <Text style={styles.alertMoveNearStoreText}>명당 근처 이동시 알림받기</Text>
+            <Switch
+              style={styles.alertMoveNearStoreSwitch}
+              value = {true}/>
+          </View>
+          <View style={styles.alertEventView}>
+            <View style={styles.alertEventLeftView}>
+              <Text style={styles.alertEventLeftText}>이벤트/마케팅 알림받기</Text>
+              <Text style={styles.alertEventLeftSubText}>마케팅 수신동의 2020년 2월 22일 17시 59분</Text>
+            </View>
+            <Switch
+              style={styles.alertEventSwitch}
+              value = {true}/>
+          </View>
+        </View>
+  
+        <View style={styles.labelView}>
+          <Text style={styles.labelText}>피드백</Text>
+        </View>
+        
+        <View style={styles.feedBackView}>
+          <TouchableOpacity>
+            <View style={styles.feedBackItemView}>
+              <Text style={styles.feedBackItemText}>앱스토어 리뷰 남기기</Text>
+              <Image style={styles.feedBackItemImage} source={require('../../../assets/ic_black_arrow_right.png')}/>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity>
+            <View style={styles.feedBackItemView}>
+              <Text style={styles.feedBackItemText}>문의 및 피드백</Text>
+              <Image style={styles.feedBackItemImage} source={require('../../../assets/ic_black_arrow_right.png')}/>
+            </View>
+          </TouchableOpacity>
+        </View>
+  
+        <View style={styles.labelView}>
+          <Text style={styles.labelText}>프로모션 & 이벤트</Text>
+        </View>
+        
+        <View style={styles.promotionImageView}>
+          <Image style={styles.promotionImage} source={require('../../../assets/ic_logo_promotion.png')} />
+        </View>
+  
+  
+        <View style={styles.labelView}>
+          <Text style={styles.labelText}>이루다님, 로또투어에만 있는 {"\n"}이벤트를 확인해보세요.</Text>
+        </View>
+        
+        <View style={styles.eventImageView}>
+          <Image style={styles.eventImage} source={require('../../../assets/ic_logo_event.png')} />
+        </View>
+        
+        <View style={[{marginBottom: 100}]}>
+        </View>
+        
+  
+  
         {/* absolute 이미지*/}
         <Image style={styles.topHeaderSettingImage} />
         <Image style={styles.topHeaderPersonImage} source={require('../../../assets/ic_mypage_man.png')}/>
@@ -348,7 +413,7 @@ const styles = StyleSheet.create({
       height: 4,
     },
     elevation: 5,
-    marginBottom: 100,
+    // marginBottom: 100,
     borderRadius: 15,
   },
   
@@ -403,7 +468,140 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#2157f3",
     fontWeight: "600",
+  },
+  
+  
+  alertView: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+  
+    
+    shadowOpacity: 0.45,
+    shadowRadius: 3.84,
+    shadowOffset: {
+      width: 2,
+      height: 4,
+    },
+    elevation: 5,
+    backgroundColor: 'white',
+    shadowColor: "#000",
+    borderRadius: 15,
+  },
+  
+  alertMoveNearStoreView: {
+    height:54,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  
+  alertMoveNearStoreText: {
+    fontWeight: "600",
+    color: "#74798a",
+    fontSize: 16,
+  },
+  
+  alertMoveNearStoreSwitch: {
+  
+  },
+  
+  alertEventView: {
+    height:54,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 9,
+  },
+  
+  alertEventLeftView: {
+  
+  },
+  
+  alertEventLeftText: {
+    fontWeight: "600",
+    color: "#74798a",
+    fontSize: 16,
+  },
+  
+  alertEventLeftSubText: {
+    color: "#abbdbe",
+    fontSize: 12,
+  },
+  
+  alertEventSwitch: {
+  
+  },
+  
+  feedBackView: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 15,
+    
+    shadowOpacity: 0.45,
+    shadowRadius: 3.84,
+    shadowOffset: {
+      width: 2,
+      height: 4,
+    },
+    elevation: 5,
+    backgroundColor: 'white',
+    shadowColor: "#000",
+    borderRadius: 15,
+  },
+  
+  feedBackItemView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 54,
+    paddingLeft: 15,
+    paddingRight: 20,
+  },
+  
+  feedBackItemText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#74798a"
+  },
+  
+  feedBackItemImage: {
+    width: 20,
+    height: 20,
+    resizeMode: 'cover',
+  },
+  
+  promotionImageView: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+  },
+  
+  promotionImage: {
+    width: '100%',
+    height: 165,
+    resizeMode: 'contain',
+  },
+  
+  eventImageView: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+  },
+  
+  eventImage: {
+    width: '100%',
+    height: 165,
+    resizeMode: 'contain',
   }
+  
+  
   
 });
 
