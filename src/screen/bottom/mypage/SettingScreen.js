@@ -54,7 +54,7 @@ const SettingScreen = (props) => {
         <Text style={styles.labelText}>기타</Text>
       </View>
   
-      <View style={[styles.itemContainerView,{marginBottom: 60,}]}>
+      <View style={styles.itemContainerView}>
         <TouchableOpacity style={styles.itemTouch}>
           <Text style={styles.itemText}>서비스 이용약관</Text>
           <Image style={styles.itemImage} source={require('../../../assets/ic_black_arrow_right.png')}/>
@@ -75,6 +75,11 @@ const SettingScreen = (props) => {
           <Image style={styles.itemImage} source={require('../../../assets/ic_black_arrow_right.png')}/>
         </TouchableOpacity>
       </View>
+      
+      <View style={styles.promotionImageView}>
+        <Image style={styles.promotionImage} source={require('../../../assets/ic_logo_promotion.png')} />
+      </View>
+      
       
     </ScrollView>
   )
@@ -154,6 +159,18 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   
+  promotionImageView: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 15,
+    marginBottom: 60,
+  },
+  
+  promotionImage: {
+    width: '100%',
+    height: 165,
+    resizeMode: 'contain',
+  }
   
  
 });
