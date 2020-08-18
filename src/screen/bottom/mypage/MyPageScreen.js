@@ -233,7 +233,9 @@ const MyPageScreen = (props) => {
   
   
         {/* absolute 이미지*/}
-        <Image style={styles.topHeaderSettingImage} />
+        <TouchableOpacity style={styles.topHeaderSettingImageTouch} onPress={() => props.navigation.navigate('SettingScreen')}>
+          <Image style={styles.topHeaderSettingImage} source={require('../../../assets/ic_setting.png')} />
+        </TouchableOpacity>
         <Image style={styles.topHeaderPersonImage} source={require('../../../assets/ic_mypage_man.png')}/>
       </ScrollView>
       
@@ -322,8 +324,15 @@ const styles = StyleSheet.create({
   
   },
   
-  topHeaderSettingImage: {
+  topHeaderSettingImageTouch: {
+    position: 'absolute',
+    right: 20,
+    top: 30,
+  },
   
+  topHeaderSettingImage: {
+    width: 24,
+    height: 24,
   },
   
   topHeaderPersonImage: {
