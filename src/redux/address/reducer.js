@@ -1,15 +1,16 @@
 import {
   SELECT_ADDRESS_ITEM,
   DESELECT_ADDRESS_ITEM,
-  SEARCH_ADDRESS_SUCCESS,
-  SEARCH_ADDRESS
+  GET_ADDRESS_LIST_SUCCESS,
+  GET_ADDRESS_LIST_ERROR
 } from '../actions'
 
 
 const InitialState = {
-  addressItems: [],
   selectedAddressItem: null,
   isAddressSelected: false,
+  addressList: [],
+  error: '',
 };
 
 
@@ -27,6 +28,20 @@ export default (state = InitialState, action) => {
       return {
         ...state,
         isAddressSelected: false,
+      }
+    }
+    
+    case GET_ADDRESS_LIST_SUCCESS: {
+      return {
+        ...state,
+        addressList: action.payload.addressList,
+      }
+    }
+    
+    case GET_ADDRESS_LIST_ERROR: {
+      return {
+        ...state,
+        error: action.payload.message,
       }
     }
 

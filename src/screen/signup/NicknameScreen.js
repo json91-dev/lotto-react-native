@@ -42,13 +42,19 @@ export default function NicknameScreen({navigation}) {
   };
 
   const confirm = async () => {
-    if (getByte(inputText) < 16) {
+    if(getByte(inputText) < 6) {
+      toastRef.current.show('최소 3글자 (영문 6글자) 이상 입력해주세요.')
+    }
+    
+    else if  (getByte(inputText) > 16) {
+      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.')
+    }
+    
+    else {
       await setItemToAsync('signinInfo', {nickname: inputText});
       let signinInfo = await getItemFromAsync('signinInfo');
       console.log(signinInfo.nickname);
       navigation.navigate('AddressScreen');
-    } else {
-      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.')
     }
   };
   

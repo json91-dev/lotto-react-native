@@ -1,12 +1,12 @@
 /* ADDRESS */
 
-export const SEARCH_ADDRESS= "SEARCH_ADDRESS";
-export const SEARCH_ADDRESS_SUCCESS = "SEARCH_ADDRESS_SUCCESS";
+export const GET_ADDRESS_LIST ="GET_ADDRESS_LIST";
+export const GET_ADDRESS_LIST_SUCCESS = "GET_ADDRESS_LIST_SUCCESS";
+export const GET_ADDRESS_LIST_ERROR = "GET_ADDRESS_LIST_ERROR";
+export const SELECT_ADDRESS_ITEM = "SELECT_ADDRESS_ITEM";
+export const DESELECT_ADDRESS_ITEM = "DESELECT_ADDRESS_ITEM";
 
-export const SELECT_ADDRESS_ITEM = "";
-export const DESELECT_ADDRESS_ITEM = "";
 
 
-
-export * from './address/action'
+export * from './address/actions'
 

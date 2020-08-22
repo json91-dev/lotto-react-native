@@ -17,8 +17,8 @@ import {
 
 
 const AddressSearch = (props) =>{
-  const [addressItems, setAddressItems] = React.useState('');
-
+  const [addressFlatItems, setAddressFlatItems] = React.useState([]);
+  
   /**
    * useEffect
    *
@@ -26,61 +26,57 @@ const AddressSearch = (props) =>{
    * 2. 해당 배열을 selected 값을 포함시킨 objectItems로 변환시켜준다.
    */
 
+  const { addressList } = props;
   useEffect(() => {
-    const addressArray = [
-      '서울 강남구 신사동',
-      '서울 관악구 가좌동',
-      '서울 은평구 신사동',
-      '서울 양천구 신정동',
-      '경기도 하남시 신장동'
-    ];
+    console.log('userEffect 수행');
+  
+      let updateAddressItems = [...addressList];
+  
+      updateAddressItems =  updateAddressItems.map((item, index) => {
+        return {address_name: item.address_name, index: index, selected: false};
+      });
+      
+      console.log(updateAddressItems)
 
-    const addressItems = addressArray.map((item, index) => {
-      return {
-        selected: false,
-        address: item,
-        index,
-      }
-    });
-
-    setAddressItems(addressItems);
-  }, []);
+      setAddressFlatItems(updateAddressItems);
+  
+  }, [addressList]);
 
   /**
    * 주소 Item이 클릭되었을때 동작하는 함수.
    */
-  const onAddressItemPressed = (item, index) => () => {
-    let updateAddressItems = [...addressItems];
-
-    updateAddressItems.map((item) => {
-      if (item.index === index) {
-        item.selected = true;
-      } else {
-        item.selected = false;
-      }
-
-      return item;
-    });
-
-    setAddressItems(updateAddressItems);
-
-    props.selectAddressItem();
-  };
+  // const onAddressItemPressed = (item, index) => () => {
+  //   let updateAddressItems = [...addressItems];
+  //
+  //   updateAddressItems.map((item) => {
+  //     if (item.index === index) {
+  //       item.selected = true;
+  //     } else {
+  //       item.selected = false;
+  //     }
+  //
+  //     return item;
+  //   });
+  //
+  //   setAddressItems(updateAddressItems);
+  //
+  //   props.selectAddressItem();
+  // };
 
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.addressFlat}
-        data={addressItems}
+        data={addressFlatItems}
         keyExtractor={(item,index) => item + index}
         renderItem={({item, index}) => {
           return (
             <TouchableOpacity
               style={styles.addressTouch}
-              onPress={onAddressItemPressed(item, index)}
+              // onPress={onAddressItemPressed(item, index)}
             >
-              <Text>{item.address}</Text>
+              <Text>{item.address_name}</Text>
               {
                 (item.selected === true)
                   ? <Image style={styles.circleImage} source={require('../../assets/ic_circle_select_on.png')}/>
@@ -96,18 +92,18 @@ const AddressSearch = (props) =>{
 }
 
 const mapStateToProps = ({address}) =>{
-  const { isAddressSelected, selectedAddressItem, addressItems } = address;
+  const { isAddressSelected, selectedAddressItem, addressList} = address;
 
   return {
     isAddressSelected,
     selectedAddressItem,
-    addressItems
+    addressList
   }
 };
 
 export default connect(
   mapStateToProps,
-  {selectAddressItem, deselectAddressItem}
+  {selectAddressItem, deselectAddressItem,}
 )(AddressSearch)
 
 

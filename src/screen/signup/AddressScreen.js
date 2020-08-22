@@ -10,8 +10,9 @@ import {
 
 import AddressSearch from '../../components/address/SearchAddress'
 
-import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
+import { selectAddressItem, deselectAddressItem, getAddressList } from "../../redux/actions";
 import { connect } from 'react-redux';
+import { isEmpty } from '../../helpers/Utils';
 
 const AddressScreen = (props) => {
   const [inputText, setInputText] = React.useState('');
@@ -40,15 +41,18 @@ const AddressScreen = (props) => {
   };
   
   const onSearchPressed = () => {
-    console.log(props.isAddressSelected);
+    props.getAddressList(inputText);
+  };
+  
+  const onConfirmPressed = () => {
+    //TODO: 저장된 주소 정보를 AsyncStorage로 저장
     props.navigation.replace('BottomNavigator');
   };
 
 
   const BottomButton = () => {
-    console.log(props.isAddressSelected);
 
-    if(isOpenKeyboard) {
+    if(isOpenKeyboard) { // 키보드 화면이 열렸을때 하단 버튼을 보여줌.
       return (
         <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
           <Text style={styles.searchButtonText}>검색</Text>
@@ -56,7 +60,7 @@ const AddressScreen = (props) => {
       )
     }
 
-    else if (!props.isAddressSelected) {
+    else if (!props.isAddressSelected) { // 특정 주소가 선택되지 않았을때는 '검색' 버튼 보여줌
       return (
         <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
           <Text style={styles.searchButtonText}>검색</Text>
@@ -65,15 +69,14 @@ const AddressScreen = (props) => {
     }
 
     else {
-      return (
+      return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
       <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
         <Text style={styles.searchButtonText}>확인</Text>
       </TouchableOpacity>
       )
     }
   };
-
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.label}>지역을 {"\n"}등록해주세요.</Text>
@@ -106,26 +109,26 @@ const AddressScreen = (props) => {
 
       {BottomButton()}
       
-
-
     </SafeAreaView>
   )
 
 };
 
 const mapStateToProps = ({address}) =>{
-  const { isAddressSelected, selectedAddressItem, addressItems } = address;
+  // address 리듀서에서 가져온 state를 현제 컴포넌트의 props로 맵핑시켜줌.
+  const { isAddressSelected, selectedAddressItem, addressList, error } = address;
 
   return {
     isAddressSelected,
     selectedAddressItem,
-    addressItems
+    addressList,
+    error,
   }
 };
 
 export default connect(
   mapStateToProps,
-  {selectAddressItem, deselectAddressItem}
+  {selectAddressItem, deselectAddressItem, getAddressList} // address 리듀서에서 가져온 function을 현재 컴포넌트의 props로 매핑시켜줌.
 )(AddressScreen)
 
 
