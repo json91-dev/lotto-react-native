@@ -105,7 +105,7 @@ const AddressScreen = (props) => {
       <AddressSearch/>
 
       {BottomButton()}
-
+      
 
 
     </SafeAreaView>

@@ -7,13 +7,18 @@ import {
   SafeAreaView,
   Keyboard,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
+import {getByteLength, stringByteSize, getByte} from '../../helpers/Utils';
+import Toast from 'react-native-easy-toast';
+import {getItemFromAsync, setItemToAsync} from '../../helpers/AsyncStroageHelper';
 
 export default function NicknameScreen({navigation}) {
   const [inputText, setInputText] = React.useState('');
   const textInputRef = React.useRef('');
+  const toastRef = React.useRef('');
   const [isOpenKeyboard, setIsOpenKeyboard] = React.useState(false);
+  
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -36,8 +41,20 @@ export default function NicknameScreen({navigation}) {
     setIsOpenKeyboard(false)
   };
 
-  const confirm = () => {
-    navigation.navigate('AddressScreen')
+  const confirm = async () => {
+    if (getByte(inputText) < 16) {
+      await setItemToAsync('signinInfo', {nickname: inputText});
+      let signinInfo = await getItemFromAsync('signinInfo');
+      console.log(signinInfo.nickname);
+      navigation.navigate('AddressScreen');
+    } else {
+      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.')
+    }
+  };
+  
+  // inputText의 입력값을 ''으로 설정하는 콜백함수.
+  const removeNickname = () => {
+    setInputText('');
   };
 
   return (
@@ -52,15 +69,23 @@ export default function NicknameScreen({navigation}) {
           }}
           onSubmitEditing={Keyboard.dismiss}
           ref = {(ref) => textInputRef.current = ref}
+          value={inputText}
         >
         </TextInput>
-        <TouchableOpacity style={styles.cancelImageTouch}>
+        <TouchableOpacity style={styles.cancelImageTouch} onPress={removeNickname}>
           <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.confirmTouch} onPress={confirm}>
         <Text style={styles.confirmText}>확인</Text>
       </TouchableOpacity>
+  
+  
+      <Toast ref={toastRef}
+             positionValue={120}
+             fadeInDuration={10}
+             fadeOutDuration={1000}
+      />
     </SafeAreaView>
   )
 }
