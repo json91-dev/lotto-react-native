@@ -90,9 +90,10 @@ const AddressScreen = (props) => {
           }}
           onSubmitEditing={Keyboard.dismiss}
           ref = {(ref) => textInputRef.current = ref}
+          value={inputText}
         >
         </TextInput>
-        <TouchableOpacity style={styles.cancelImageTouch}>
+        <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
           <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
         </TouchableOpacity>
       </View>

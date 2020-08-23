@@ -19,6 +19,10 @@ export default function NicknameScreen({navigation}) {
   const toastRef = React.useRef('');
   const [isOpenKeyboard, setIsOpenKeyboard] = React.useState(false);
   
+  // 토스트의 위치 조정을 위한 변수
+  const [toastPostionValue, setToastPositionValue] = React.useState(120);
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+  
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -30,15 +34,23 @@ export default function NicknameScreen({navigation}) {
     };
   }, []);
 
-  const _keyboardDidShow = () => {
+  // 키보드가 보일때 동작하는 콜백함수.
+  const _keyboardDidShow = (e) => {
     console.log("Keyboard Shown");
-    setIsOpenKeyboard(true)
+    setIsOpenKeyboard(true);
+    
+    const keyboardHeight = e.endCoordinates.height;
+    setToastPositionValue(toastPostionValue + keyboardHeight);
+    setKeyboardHeight(keyboardHeight);
   };
 
-  const _keyboardDidHide = () => {
+  // 키보드가 보이지 않을때 동작하는 콜백함
+  const _keyboardDidHide = (e) => {
     console.log("Keyboard Hidden");
     textInputRef.current.blur();
-    setIsOpenKeyboard(false)
+    setIsOpenKeyboard(false);
+  
+    setToastPositionValue(toastPostionValue - keyboardHeight);
   };
 
   const confirm = async () => {
@@ -88,7 +100,7 @@ export default function NicknameScreen({navigation}) {
   
   
       <Toast ref={toastRef}
-             positionValue={120}
+             positionValue={toastPostionValue}
              fadeInDuration={10}
              fadeOutDuration={1000}
       />
