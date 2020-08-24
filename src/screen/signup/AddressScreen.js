@@ -110,6 +110,10 @@ const AddressScreen = (props) => {
 
       {BottomButton()}
       
+      <View style={styles.currentLocationLoadingView}>
+        <Image style={styles.currentLocationLoadingGifImage} source={require('../../assets/anim_loading.gif')}/>
+        <Text style={styles.currentLocationLoadingText}>근처의 숨겨진 로또 명당을 찾기 위해 {"\n"}현재 위치를 찾고 있습니다.</Text>
+      </View>
     </SafeAreaView>
   )
 
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 4,
   },
 
   cancelImage: {
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 15,
     // 부모와 같은 elevation을 주어야 보여짐.
-    elevation: 5,
+    elevation: 4,
     backgroundColor: 'white',
     paddingTop: 15,
     paddingLeft: 15,
@@ -283,6 +287,30 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: "center",
     color: "#ffffff"
+  },
+  
+  currentLocationLoadingView: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "rgba(116, 121, 138, 0.5)",
+    elevation: 5,
+  },
+  
+  currentLocationLoadingGifImage: {
+    width: 60,
+    height: 60,
+    resizeMode: 'cover',
+  },
+  
+  currentLocationLoadingText: {
+    marginTop: 25,
+    color: "#ffffff",
+    fontSize: 14,
+    textAlign: 'center'
+    
   }
 
 });

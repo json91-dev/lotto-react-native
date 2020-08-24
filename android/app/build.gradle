@@ -190,6 +190,10 @@ dependencies {
     // naver maps
     implementation 'com.naver.maps:map-sdk:3.9.0'
 
+    // GIF Image
+    implementation 'com.facebook.fresco:fresco:1.+'
+    implementation 'com.facebook.fresco:animated-gif:1.+'
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

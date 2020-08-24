@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     marginTop: 11,
     paddingLeft: 20,
     paddingRight: 20,
+    elevation: 1,
   },
 
   addressFlat: {
