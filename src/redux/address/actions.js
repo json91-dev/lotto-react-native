@@ -16,6 +16,8 @@ export const deselectAddressItem = () => ({
   payload: {}
 });
 
+
+/** 주소 검색 Actions **/
 export const getAddressList = (keyword) => ({
   type: GET_ADDRESS_LIST,
   payload: {
@@ -33,8 +35,11 @@ export const getAddressListSuccess = (addressList) => ({
 export const getAddressListError = (message) => ({
   type: GET_ADDRESS_LIST_ERROR,
   payload: {message}
-
 });
+
+/** 내 위치 검색 Actions **/
+
+// export const getCurrentAddress =
 
 
 

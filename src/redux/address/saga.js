@@ -25,8 +25,6 @@ function* getAddressListByKeyword({payload}) {
       }
     };
     
-    console.log('1111');
-    console.log(`${KakaoLoctaionSearchUrl}?query=${keyword}`);
     const result = yield axios.get(`${KakaoLoctaionSearchUrl}?query=${keyword}`, config);
     const addressList = result.data.documents;
     // console.log(addressList);

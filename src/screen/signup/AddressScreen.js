@@ -3,8 +3,11 @@ import {
   StyleSheet,
   Image,
   View,
-  Text, Keyboard,
-  SafeAreaView, TextInput, TouchableOpacity,
+  Text,
+  Keyboard,
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 
 
@@ -30,18 +33,17 @@ const AddressScreen = (props) => {
   }, []);
 
   const _keyboardDidShow = () => {
-    console.log("Keyboard Shown");
     setIsOpenKeyboard(true);
   };
 
   const _keyboardDidHide = () => {
-    console.log("Keyboard Hidden");
     textInputRef.current.blur();
     setIsOpenKeyboard(false);
   };
   
   const onSearchPressed = () => {
     props.getAddressList(inputText);
+    Keyboard.dismiss()
   };
   
   const onConfirmPressed = () => {
@@ -93,9 +95,20 @@ const AddressScreen = (props) => {
           value={inputText}
         >
         </TextInput>
-        <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
-          <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
-        </TouchableOpacity>
+        {
+          inputText.length === 0 ?
+            
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
+              <Image style={styles.cancelImage} source={require('../../assets/ic_black_arrow_right.png')}/>
+            </TouchableOpacity>
+            
+            :
+  
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
+              <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
+            </TouchableOpacity>
+        }
+     
       </View>
 
       <Text style={styles.textInputLabel}>로또 명당 정보가 적은 곳은 자동으로 시/군/구 단위로 변경됩니다.</Text>
@@ -105,15 +118,16 @@ const AddressScreen = (props) => {
         <Text style={styles.searchText}>내 위치</Text>
       </TouchableOpacity>
 
-      <Text style={styles.searchResultLabel}>'신' 검색 결과</Text>
+      
       <AddressSearch/>
 
       {BottomButton()}
       
-      <View style={styles.currentLocationLoadingView}>
-        <Image style={styles.currentLocationLoadingGifImage} source={require('../../assets/anim_loading.gif')}/>
-        <Text style={styles.currentLocationLoadingText}>근처의 숨겨진 로또 명당을 찾기 위해 {"\n"}현재 위치를 찾고 있습니다.</Text>
-      </View>
+      {/*로딩 애니메이션*/}
+      {/*<View style={styles.currentLocationLoadingView}>*/}
+        {/*<Image style={styles.currentLocationLoadingGifImage} source={require('../../assets/anim_loading.gif')}/>*/}
+        {/*<Text style={styles.currentLocationLoadingText}>근처의 숨겨진 로또 명당을 찾기 위해 {"\n"}현재 위치를 찾고 있습니다.</Text>*/}
+      {/*</View>*/}
     </SafeAreaView>
   )
 
@@ -121,13 +135,14 @@ const AddressScreen = (props) => {
 
 const mapStateToProps = ({address}) =>{
   // address 리듀서에서 가져온 state를 현제 컴포넌트의 props로 맵핑시켜줌.
-  const { isAddressSelected, selectedAddressItem, addressList, error } = address;
+  const { isAddressSelected, selectedAddressItem, addressList, error, searchResultState } = address;
 
   return {
     isAddressSelected,
     selectedAddressItem,
     addressList,
     error,
+    searchResultState,
   }
 };
 
@@ -143,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'flex-start',
-    borderWidth: 1,
+   
   },
 
   label: {
@@ -153,7 +168,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     letterSpacing: 0,
     color: "#3b3f4a",
-    marginTop: '10%',
+    marginTop: 20,
     marginLeft: 20,
   },
 
@@ -243,15 +258,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 
-  searchResultLabel: {
-    fontSize: 18,
-    fontWeight: "600",
-    fontStyle: "normal",
-    letterSpacing: 0,
-    color: "#3b3f4a",
-    marginTop: 32,
-    marginLeft: 20,
-  },
+  // searchResultLabel: {
+  //   fontSize: 18,
+  //   fontWeight: "600",
+  //   fontStyle: "normal",
+  //   letterSpacing: 0,
+  //   color: "#3b3f4a",
+  //   marginTop: 32,
+  //   marginLeft: 20,
+  // },
 
   searchButtonTouch: {
     width: '100%',

@@ -9,8 +9,8 @@ const Stack = createStackNavigator();
 function SignUpStackNavigator () {
   return (
     <Stack.Navigator initialRouteName = "NicknameScreen">
-      <Stack.Screen name="NicknameScreen" options={{title: '앱 버전', headerTitleAlign: 'center', headerBackTitle: '', headerShown: false}} component={NicknameScreen}/>
-      <Stack.Screen name="AddressScreen" options={{title: '프로필 수정', headerTitleAlign: 'center', headerBackTitle: '', headerShown: false}} component={AddressScreen}/>
+      <Stack.Screen name="NicknameScreen" options={{title: '닉네임 입력', headerTitleAlign: 'center', headerBackTitle: '', }} component={NicknameScreen}/>
+      <Stack.Screen name="AddressScreen" options={{title: '주소 입력', headerTitleAlign: 'center', headerBackTitle: '', }} component={AddressScreen}/>
     </Stack.Navigator>
   )
 }

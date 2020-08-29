@@ -36,9 +36,7 @@ export default function NicknameScreen({navigation}) {
 
   // 키보드가 보일때 동작하는 콜백함수.
   const _keyboardDidShow = (e) => {
-    console.log("Keyboard Shown");
     setIsOpenKeyboard(true);
-    
     const keyboardHeight = e.endCoordinates.height;
     setToastPositionValue(toastPostionValue + keyboardHeight);
     setKeyboardHeight(keyboardHeight);
@@ -46,10 +44,8 @@ export default function NicknameScreen({navigation}) {
 
   // 키보드가 보이지 않을때 동작하는 콜백함
   const _keyboardDidHide = (e) => {
-    console.log("Keyboard Hidden");
     textInputRef.current.blur();
     setIsOpenKeyboard(false);
-  
     setToastPositionValue(toastPostionValue - keyboardHeight);
   };
 
@@ -90,9 +86,18 @@ export default function NicknameScreen({navigation}) {
           value={inputText}
         >
         </TextInput>
-        <TouchableOpacity style={styles.cancelImageTouch} onPress={removeNickname}>
-          <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
-        </TouchableOpacity>
+        {
+          inputText.length === 0?
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={removeNickname}>
+              <Image style={styles.cancelImage} source={require('../../assets/ic_black_arrow_right.png')}/>
+            </TouchableOpacity>
+            
+            :
+            
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={removeNickname}>
+              <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
+            </TouchableOpacity>
+        }
       </View>
       <TouchableOpacity style={styles.confirmTouch} onPress={confirm}>
         <Text style={styles.confirmText}>확인</Text>
