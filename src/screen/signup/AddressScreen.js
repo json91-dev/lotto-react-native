@@ -13,7 +13,7 @@ import {
 
 import AddressSearch from '../../components/address/SearchAddress'
 
-import { selectAddressItem, deselectAddressItem, getAddressList } from "../../redux/actions";
+import { selectAddressItem, deselectAddressItem, getAddressList, setInitialSearch } from "../../redux/actions";
 import { connect } from 'react-redux';
 import { isEmpty } from '../../helpers/Utils';
 
@@ -25,7 +25,10 @@ const AddressScreen = (props) => {
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-    // cleanup function
+  
+    props.deselectAddressItem();
+    props.setInitialSearch();
+    
     return () => {
       Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
       Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
@@ -53,7 +56,7 @@ const AddressScreen = (props) => {
 
 
   const BottomButton = () => {
-
+    
     if(isOpenKeyboard) { // 키보드 화면이 열렸을때 하단 버튼을 보여줌.
       return (
         <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
@@ -72,7 +75,7 @@ const AddressScreen = (props) => {
 
     else {
       return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
-      <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
+      <TouchableOpacity onPress={onConfirmPressed} style={styles.searchButtonTouch}>
         <Text style={styles.searchButtonText}>확인</Text>
       </TouchableOpacity>
       )
@@ -98,13 +101,13 @@ const AddressScreen = (props) => {
         {
           inputText.length === 0 ?
             
-            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => { setInputText(''); props.setInitialSearch() }}>
               <Image style={styles.cancelImage} source={require('../../assets/ic_black_arrow_right.png')}/>
             </TouchableOpacity>
             
             :
   
-            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => setInputText('')}>
+            <TouchableOpacity style={styles.cancelImageTouch} onPress={() => { setInputText(''); props.setInitialSearch() }}>
               <Image style={styles.cancelImage} source={require('../../assets/btn_circle_cancel.png')}/>
             </TouchableOpacity>
         }
@@ -119,7 +122,7 @@ const AddressScreen = (props) => {
       </TouchableOpacity>
 
       
-      <AddressSearch/>
+      <AddressSearch textInputRef={textInputRef.current} setInputText={setInputText}/>
 
       {BottomButton()}
       
@@ -148,7 +151,12 @@ const mapStateToProps = ({address}) =>{
 
 export default connect(
   mapStateToProps,
-  {selectAddressItem, deselectAddressItem, getAddressList} // address 리듀서에서 가져온 function을 현재 컴포넌트의 props로 매핑시켜줌.
+  {
+    selectAddressItem,
+    deselectAddressItem,
+    getAddressList,
+    setInitialSearch,
+  } // address 리듀서에서 가져온 function을 현재 컴포넌트의 props로 매핑시켜줌.
 )(AddressScreen)
 
 

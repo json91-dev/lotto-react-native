@@ -20,14 +20,15 @@ export default function NicknameScreen({navigation}) {
   const [isOpenKeyboard, setIsOpenKeyboard] = React.useState(false);
   
   // 토스트의 위치 조정을 위한 변수
-  const [toastPostionValue, setToastPositionValue] = React.useState(120);
+  const [toastPostionValue, setToastPositionValue] = React.useState(200);
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
   
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-    // cleanup function
+    
+    
     return () => {
       Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
       Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
@@ -106,8 +107,8 @@ export default function NicknameScreen({navigation}) {
   
       <Toast ref={toastRef}
              positionValue={toastPostionValue}
-             fadeInDuration={10}
-             fadeOutDuration={1000}
+             fadeInDuration={100}
+             fadeOutDuration={10}
       />
     </SafeAreaView>
   )

@@ -13,10 +13,11 @@ import {
 import {
   selectAddressItem,
   deselectAddressItem,
+  setInitialSearch,
 } from '../../redux/actions';
 
 import {
-  SEARCH_RESULT_INIT, // 검색전 맨 처음화면
+  INITIAL_SEARCH, // 검색전 맨 처음화면
   ADDRESS_SEARCH_SUCCESS, // 주소 검색이 성공했을때
   ADDRESS_SEARCH_FAILED, // 주소 검색이 실패했을때
   CURRENT_ADDRESS_SEARCH_SUCCESS, // 내 위치 찾기가 성공했을때
@@ -26,7 +27,7 @@ import {
 
 // address 주소 검색 후
 const AddressSearch = (props) => {
-  const [addressFlatItems, setAddressFlatItems] = React.useState([]);
+  const [addressSearchResultItems, setAddressSearchResultItems] = React.useState([]);
   
   /**
    * useEffect
@@ -36,43 +37,53 @@ const AddressSearch = (props) => {
   
   const {addressList} = props;
   useEffect(() => {
-    let updateAddressItems = [...addressList];
-    updateAddressItems = updateAddressItems.map((item, index) => {
+    let updateArray = [...addressList];
+    updateArray = updateArray.map((item, index) => {
       return {address_name: item.address_name, index: index, selected: false};
     });
     
-    setAddressFlatItems(updateAddressItems);
+    setAddressSearchResultItems(updateArray);
     
   }, [addressList]);
   
   /**
    * 주소 Item이 클릭되었을때 동작하는 함수.
    */
-    // const onAddressItemPressed = (item, index) => () => {
-    //   let updateAddressItems = [...addressItems];
-    //
-    //   updateAddressItems.map((item) => {
-    //     if (item.index === index) {
-    //       item.selected = true;
-    //     } else {
-    //       item.selected = false;
-    //     }
-    //
-    //     return item;
-    //   });
-    //
-    //   setAddressItems(updateAddressItems);
-    //
-    //   props.selectAddressItem();
-    // };
+  const onPressAddressSearchResultItem = (item, index) => () => {
+    let updateArray = [...addressSearchResultItems];
+
+    updateArray.map((item) => {
+      if (item.index === index) {
+        item.selected = true;
+      } else {
+        item.selected = false;
+      }
+      return item;
+    });
+  
+    setAddressSearchResultItems(updateArray);
+    props.selectAddressItem();
+    const {address_name} = updateArray[index];
+    props.setInputText(address_name);
+    
+  };
+  
+  // '다시 검색하기' 버튼 클릭시 동작하는 이벤트 리스너
+  const onPressSearchAgain = () => {
+    props.textInputRef.focus(); // AddressScreen으로 부터 받은 callback
+    props.setInputText(''); // AddressScreen으로 부터 받은 callback
+    
+    props.setInitialSearch();
+    
+  };
   
   const searchResult = () => {
       switch (props.searchResultState) {
         // 초기 검색 시
-        case SEARCH_RESULT_INIT: {
+        case INITIAL_SEARCH: {
           return (
             <View>
-         
+            
             </View>
           );
         }
@@ -84,13 +95,13 @@ const AddressSearch = (props) => {
               <Text style={styles.searchResultLabel}>'{props.keyword}' 검색 결과</Text>
               <FlatList
                 style={styles.addressFlat}
-                data={addressFlatItems}
+                data={addressSearchResultItems}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({item, index}) => {
                   return (
                     <TouchableOpacity
                       style={styles.addressTouch}
-                      // onPress={onAddressItemPressed(item, index)}
+                      onPress={onPressAddressSearchResultItem(item, index)}
                     >
                       <Text>{item.address_name}</Text>
                       {
@@ -112,7 +123,7 @@ const AddressSearch = (props) => {
               <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
               <Text style={styles.searchFailTitle}>검색결과가 없습니다.</Text>
               <Text style={styles.searchFailSubTitle}>검색 내용을 확인해주세요.</Text>
-              <TouchableOpacity style={styles.searchFailTouch}>
+              <TouchableOpacity style={styles.searchFailTouch} onPress={onPressSearchAgain}>
                 <Text style={styles.searchFailTouchText}>다시 검색하기</Text>
               </TouchableOpacity>
             </View>
@@ -162,7 +173,12 @@ const mapStateToProps = ({address}) => {
 
 export default connect(
   mapStateToProps,
-  {selectAddressItem, deselectAddressItem},
+  {
+    selectAddressItem,
+    deselectAddressItem,
+    setInitialSearch,
+  
+  },
 )(AddressSearch);
 
 

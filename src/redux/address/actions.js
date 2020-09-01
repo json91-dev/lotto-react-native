@@ -3,7 +3,7 @@ import {
   GET_ADDRESS_LIST_SUCCESS,
   GET_ADDRESS_LIST_ERROR,
   SELECT_ADDRESS_ITEM,
-  DESELECT_ADDRESS_ITEM,
+  DESELECT_ADDRESS_ITEM, SET_INITIAL_SEARCH,
 } from '../actions';
 
 export const selectAddressItem = () => ({
@@ -16,6 +16,11 @@ export const deselectAddressItem = () => ({
   payload: {}
 });
 
+/** 초기 상태 Action **/
+export const setInitialSearch = () => ({
+  type: SET_INITIAL_SEARCH,
+  payload: {},
+});
 
 /** 주소 검색 Actions **/
 export const getAddressList = (keyword) => ({
