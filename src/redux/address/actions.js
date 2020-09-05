@@ -3,7 +3,11 @@ import {
   GET_ADDRESS_LIST_SUCCESS,
   GET_ADDRESS_LIST_ERROR,
   SELECT_ADDRESS_ITEM,
-  DESELECT_ADDRESS_ITEM, SET_INITIAL_SEARCH,
+  DESELECT_ADDRESS_ITEM,
+  SET_INITIAL_SEARCH,
+  GET_CURRENT_LOCATION_ADDRESS,
+  GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
+  GET_CURRENT_LOCATION_ADDRESS_ERROR,
 } from '../actions';
 
 export const selectAddressItem = () => ({
@@ -44,7 +48,27 @@ export const getAddressListError = (message) => ({
 
 /** 내 위치 검색 Actions **/
 
-// export const getCurrentAddress =
+export const getCurrentLocationAddress = (longitude, latitude)  => ({
+  type: GET_CURRENT_LOCATION_ADDRESS,
+  payload: {
+    longitude, // 경도
+    latitude, // 위도
+  }
+});
+
+export const getCurrentLocationAddressSuccess = (currentLocationAddress) => ({
+  type: GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
+  payload: {
+    currentLocationAddress,
+  }
+});
+
+export const getCurrentLocationAddressError = (message) => ({
+  type: GET_CURRENT_LOCATION_ADDRESS_ERROR,
+  payload: {message}
+});
+
+
 
 
 

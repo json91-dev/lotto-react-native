@@ -20,10 +20,12 @@ import {
   INITIAL_SEARCH, // 검색전 맨 처음화면
   ADDRESS_SEARCH_SUCCESS, // 주소 검색이 성공했을때
   ADDRESS_SEARCH_FAILED, // 주소 검색이 실패했을때
-  CURRENT_ADDRESS_SEARCH_SUCCESS, // 내 위치 찾기가 성공했을때
-  CURRENT_ADDRESS_SEARCH_FAILED,
+  CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS, // 내 위치 찾기가 성공했을때
+  CURRENT_LOCATION_ADDRESS_SEARCH_FAILED,
+  
 } // 내 위치 찾기가 실패했을때
   from '../../redux/address/reducer';
+import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelper';
 
 // address 주소 검색 후
 const AddressSearch = (props) => {
@@ -35,11 +37,11 @@ const AddressSearch = (props) => {
    * 2. 해당 배열을 selected 값을 포함시킨 objectItems로 변환시켜준다.
    */
   
-  const {addressList} = props;
+  const { addressList } = props;
   useEffect(() => {
     let updateArray = [...addressList];
     updateArray = updateArray.map((item, index) => {
-      return {address_name: item.address_name, index: index, selected: false};
+      return { address_name: item.address_name, index: index, selected: false };
     });
     
     setAddressSearchResultItems(updateArray);
@@ -51,7 +53,7 @@ const AddressSearch = (props) => {
    */
   const onPressAddressSearchResultItem = (item, index) => () => {
     let updateArray = [...addressSearchResultItems];
-
+    
     updateArray.map((item) => {
       if (item.index === index) {
         item.selected = true;
@@ -60,10 +62,10 @@ const AddressSearch = (props) => {
       }
       return item;
     });
-  
+    
     setAddressSearchResultItems(updateArray);
     props.selectAddressItem();
-    const {address_name} = updateArray[index];
+    const { address_name } = updateArray[index];
     props.setInputText(address_name);
     
   };
@@ -78,78 +80,94 @@ const AddressSearch = (props) => {
   };
   
   const searchResult = () => {
-      switch (props.searchResultState) {
-        // 초기 검색 시
-        case INITIAL_SEARCH: {
-          return (
-            <View>
-            
-            </View>
-          );
-        }
-        
-        // 검색 결과 화면
-        case ADDRESS_SEARCH_SUCCESS: {
-          return (
-            <View style={{flex: 1, paddingBottom: 70}}>
-              <Text style={styles.searchResultLabel}>'{props.keyword}' 검색 결과</Text>
-              <FlatList
-                style={styles.addressFlat}
-                data={addressSearchResultItems}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({item, index}) => {
-                  return (
-                    <TouchableOpacity
-                      style={styles.addressTouch}
-                      onPress={onPressAddressSearchResultItem(item, index)}
-                    >
-                      <Text>{item.address_name}</Text>
-                      {
-                        (item.selected === true)
-                          ? <Image style={styles.circleImage} source={require('../../assets/ic_circle_select_on.png')}/>
-                          : <Image style={styles.circleImage} source={require('../../assets/ic_circle_cancel_on.png')}/>
-                      }
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-            </View>
-          );
-        }
-        
-        case ADDRESS_SEARCH_FAILED: {
-          return (
-            <View style={styles.searchFailView}>
-              <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
-              <Text style={styles.searchFailTitle}>검색결과가 없습니다.</Text>
-              <Text style={styles.searchFailSubTitle}>검색 내용을 확인해주세요.</Text>
-              <TouchableOpacity style={styles.searchFailTouch} onPress={onPressSearchAgain}>
-                <Text style={styles.searchFailTouchText}>다시 검색하기</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }
-        
-        case CURRENT_ADDRESS_SEARCH_SUCCESS: {
-          return;
-        }
-        
-        case CURRENT_ADDRESS_SEARCH_FAILED: {
+    const { searchResultState, keyword, currentLocationAddress, setInputText, selectAddressItem } = props;
+    
+    switch (searchResultState) {
+      // 초기 검색 시
+      case INITIAL_SEARCH: {
+        return (
+          <View>
           
-          return (
-            <View style={styles.searchFailView}>
-              <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
-              <Text style={styles.searchFailTitle}>현재 위치를 불러오지 못했습니다.</Text>
-              <Text style={styles.searchFailSubTitle}>직접 검색으로 지역을 등록해주세요.</Text>
-              <TouchableOpacity style={styles.searchFailTouch}>
-                <Text style={styles.searchFailTouchText}>직접 검색하기</Text>
-              </TouchableOpacity>
-            </View>
-          )
-        }
+          </View>
+        );
       }
       
-    };
+      // 검색 결과 화면
+      case ADDRESS_SEARCH_SUCCESS: {
+        console.log(props.keyword);
+        return (
+          <View style={{ flex: 1, paddingBottom: 70 }}>
+            <Text style={styles.searchResultLabel}>'{keyword.trim()}' 검색 결과</Text>
+            
+            <FlatList
+              style={styles.addressFlat}
+              data={addressSearchResultItems}
+              keyExtractor={(item, index) => item + index}
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity
+                    style={styles.addressTouch}
+                    onPress={onPressAddressSearchResultItem(item, index)}
+                  >
+                    <Text>{item.address_name}</Text>
+                    {
+                      (item.selected === true)
+                        ? <Image style={styles.circleImage} source={require('../../assets/ic_circle_select_on.png')}/>
+                        : <Image style={styles.circleImage} source={require('../../assets/ic_circle_cancel_on.png')}/>
+                    }
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </View>
+        );
+      }
+      
+      case ADDRESS_SEARCH_FAILED: {
+        return (
+          <View style={styles.searchFailView}>
+            <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
+            <Text style={styles.searchFailTitle}>검색결과가 없습니다.</Text>
+            <Text style={styles.searchFailSubTitle}>검색 내용을 확인해주세요.</Text>
+            <TouchableOpacity style={styles.searchFailTouch} onPress={onPressSearchAgain}>
+              <Text style={styles.searchFailTouchText}>다시 검색하기</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
+      
+      case CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS: {
+        (async () => {
+          setInputText(currentLocationAddress); // 받아온 위치를 현재 내 위치로 저장함.
+          selectAddressItem();
+          const singinInfo = await getItemFromAsync('signinInfo');
+          await setItemToAsync('singninInfo', { ...singinInfo, address: currentLocationAddress });
+          
+          
+        })();
+        return (
+          <View>
+          
+          </View>
+        );
+      }
+      
+      case CURRENT_LOCATION_ADDRESS_SEARCH_FAILED: {
+        
+        return (
+          <View style={styles.searchFailView}>
+            <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
+            <Text style={styles.searchFailTitle}>현재 위치를 불러오지 못했습니다.</Text>
+            <Text style={styles.searchFailSubTitle}>직접 검색으로 지역을 등록해주세요.</Text>
+            <TouchableOpacity style={styles.searchFailTouch}>
+              <Text style={styles.searchFailTouchText}>직접 검색하기</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
+    }
+    
+  };
   
   
   return (
@@ -159,15 +177,15 @@ const AddressSearch = (props) => {
   );
 };
 
-const mapStateToProps = ({address}) => {
-  const {isAddressSelected, selectedAddressItem, addressList, searchResultState, keyword} = address;
+const mapStateToProps = ({ address }) => {
+  const { isAddressSelected,  addressList, searchResultState, keyword, currentLocationAddress } = address;
   
   return {
     isAddressSelected,
-    selectedAddressItem,
     addressList,
     searchResultState,
     keyword,
+    currentLocationAddress
   };
 };
 
@@ -177,7 +195,6 @@ export default connect(
     selectAddressItem,
     deselectAddressItem,
     setInitialSearch,
-  
   },
 )(AddressSearch);
 
@@ -195,7 +212,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0.3,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#EDEDED'
+    borderColor: '#EDEDED',
   },
   
   addressTouch: {
@@ -205,7 +222,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderColor: '#EDEDED'
+    borderColor: '#EDEDED',
     
   },
   
@@ -223,6 +240,7 @@ const styles = StyleSheet.create({
     color: '#3b3f4a',
     marginTop: 24,
     marginBottom: 11,
+    
   },
   
   searchFailView: {
