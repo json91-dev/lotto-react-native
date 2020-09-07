@@ -60,7 +60,7 @@ const LottoDetail = (props) =>{
             prizeData.map((item, index) => {
 
               return (
-                <Row style={styles.detailRow}>
+                <Row style={styles.detailRow} key={(item + index)}>
                   <Col style={styles.gradeCol}>
                     <Text style={styles.gradeText}>{ numberWithCommas(item.grade) }등</Text>
                   </Col>

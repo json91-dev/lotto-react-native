@@ -53,16 +53,14 @@ function* getCurrentAddressByLocation({payload}) {
         Authorization: KakaoRestApiKey
       }
     };
-  
-    console.log(`${KakaoGeoSearchUrl}?x=${longitude}&y=${latitude}`);
-    const result = yield axios.get(`${KakaoGeoSearchUrl}?x=${longitude}&y=${latitude}`, config);
     
+    const result = yield axios.get(`${KakaoGeoSearchUrl}?x=${longitude}&y=${latitude}`, config);
     const currentLocationAddress = result.data.documents[0].address_name;
-    console.log(currentLocationAddress);
+    
     yield put(getCurrentLocationAddressSuccess(currentLocationAddress));
     
   } catch(error) {
-    console.log(error)
+    console.log(error);
     yield put(getCurrentLocationAddressError(error.message))
   }
 }

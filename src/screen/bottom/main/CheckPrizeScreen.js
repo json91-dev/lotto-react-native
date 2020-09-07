@@ -5,7 +5,7 @@ import {
   View,
   Text,
   SafeAreaView, TextInput, TouchableOpacity,
-  ScrollView,
+  ScrollView, Dimensions,
 } from 'react-native';
 
 import RNPickerSelect from 'react-native-picker-select';
@@ -13,6 +13,8 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollPicker} from 'react-native-value-picker';
 import LottoNumbers from '../../../components/checkprize/LottoNumbers';
 import LottoDetail from '../../../components/checkprize/LottoDetail';
+const deviceWidth = Dimensions.get('screen').width;
+const deviceHeight = Dimensions.get('screen').height;
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
 // import { connect } from 'react-redux';
@@ -61,20 +63,22 @@ const CheckPrizeScreen = (props) => {
             <Image style={styles.qrCodeButtonImg} source={require('../../../assets/btn_qrcode.png')} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.titleText}>고객님의 당첨금액</Text>
-        <View style={styles.prizeMoneyView}>
-          <Text style={styles.prizeMoneyLabel}>₩ </Text>
-          <Text style={styles.prizeMoneyText}>{100}</Text>
-        </View>
-        <View style={styles.detailButtonView}>
-          <TouchableOpacity style={styles.detailButtonTouch}>
-            <Text style={styles.detailButtonText}>자세히 보기</Text>
-            <Image style={styles.detailButtonImg} source={require('../../../assets/ic_white_arrow_right.png')} />
-          </TouchableOpacity>
+        <View style={styles.topInfoContainer}>
+          <Text style={styles.titleText}>고객님의 당첨금액</Text>
+          <View style={styles.prizeMoneyView}>
+            <Text style={styles.prizeMoneyLabel}>₩ </Text>
+            <Text style={styles.prizeMoneyText}>{100}</Text>
+          </View>
+          <View style={styles.detailButtonView}>
+            <TouchableOpacity style={styles.detailButtonTouch}>
+              <Text style={styles.detailButtonText}>자세히 보기</Text>
+              <Image style={styles.detailButtonImg} source={require('../../../assets/ic_white_arrow_right.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
 
-      <View style={styles.bottomViewContainer}>
+      <ScrollView style={styles.bottomViewContainer}>
         <View style={styles.lottoRoundView}>
           <TouchableOpacity style={styles.lottoRoundTouch} onPress={onLottoRoundButtonPress}>
             <Text style={styles.lottoRoundDate}>2020.02.15</Text>
@@ -89,7 +93,7 @@ const CheckPrizeScreen = (props) => {
 
         <Text style={styles.lottoDetailLabel}>898회차 상세정보</Text>
         <LottoDetail/>
-      </View>
+      </ScrollView>
 
       <RBSheet
         ref={refRBSheet}
@@ -154,11 +158,18 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     height: '35%',
+    justifyContent: 'flex-start'
+  },
+  
+  topInfoContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
 
   topBackImg: {
     position: 'absolute',
-    height: '35%',
+    height: '38%',
     resizeMode: 'cover',
   },
 
@@ -167,7 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingRight: 20,
-    paddingTop: 15,
+    marginTop: '2%'
   },
 
   qrCodeButtonImg: {
@@ -181,7 +192,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
     color: "#ffffff",
-    marginTop: 27
   },
 
   prizeMoneyView: {
@@ -205,6 +215,7 @@ const styles = StyleSheet.create({
 
   detailButtonView: {
     marginTop: 15,
+    marginBottom: 5,
   },
 
   detailButtonTouch: {
@@ -231,14 +242,13 @@ const styles = StyleSheet.create({
 
   bottomViewContainer: {
     position: 'absolute',
-    top: '33%',
+    top: '35%',
     height: '65%',
     width: '100%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     backgroundColor: 'white',
     paddingBottom: 10,
-
   },
 
   lottoRoundView: {

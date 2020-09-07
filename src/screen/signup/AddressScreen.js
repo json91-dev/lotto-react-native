@@ -73,7 +73,7 @@ const AddressScreen = (props) => {
     await setItemToAsync('singninInfo', { ...singinInfo, address });
     
     
-    // props.navigation.replace('BottomNavigator');
+    props.navigation.replace('BottomNavigator');
   };
   
   // Input버튼의 x버튼을 눌렀을때 동작하는 콜백함수.
@@ -130,7 +130,6 @@ const AddressScreen = (props) => {
   
   const LoadingCurrentLocation = () => {
     const { isLoadingGetCurrentLocation } = props;
-    console.log(isLoadingGetCurrentLocation);
     if (isLoadingGetCurrentLocation) {
       return (
         

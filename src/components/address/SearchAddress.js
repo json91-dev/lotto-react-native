@@ -94,7 +94,6 @@ const AddressSearch = (props) => {
       
       // 검색 결과 화면
       case ADDRESS_SEARCH_SUCCESS: {
-        console.log(props.keyword);
         return (
           <View style={{ flex: 1, paddingBottom: 70 }}>
             <Text style={styles.searchResultLabel}>'{keyword.trim()}' 검색 결과</Text>
