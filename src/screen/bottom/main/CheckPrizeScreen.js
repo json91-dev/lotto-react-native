@@ -57,12 +57,15 @@ const CheckPrizeScreen = (props) => {
   return (
     <View style={styles.container}>
       <Image style={styles.topBackImg} source={require('../../../assets/ic_prize_back.png')} />
-      <SafeAreaView style={styles.safeContainer}>
+      <SafeAreaView>
         <View style={styles.qrCodeButtonView}>
           <TouchableOpacity onPress={() => props.navigation.navigate('QRCodeScreen')}>
             <Image style={styles.qrCodeButtonImg} source={require('../../../assets/btn_qrcode.png')} />
           </TouchableOpacity>
         </View>
+      </SafeAreaView>
+      
+      <SafeAreaView style={styles.safeContainer}>
         <View style={styles.topInfoContainer}>
           <Text style={styles.titleText}>고객님의 당첨금액</Text>
           <View style={styles.prizeMoneyView}>
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     height: '35%',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   
   topInfoContainer: {
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     paddingRight: 20,
-    marginTop: '2%'
+    marginTop: '6%'
   },
 
   qrCodeButtonImg: {
@@ -192,6 +195,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
     color: "#ffffff",
+    marginTop: '8%'
   },
 
   prizeMoneyView: {

@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 import { Dimensions } from 'react-native';
-const deviceWidth = Dimensions.get('screen').width;
-const deviceHeight = Dimensions.get('screen').height;
+const windowWidth = Dimensions.get('screen').width;
+const windowHeight = Dimensions.get('screen').height;
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
@@ -63,6 +63,7 @@ const QRCodeScreen = (props) => {
           borderRadius: 2.5,
           backgroundColor: "#abbdbe"}}>
         </View>
+        
         {
           (sheetIndex === 0)?
             <Row>
@@ -144,6 +145,28 @@ const QRCodeScreen = (props) => {
         </TouchableOpacity>
       </View>
   
+      <View style={styles.qrCodeGuide}>
+        <View style={styles.qrCodeGuideLeftTop}>
+          <Image style={styles.qrCodeGuideLeftImage} source={require('../../../assets/ic_edge_left_top.png')}/>
+        </View>
+        <View style={styles.qrCodeGuideLeftBottom}>
+          <Image style={styles.qrCodeGuideBottomImage} source={require('../../../assets/ic_edge_left_down.png')}/>
+    
+        </View>
+        <View style={styles.qrCodeGuideRightTop}>
+          <Image style={styles.qrCodeGuideRightTopImage} source={require('../../../assets/ic_edge_right_top.png')}/>
+    
+        </View>
+        <View style={styles.qrCodeGuideRightBottom}>
+          <Image style={styles.qrCodeGuideRightTopBottom} source={require('../../../assets/ic_edge_right_down.png')}/>
+        </View>
+        
+        <Image style={styles.qrCodeGuideImage} source={require('../../../assets/ic_qr_guide_middle.png')} />
+        <Text style={styles.qrCodeGuideText}>QR 코드를 인식해서{"\n"}당첨 여부를 확인해보세요.</Text>
+        
+        
+      </View>
+  
       <BottomSheet
         snapPoints = {[400, 83, 83]}
         renderContent = {renderContent}
@@ -186,8 +209,8 @@ const styles = StyleSheet.create({
   },
   
   qrScannerCamera: {
-    height: deviceHeight,
-    width: deviceWidth
+    height: windowHeight,
+    width: windowWidth
   },
   
   qrScannerView: {
@@ -270,6 +293,79 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center'
-  }
-
+  },
+  
+  qrCodeGuide: {
+    position: 'absolute',
+    width: windowWidth * 0.8,
+    height: windowWidth * 0.8,
+    left: windowWidth * 0.1,
+    marginTop: windowHeight * 0.20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  
+  qrCodeGuideLeftTop: {
+    position:'absolute',
+    left: 0,
+    top: 0,
+  },
+  
+  qrCodeGuideLeftBottom: {
+    position:'absolute',
+    left: 0,
+    bottom: 0,
+  },
+  
+  qrCodeGuideRightTop: {
+    position:'absolute',
+    right: 0,
+    top: 0,
+  },
+  
+  qrCodeGuideRightBottom: {
+    position:'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  
+  qrCodeGuideLeftImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'cover'
+  },
+  
+  qrCodeGuideBottomImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'cover'
+  },
+  
+  qrCodeGuideRightTopImage: {
+    width: 30,
+    height: 30,
+    resizeMode: 'cover'
+  },
+  
+  qrCodeGuideRightTopBottom: {
+    width: 30,
+    height: 30,
+    resizeMode: 'cover'
+  },
+  
+  qrCodeGuideImage: {
+    width: 80,
+    height: 80,
+    
+  },
+  
+  qrCodeGuideText: {
+    marginTop: '10%',
+    color: "#ffffff",
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  
+  
 });
