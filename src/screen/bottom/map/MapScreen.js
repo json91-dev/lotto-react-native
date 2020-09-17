@@ -24,19 +24,6 @@ const windowHeight = Dimensions.get('screen').height;
 
 
 const MapScreen = (props) => {
-  const {
-    call,
-    onChange,
-  } = Animated;
-  
-  const [openRatio, setOpenRatio] = useState(1);
-  const drawerCallbackNode = new Animated.Value(0);
-  const onCallback = ([value]) => {
-    setOpenRatio(1 - value);
-    console.log(1 - value);
-  };
-  
-  
   useEffect(() => {
   
   }, []);
@@ -45,6 +32,8 @@ const MapScreen = (props) => {
   const renderContent = () => {
     return <LottoStoreSheetContent/>;
   };
+  
+  const [bottomSheetState, setBottomSheetState] = useState('bottom'); // bottom, middle, top
   
   
   // 바텀시트의 헤더를 나타내는 함수.
@@ -59,7 +48,7 @@ const MapScreen = (props) => {
         }}>
         </View>
         
-        <LottoStoreSheetHeader/>
+        <LottoStoreSheetHeader bottomSheetState='bottom'/>
         
         <View style={{
           position: 'absolute',
@@ -77,6 +66,20 @@ const MapScreen = (props) => {
   const P0 = { latitude: 37.564362, longitude: 126.977011 };
   const P1 = { latitude: 37.565051, longitude: 126.978567 };
   const P2 = { latitude: 37.565383, longitude: 126.976292 };
+  
+  const onPressBottomSheetSettle = (state) => {
+    switch (state) {
+      case 0:
+        setBottomSheetState('top');
+        break;
+      case 1:
+        setBottomSheetState('middle');
+        break;
+      case 2:
+        setBottomSheetState('bottom');
+        break;
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -128,8 +131,9 @@ const MapScreen = (props) => {
       
       <ScrollBottomSheet
         componentType="FlatList"
-        snapPoints={[0, windowHeight - 300]}
-        initialSnapIndex={1}
+        contentContainerStyle={styles.contentContainerStyle}
+        snapPoints={[0, windowHeight * 0.3 ,windowHeight - 300]}
+        initialSnapIndex={2}
         renderHandle={() => (
           renderHeader()
         )}
@@ -138,8 +142,8 @@ const MapScreen = (props) => {
         renderItem={({ item }) => (
           renderContent()
         )}
-        contentContainerStyle={styles.contentContainerStyle}
-        onSettle={(e) => {console.log(e)}}
+
+        onSettle={onPressBottomSheetSettle}
         />
 
     </View>

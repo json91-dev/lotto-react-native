@@ -1,7 +1,7 @@
 import React, {Component, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
@@ -43,6 +43,10 @@ const LottoStoreSheetHeader = (props) =>{
       </TouchableOpacity>
     </View>
   )
+};
+
+LottoStoreSheetHeader.propTypes = {
+  bottomSheetState: PropTypes.oneOf(['bottom', 'middle', 'top'])
 };
 
 const mapStateToProps = ({}) =>{
