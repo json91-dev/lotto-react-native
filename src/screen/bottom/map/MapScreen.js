@@ -48,7 +48,7 @@ const MapScreen = (props) => {
         }}>
         </View>
         
-        <LottoStoreSheetHeader bottomSheetState='bottom'/>
+        <LottoStoreSheetHeader bottomSheetState={bottomSheetState}/>
         
         <View style={{
           position: 'absolute',
@@ -118,14 +118,14 @@ const MapScreen = (props) => {
       
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
-          <Image style={styles.backButtonImage} source={require('../../../assets/btn_back.png')}/>
+          <Image style={styles.backButtonImage} source={require('../../../assets/ic_black_back_arrow.png')}/>
         </TouchableOpacity>
       </View>
       
       <View style={styles.searchButtonView}>
         <TouchableOpacity style={styles.searchButtonTouch}
                           onPress={() => props.navigation.navigate('SearchStoreScreen')}>
-          <Image style={styles.searchButtonImage} source={require('../../../assets/btn_search.png')}/>
+          <Image style={styles.searchButtonImage} source={require('../../../assets/ic_black_search.png')}/>
         </TouchableOpacity>
       </View>
       
@@ -186,7 +186,10 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     borderRadius: 15,
-    backgroundColor: 'rgba(116, 121, 138, 0.5)',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#EDEDED'
+    
   },
   
   backButtonImage: {
@@ -206,7 +209,9 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     borderRadius: 15,
-    backgroundColor: 'rgba(116, 121, 138, 0.5)',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#EDEDED'
   },
   
   searchButtonImage: {

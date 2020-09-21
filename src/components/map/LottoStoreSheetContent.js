@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -6,9 +6,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Linking,
-  TouchableOpacity,
-  SafeAreaView,
   Image,
 } from 'react-native';
 
@@ -32,8 +29,8 @@ const LottoStoreSheetContent = (props) =>{
         <View style={styles.lottoWinningCard}>
           <Grid>
             <Col>
-              <Row>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_1.jpg')}></Image>
+              <Row style={{ alignItems: 'center'}}>
+                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../../assets/ic_rank_1.jpg')}></Image>
               </Row>
             </Col>
             
@@ -44,11 +41,11 @@ const LottoStoreSheetContent = (props) =>{
               <Row>
                 <Text>33%</Text>
               </Row>
-              <Row></Row>
+              
             </Col>
           </Grid>
-          
-          <Text style={{fontSize: 12,}}>로또 당첨</Text>
+  
+          <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
           
           <Grid>
             <Row style={{marginTop: 5,}}>
@@ -74,7 +71,7 @@ const LottoStoreSheetContent = (props) =>{
         <View style={styles.lottoWinningCard}>
           <Grid>
             <Col>
-              <Row>
+              <Row style={{ alignItems: 'center'}}>
                 <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_2.jpg')}></Image>
               </Row>
             </Col>
@@ -86,12 +83,12 @@ const LottoStoreSheetContent = (props) =>{
               <Row>
                 <Text>33%</Text>
               </Row>
-              <Row></Row>
+          
             </Col>
     
           </Grid>
-    
-          <Text style={{fontSize: 12,}}>로또 당첨</Text>
+  
+          <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
     
           <Grid>
             <Row style={{marginTop: 5,}}>
@@ -165,10 +162,6 @@ const LottoStoreSheetContent = (props) =>{
         <Text style={styles.storeWinningPrizeTextLeft}>누적 당첨 금액</Text>
         <Text style={styles.storeWinningPrizeTextRight}>19억 6472만원</Text>
       </View>
-
-
-
-
     </View>
   )
 };
@@ -243,7 +236,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     borderRadius: 10,
-    paddingTop: 16,
+    paddingTop: 10,
+    paddingBottom: 5,
     paddingLeft: 13,
     paddingRight: 13,
     marginRight: '5%'
@@ -335,7 +329,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#2157f3"
   }
-  
-  
-
 });
