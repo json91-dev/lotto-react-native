@@ -33,7 +33,7 @@ const LottoStoreSheetHeader = (props) =>{
     
     case 'bottom': {
       return (
-        <View style={styles.container}>
+        <View style={styles.bottomContainer}>
           <View style={styles.storeTitleView}>
             <Text style={styles.storeNameText}>스파</Text>
             <TouchableOpacity>
@@ -61,17 +61,45 @@ const LottoStoreSheetHeader = (props) =>{
           </TouchableOpacity>
         </View>
       );
-      break;
     }
   
     case 'middle': {
-      return null
-      break;
+      return (
+        <View style={styles.middleContainer}>
+          <View style={[styles.storeTitleView, {paddingLeft: 20, paddingRight: 20}]}>
+            <Text style={styles.storeNameText}>스파</Text>
+            <TouchableOpacity>
+              <Image style={styles.favoriteImage} source={require('../../assets/ic_favorite_star.png')}/>
+            </TouchableOpacity>
+          </View>
+          
+          <View style={[styles.storeDetailView, {paddingLeft: 20, paddingRight: 20}]}>
+            {/*<Text>118m  |  방문  76  |  찜  1.27 </Text>*/}
+            <Text style={{color: "#abbdbe"}}>방문  </Text>
+            <Text>76</Text>
+            <Text style={{color: '#74798a'}}>  |  </Text>
+            <Text style={{color: "#abbdbe"}}>찜  </Text>
+            <Text>1.27 </Text>
+          </View>
+          
+          <View style={styles.divider}></View>
+          
+          <View style={styles.storeMoreDetailView}>
+            <View style={styles.moreDetailLeftView}>
+              <Text style={styles.moreDetailAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층</Text>
+              <Text style={styles.moreDetailDistanceText}>418m</Text>
+            </View>
+            <TouchableOpacity>
+              <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
+            </TouchableOpacity>
+          </View>
+          
+        </View>
+      )
     }
   
     case 'top': {
       return null
-      break;
     }
   }
   
@@ -92,7 +120,8 @@ export default connect(
 
 
 const styles = StyleSheet.create({
-  container: {
+  // 최하단의 바텀시트
+  bottomContainer: {
     marginTop: 7,
     width: '100%',
     height: '80%',
@@ -136,5 +165,50 @@ const styles = StyleSheet.create({
   
   storeGuideText: {
     color: 'white',
-  }
+  },
+  
+  // 중단의 바텀시트
+  middleContainer: {
+    marginTop: 7,
+    width: '100%',
+    height: '80%',
+
+  },
+  
+  divider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#EDEDED',
+    marginTop: '3%',
+    marginBottom: '3%'
+  },
+  
+  storeMoreDetailView: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  
+  moreDetailLeftView: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  
+  },
+  
+  findRoadImage: {
+    width: 40,
+    height: 40,
+    resizeMode: 'cover',
+  },
+  
+  moreDetailAddressText: {
+    color: "#74798a"
+  },
+  
+  moreDetailDistanceText: {
+    color: "#2157f3"
+  },
+  
 });
