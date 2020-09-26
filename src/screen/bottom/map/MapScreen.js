@@ -2,13 +2,11 @@ import React, { Component, useEffect, useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Linking,
   TouchableOpacity,
-  SafeAreaView, Image,
+  Image,
 } from 'react-native';
 
-import { Dimensions } from 'react-native';
+import { Dimensions, StatusBar, Platform } from 'react-native';
 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import NaverMapView, { Circle, Marker, Path, Polyline, Polygon } from 'react-native-nmap';
@@ -19,8 +17,9 @@ import Animated from 'react-native-reanimated';
 
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 
-const windowWidth = Dimensions.get('screen').width;
-const windowHeight = Dimensions.get('screen').height;
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 
 const MapScreen = (props) => {
@@ -39,27 +38,7 @@ const MapScreen = (props) => {
   // 바텀시트의 헤더를 나타내는 함수.
   const renderHeader = () => {
     return (
-      <View style={styles.sheetHeaderView}>
-        <View style={{
-          width: 50,
-          height: 5,
-          borderRadius: 2.5,
-          backgroundColor: '#abbdbe',
-        }}>
-        </View>
-        
-        <LottoStoreSheetHeader bottomSheetState={bottomSheetState}/>
-        
-        <View style={{
-          position: 'absolute',
-          bottom: 3,
-          width: 134,
-          height: 5,
-          borderRadius: 100,
-          backgroundColor: '#000000',
-        }}>
-        </View>
-      </View>
+      <LottoStoreSheetHeader bottomSheetState={bottomSheetState}/>
     );
   };
   
@@ -79,6 +58,21 @@ const MapScreen = (props) => {
         setBottomSheetState('bottom');
         break;
     }
+  };
+  
+  const getSheetBottomPosition = () => {
+    const bottomHeaderHeight = 190;
+    const bottomTabBarHeight = 60;
+    
+    if (Platform.OS === 'android') {
+      const statusBarHeight = StatusBar.currentHeight;
+      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight + statusBarHeight)
+    } else {
+      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight)
+    }
+    
+    
+    return;
   };
   
   return (
@@ -132,7 +126,7 @@ const MapScreen = (props) => {
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
-        snapPoints={[0, windowHeight * 0.3 ,windowHeight - 300]}
+        snapPoints={[0, windowHeight * 0.3 , getSheetBottomPosition()]}
         initialSnapIndex={2}
         renderHandle={() => (
           renderHeader()

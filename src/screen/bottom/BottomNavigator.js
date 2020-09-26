@@ -34,6 +34,12 @@ function BottomNavigator() {
           return <Image style={{width: 25, height: 25, marginTop: 10}} source={iconPath}/>;
         },
       })}
+      
+      tabBarOptions={{
+        style: {
+          height: 60,
+        }
+      }}
     >
       <Tab.Screen
         name="MainStackNavigator"
