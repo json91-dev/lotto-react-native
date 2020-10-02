@@ -27,24 +27,13 @@ const LottoStoreSheetHeader = (props) =>{
   useEffect(() => {
   
   }, []);
-  // top인 경우
-  // middle인 경우
-  // bottom인 경우
-  console.log(props.bottomSheetState);
   
   switch(props.bottomSheetState) {
-    
     case 'bottom': {
       return (
         <View style={styles.bottomContainer}>
-          
-          <View style={{width: '100%', alignItems: 'center', marginTop: 7}}>
-            <View style={{
-              width: 50,
-              height: 5,
-              borderRadius: 2.5,
-              backgroundColor: '#abbdbe',
-            }}>
+          <View style={styles.topBarView}>
+            <View style={styles.topBarInnerView}>
             </View>
           </View>
           
@@ -59,7 +48,7 @@ const LottoStoreSheetHeader = (props) =>{
             {/*<Text>118m  |  방문  76  |  찜  1.27 </Text>*/}
             <Text style={{color: '#2157f3'}}>118m</Text>
             <Text style={{color: '#74798a'}}>  |  </Text>
-            <Text style={{color: "#abbdbe"}}>방문  </Text>
+            <Text style={{color: '#abbdbe'}}>방문  </Text>
             <Text>76</Text>
             <Text style={{color: '#74798a'}}>  |  </Text>
             <Text style={{color: "#abbdbe"}}>찜  </Text>
@@ -74,17 +63,10 @@ const LottoStoreSheetHeader = (props) =>{
             <Text style={styles.storeGuideText}>길 안내 시작</Text>
           </TouchableOpacity>
           
-          <View style={{width: '100%', alignItems: 'center'}}>
-            <View style={{
-              width: 134,
-              height: 5,
-              borderRadius: 100,
-              backgroundColor: '#000000',
-              bottom: 0,
-            }}>
+          <View style={styles.bottomBarView}>
+            <View style={styles.bottomBarInnerView}>
             </View>
           </View>
-          
         </View>
       );
     }
@@ -92,6 +74,11 @@ const LottoStoreSheetHeader = (props) =>{
     case 'middle': {
       return (
         <View style={styles.middleContainer}>
+          <View style={styles.topBarView}>
+            <View style={styles.topBarInnerView}>
+            </View>
+          </View>
+          
           <View style={[styles.storeTitleView, {paddingLeft: 20, paddingRight: 20}]}>
             <Text style={styles.storeNameText}>스파</Text>
             <TouchableOpacity>
@@ -102,13 +89,13 @@ const LottoStoreSheetHeader = (props) =>{
           <View style={[styles.storeDetailView, {paddingLeft: 20, paddingRight: 20}]}>
             {/*<Text>118m  |  방문  76  |  찜  1.27 </Text>*/}
             <Text style={{color: "#abbdbe"}}>방문  </Text>
-            <Text>76</Text>
+            <Text style={{color: '#74798a'}}>76</Text>
             <Text style={{color: '#74798a'}}>  |  </Text>
             <Text style={{color: "#abbdbe"}}>찜  </Text>
-            <Text>1.27 </Text>
+            <Text style={{color: '#74798a'}}>1.27 </Text>
           </View>
           
-          <View style={styles.divider}></View>
+          <View style={[styles.divider, {marginTop: 15, marginBottom: 12,}]} />
           
           <View style={styles.storeMoreDetailView}>
             <View style={styles.moreDetailLeftView}>
@@ -119,6 +106,8 @@ const LottoStoreSheetHeader = (props) =>{
               <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
+  
+          <View style={[styles.divider, {marginTop: 7, height: 5}]} />
           
         </View>
       )
@@ -153,6 +142,8 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: 'white',
     height: 190,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
   },
   
   storeTitleView: {
@@ -198,16 +189,15 @@ const styles = StyleSheet.create({
   middleContainer: {
     marginTop: 7,
     width: '100%',
-    height: '80%',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   
   divider: {
     width: '100%',
     height: 1,
     backgroundColor: '#EDEDED',
-    marginTop: '3%',
-    marginBottom: '3%'
   },
   
   storeMoreDetailView: {
@@ -231,11 +221,35 @@ const styles = StyleSheet.create({
   },
   
   moreDetailAddressText: {
-    color: "#74798a"
+    color: "#74798a",
   },
   
   moreDetailDistanceText: {
     color: "#2157f3"
+  },
+  
+  topBarView: {
+    width: '100%', alignItems: 'center', marginTop: 7
+  },
+  
+  topBarInnerView: {
+    width: 50,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: '#abbdbe',
+  },
+  
+  bottomBarView: {
+    width: '100%',
+    alignItems: 'center'
+  },
+  
+  bottomBarInnerView: {
+    width: 134,
+    height: 5,
+    borderRadius: 100,
+    backgroundColor: '#000000',
+    bottom: 0,
   },
   
 });

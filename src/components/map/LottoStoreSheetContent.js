@@ -7,6 +7,7 @@ import {
   View,
   Text,
   Image,
+  ScrollView
 } from 'react-native';
 
 const LottoStoreSheetContent = (props) =>{
@@ -15,7 +16,7 @@ const LottoStoreSheetContent = (props) =>{
   }, []);
   
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{paddingLeft: 20, paddingRight: 20,}} style={styles.container}>
       <View style={styles.lottoRoundView}>
         <Text style={styles.lottoRoundDate}>2020.02.15.</Text>
         <Text style={styles.lottoRoundText}>898</Text>
@@ -162,7 +163,7 @@ const LottoStoreSheetContent = (props) =>{
         <Text style={styles.storeWinningPrizeTextLeft}>누적 당첨 금액</Text>
         <Text style={styles.storeWinningPrizeTextRight}>19억 6472만원</Text>
       </View>
-    </View>
+    </ScrollView>
   )
 };
 
@@ -180,8 +181,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    paddingLeft: 20,
-    paddingRight: 20,
     backgroundColor: 'white',
   },
   

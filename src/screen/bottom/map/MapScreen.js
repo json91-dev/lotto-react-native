@@ -8,15 +8,10 @@ import {
 
 import { Dimensions, StatusBar, Platform } from 'react-native';
 
-import { Col, Row, Grid } from 'react-native-easy-grid';
 import NaverMapView, { Circle, Marker, Path, Polyline, Polygon } from 'react-native-nmap';
-import BottomSheet from 'reanimated-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
-import Animated from 'react-native-reanimated';
-
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
-
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
