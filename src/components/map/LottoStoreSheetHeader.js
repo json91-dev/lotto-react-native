@@ -114,7 +114,35 @@ const LottoStoreSheetHeader = (props) =>{
     }
   
     case 'top': {
-      return null
+      return (
+        <View style={styles.topContainer}>
+          <View style={styles.topContainerHeaderView}>
+            <TouchableOpacity>
+              <Image style={styles.topContainerHeaderViewBackImage} source={require('../../assets/ic_back_arrow.png')} />
+            </TouchableOpacity>
+            
+            <Text style={styles.topContainerHeaderViewText}>스파</Text>
+            
+            <TouchableOpacity>
+              <Image style={styles.topContainerHeaderViewBackStarImage} source={require('../../assets/ic_favorite_star.png')}/>
+            </TouchableOpacity>
+          </View>
+  
+          <View style={styles.divider} />
+          
+          <View style={styles.topContainerBottomView}>
+            <View style={styles.topContainerBottomViewLeft}>
+              <Text style={styles.topContainerBottomViewLeftAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호</Text>
+              <Text style={styles.topContainerBottomViewLeftDistanceText}>418m</Text>
+            </View>
+            <TouchableOpacity>
+              <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
+            </TouchableOpacity>
+          </View>
+  
+          <View style={styles.divider} />
+        </View>
+      )
     }
   }
   
@@ -251,5 +279,60 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     bottom: 0,
   },
+  
+  topContainer: {
+    backgroundColor: 'white',
+  },
+  
+  topContainerHeaderView: {
+    marginTop: 13,
+    marginBottom: 13,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  
+  topContainerHeaderViewBackImage: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+  
+  topContainerHeaderViewText: {
+    fontSize: 20,
+  },
+  
+  topContainerHeaderViewBackStarImage: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+  },
+  
+  
+  topContainerBottomView: {
+    marginTop: 13,
+    marginBottom: 13,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  
+  topContainerBottomViewLeft: {
+    flexDirection: 'column',
+    width: '90%',
+  },
+  
+  topContainerBottomViewLeftAddressText: {
+    fontSize: 14,
+    color: "#74798a"
+  },
+  
+  topContainerBottomViewLeftDistanceText: {
+    color: "#2157f3"
+  }
   
 });

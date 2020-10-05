@@ -31,7 +31,7 @@ const LottoStoreSheetContent = (props) =>{
           <Grid>
             <Col>
               <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../../assets/ic_rank_1.jpg')}></Image>
+                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../../assets/ic_rank_1.jpg')} />
               </Row>
             </Col>
             
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
+    paddingBottom: 60,
   },
   
   lottoRoundView: {
