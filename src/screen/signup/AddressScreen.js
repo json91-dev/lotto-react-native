@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Image,
@@ -9,10 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { PERMISSIONS } from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
-
-
+import { connect } from 'react-redux';
 import AddressSearch from '../../components/address/SearchAddress';
 
 import {
@@ -22,8 +20,6 @@ import {
   setInitialSearch,
   getCurrentLocationAddress,
 } from '../../redux/actions';
-import { connect } from 'react-redux';
-import { isEmpty } from '../../helpers/Utils';
 import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelper';
 
 const AddressScreen = (props) => {
@@ -68,7 +64,7 @@ const AddressScreen = (props) => {
     }
     
     const address = inputText;
-    //TODO: 저장된 주소 정보를 AsyncStorage로 저장
+    // TODO: 저장된 주소 정보를 AsyncStorage로 저장
     const singinInfo = await getItemFromAsync('signinInfo');
     await setItemToAsync('singninInfo', { ...singinInfo, address });
     
@@ -111,7 +107,7 @@ const AddressScreen = (props) => {
       );
     }
     
-    else if (!isAddressSelected) { // 특정 주소가 선택되지 않았을때는 '검색' 버튼 보여줌
+    if (!isAddressSelected) { // 특정 주소가 선택되지 않았을때는 '검색' 버튼 보여줌
       return (
         <TouchableOpacity onPress={onSearchPressed} style={styles.searchButtonTouch}>
           <Text style={styles.searchButtonText}>검색</Text>
@@ -119,13 +115,13 @@ const AddressScreen = (props) => {
       );
     }
     
-    else {
+    
       return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
         <TouchableOpacity onPress={onConfirmPressed} style={styles.searchButtonTouch}>
           <Text style={styles.searchButtonText}>확인</Text>
         </TouchableOpacity>
       );
-    }
+    
   };
   
   const LoadingCurrentLocation = () => {
@@ -138,10 +134,10 @@ const AddressScreen = (props) => {
             <Text style={styles.currentLocationLoadingText}>근처의 숨겨진 로또 명당을 찾기 위해 {"\n"}현재 위치를 찾고 있습니다.</Text>
           </View>
         
-      )
-    } else {
-      return null;
+      );
     }
+      return null;
+    
   };
   
   return (
@@ -158,8 +154,7 @@ const AddressScreen = (props) => {
           onSubmitEditing={Keyboard.dismiss}
           ref={(ref) => textInputRef.current = ref}
           value={inputText}
-        >
-        </TextInput>
+         />
         {
           // TextInput에 text가 없을때, 없을때는 Arrow, 있을때는 X 버튼을 보여준다.
           inputText.length === 0 ?
@@ -184,15 +179,12 @@ const AddressScreen = (props) => {
         <Text style={styles.searchText}>내 위치</Text>
       </TouchableOpacity>
       
-      
       <AddressSearch textInputRef={textInputRef.current} setInputText={setInputText}/>
-      
       
       {BottomButton()}
       {LoadingCurrentLocation()}
     </SafeAreaView>
   );
-  
 };
 
 const mapStateToProps = ({ address }) => {
@@ -220,13 +212,11 @@ export default connect(
   }, // address 리듀서에서 가져온 function을 현재 컴포넌트의 props로 매핑시켜줌.
 )(AddressScreen);
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'flex-start',
-    
   },
   
   label: {
@@ -395,7 +385,5 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 14,
     textAlign: 'center',
-    
   },
-  
 });

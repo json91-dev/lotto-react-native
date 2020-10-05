@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,25 +9,22 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {getByteLength, stringByteSize, getByte} from '../../helpers/Utils';
 import Toast from 'react-native-easy-toast';
+import { getByte } from '../../helpers/Utils';
 import {getItemFromAsync, setItemToAsync} from '../../helpers/AsyncStroageHelper';
 
 export default function NicknameScreen({navigation}) {
   const [inputText, setInputText] = React.useState('');
   const textInputRef = React.useRef('');
   const toastRef = React.useRef('');
-  const [isOpenKeyboard, setIsOpenKeyboard] = React.useState(false);
   
   // 토스트의 위치 조정을 위한 변수
   const [toastPostionValue, setToastPositionValue] = React.useState(200);
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
-  
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-    
     
     return () => {
       Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
@@ -37,16 +34,14 @@ export default function NicknameScreen({navigation}) {
 
   // 키보드가 보일때 동작하는 콜백함수.
   const _keyboardDidShow = (e) => {
-    setIsOpenKeyboard(true);
-    const keyboardHeight = e.endCoordinates.height;
-    setToastPositionValue(toastPostionValue + keyboardHeight);
-    setKeyboardHeight(keyboardHeight);
+    const currentKeyboardHeight = e.endCoordinates.height;
+    setToastPositionValue(toastPostionValue + currentKeyboardHeight);
+    setKeyboardHeight(currentKeyboardHeight);
   };
 
   // 키보드가 보이지 않을때 동작하는 콜백함
-  const _keyboardDidHide = (e) => {
+  const _keyboardDidHide = () => {
     textInputRef.current.blur();
-    setIsOpenKeyboard(false);
     setToastPositionValue(toastPostionValue - keyboardHeight);
   };
 
@@ -61,7 +56,7 @@ export default function NicknameScreen({navigation}) {
     
     else {
       await setItemToAsync('signinInfo', {nickname: inputText});
-      let signinInfo = await getItemFromAsync('signinInfo');
+      const signinInfo = await getItemFromAsync('signinInfo');
       console.log(signinInfo.nickname);
       navigation.navigate('AddressScreen');
     }
@@ -83,10 +78,9 @@ export default function NicknameScreen({navigation}) {
             setInputText(text);
           }}
           onSubmitEditing={Keyboard.dismiss}
-          ref = {(ref) => textInputRef.current = ref}
+          ref = {(ref) => {textInputRef.current = ref}}
           value={inputText}
-        >
-        </TextInput>
+         />
         {
           inputText.length === 0?
             <TouchableOpacity style={styles.cancelImageTouch} onPress={removeNickname}>
@@ -103,17 +97,15 @@ export default function NicknameScreen({navigation}) {
       <TouchableOpacity style={styles.confirmTouch} onPress={confirm}>
         <Text style={styles.confirmText}>확인</Text>
       </TouchableOpacity>
-  
-  
+      
       <Toast ref={toastRef}
              positionValue={toastPostionValue}
              fadeInDuration={100}
              fadeOutDuration={10}
       />
     </SafeAreaView>
-  )
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {

@@ -141,9 +141,8 @@ const AddressSearch = (props) => {
           selectAddressItem();
           const singinInfo = await getItemFromAsync('signinInfo');
           await setItemToAsync('singninInfo', { ...singinInfo, address: currentLocationAddress });
-          
-          
         })();
+        
         return (
           <View>
           
@@ -167,7 +166,6 @@ const AddressSearch = (props) => {
     }
     
   };
-  
   
   return (
     <View style={styles.container}>

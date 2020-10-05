@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -7,16 +7,14 @@ import {
   Text,
 } from 'react-native';
 
-
-
 const LottoNumbers = (props) =>{
   const [lottoNumbers, setLottoNumbers] = React.useState([]);
 
   useEffect(() => {
-    const lottoNumbers = [18, 21, 28, 35, 37, 42, 8];
-    setLottoNumbers(lottoNumbers);
+    const dummyLottoNumbers = [18, 21, 28, 35, 37, 42, 8];
+    setLottoNumbers(dummyLottoNumbers);
   }, []);
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.lottoNumberContainerView}>

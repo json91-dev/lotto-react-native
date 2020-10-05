@@ -1,16 +1,11 @@
-import React, {Component, useEffect} from 'react';
-import { connect } from 'react-redux';
-import { Col, Row, Grid } from "react-native-easy-grid";
+/* eslint-disable prettier/prettier */
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
-
-
-const LottoDetail = (props) =>{
+const LottoDetail = (props) => {
   const prizeData = [
     {
       grade: 1,
@@ -42,53 +37,43 @@ const LottoDetail = (props) =>{
       prize: 5000,
     },
   ];
-
+  
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `,`);
   };
-
-
-  useEffect(() => {
-
-  }, []);
+  
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.detailContainer}>
         <Grid>
-          {
-            prizeData.map((item, index) => {
-
-              return (
-                <Row style={styles.detailRow} key={(item + index)}>
-                  <Col style={styles.gradeCol}>
-                    <Text style={styles.gradeText}>{ numberWithCommas(item.grade) }등</Text>
-                  </Col>
-                  <Col style={styles.winnersCol}>
-                    <Text style={styles.winnersText}>{ numberWithCommas(item.winners)}명</Text>
-                  </Col>
-                  <Col style={styles.prizeCol}>
-                    <Text style={styles.prizeText}>{ numberWithCommas(item.prize) }명</Text>
-                  </Col>
-                </Row>
-              )
-            })
-          }
+          {prizeData.map((item, index) => {
+            return (
+              <Row style={styles.detailRow} key={item + index}>
+                <Col style={styles.gradeCol}>
+                  <Text style={styles.gradeText}>{numberWithCommas(item.grade)}등</Text>
+                </Col>
+                <Col style={styles.winnersCol}>
+                  <Text style={styles.winnersText}>{numberWithCommas(item.winners)}명</Text>
+                </Col>
+                <Col style={styles.prizeCol}>
+                  <Text style={styles.prizeText}>{numberWithCommas(item.prize)}명</Text>
+                </Col>
+              </Row>
+            );
+          })}
         </Grid>
       </View>
     </View>
-  )
+  );
 };
 
-const mapStateToProps = ({}) =>{
-  return {}
+const mapStateToProps = ({}) => {
+  return {};
 };
 
-export default connect(
-  mapStateToProps,
-  {}
-)(LottoDetail);
-
+export default connect(mapStateToProps, {})(LottoDetail);
 
 const styles = StyleSheet.create({
   container: {
@@ -99,18 +84,15 @@ const styles = StyleSheet.create({
   },
 
   detailContainer: {
-
     width: '100%',
-    height: 146
+    height: 146,
   },
 
-  detailRow: {
-
-  },
+  detailRow: {},
 
   gradeCol: {
     width: '15%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   winnersCol: {
@@ -120,19 +102,18 @@ const styles = StyleSheet.create({
 
   prizeCol: {
     width: '50%',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
-
   gradeText: {
-    color: "#84dd84"
+    color: '#84dd84',
   },
 
   winnersText: {
-    color: "#74798a"
+    color: '#74798a',
   },
 
   prizeText: {
-    color: "#2157f3"
-  }
+    color: '#2157f3',
+  },
 });
