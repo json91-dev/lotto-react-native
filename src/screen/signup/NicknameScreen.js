@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-easy-toast';
 import { getByte } from '../../helpers/Utils';
-import {getItemFromAsync, setItemToAsync} from '../../helpers/AsyncStroageHelper';
+import { setItemToAsync } from '../../helpers/AsyncStroageHelper';
 
 export default function NicknameScreen({navigation}) {
   const [inputText, setInputText] = React.useState('');
@@ -45,19 +45,19 @@ export default function NicknameScreen({navigation}) {
     setToastPositionValue(toastPostionValue - keyboardHeight);
   };
 
+  // 확인버튼을 눌렀을때 동작하는 콜백함수.
   const confirm = async () => {
     if(getByte(inputText) < 6) {
-      toastRef.current.show('최소 3글자 (영문 6글자) 이상 입력해주세요.')
+      toastRef.current.show('최소 3글자 (영문 6글자) 이상 입력해주세요.');
     }
     
     else if  (getByte(inputText) > 16) {
-      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.')
+      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.');
     }
     
+    // 조건에 맞을 시, AsyncStorage로 유저 닉네임 저장.
     else {
       await setItemToAsync('signinInfo', {nickname: inputText});
-      const signinInfo = await getItemFromAsync('signinInfo');
-      console.log(signinInfo.nickname);
       navigation.navigate('AddressScreen');
     }
   };
@@ -78,7 +78,7 @@ export default function NicknameScreen({navigation}) {
             setInputText(text);
           }}
           onSubmitEditing={Keyboard.dismiss}
-          ref = {(ref) => {textInputRef.current = ref}}
+          ref = {(ref) => textInputRef.current = ref}
           value={inputText}
          />
         {
@@ -144,16 +144,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-
-    // shadowColor: "rgba(51, 51, 51, 1)",
-    // shadowOffset: {
-    //   width: 10,
-    //   height: 10
-    // },
-    // shadowRadius: 0.5,
-    // shadowOpacity: 0.2,
-    // borderWidth: 1,
-
   },
 
   cancelImage: {
@@ -193,5 +183,3 @@ const styles = StyleSheet.create({
     color: "#ffffff"
   }
 });
-
-

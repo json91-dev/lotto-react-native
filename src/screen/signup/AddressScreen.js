@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
   Image,
@@ -10,11 +11,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-import { connect } from 'react-redux';
 import AddressSearch from '../../components/address/SearchAddress';
 
 import {
-  selectAddressItem,
   deselectAddressItem,
   getAddressList,
   setInitialSearch,
@@ -24,15 +23,16 @@ import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelp
 
 const AddressScreen = (props) => {
   const [inputText, setInputText] = React.useState('');
-  const textInputRef = React.useRef('');
+  const textInputRef = React.useRef({});
   const [isOpenKeyboard, setIsOpenKeyboard] = React.useState('');
+  const dispatch = useDispatch();
   
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
     Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
     
-    props.deselectAddressItem();
-    props.setInitialSearch();
+    dispatch(deselectAddressItem());
+    dispatch(setInitialSearch());
     
     return () => {
       Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
@@ -50,54 +50,47 @@ const AddressScreen = (props) => {
   };
   
   const onSearchPressed = () => {
-    props.getAddressList(inputText);
+    dispatch(getAddressList(inputText));
     Keyboard.dismiss();
   };
   
   // 주소를 저장하고 메인화면으로 이동하는 콜백함수.
   const onConfirmPressed = async () => {
-    
-    const { isAddressSelected } = props;
+    const { isAddressSelected } = useSelector(state => state.address);
     
     if (!isAddressSelected) {
       return;
     }
     
     const address = inputText;
-    // TODO: 저장된 주소 정보를 AsyncStorage로 저장
     const singinInfo = await getItemFromAsync('signinInfo');
     await setItemToAsync('singninInfo', { ...singinInfo, address });
-    
     
     props.navigation.replace('BottomNavigator');
   };
   
   // Input버튼의 x버튼을 눌렀을때 동작하는 콜백함수.
   const onInputCancalButtonPressed = () => {
-    const { setInitialSearch, deselectAddressItem } = props;
-    
-    setInitialSearch();
-    deselectAddressItem();
+    dispatch(setInitialSearch());
+    dispatch(deselectAddressItem());
     setInputText('');
   };
   
   const onSearchMyLocationPress = () => {
-    const { getCurrentLocationAddress } = props;
     Geolocation.getCurrentPosition(
       (position) => {
         // Permission 허용
         const longitude = JSON.stringify(position.coords.longitude);
         const latitude = JSON.stringify(position.coords.latitude);
-        getCurrentLocationAddress(longitude, latitude);
+        dispatch(getCurrentLocationAddress(longitude, latitude));
       }, (error) => {
         // Permission 거부
         console.log(error);
       });
   };
   
-  
   const BottomButton = () => {
-    const { isAddressSelected } = props;
+    const { isAddressSelected } = useSelector(state => state.address);
     
     if (isOpenKeyboard) { // 키보드 화면이 열렸을때 하단 버튼을 보여줌.
       return (
@@ -115,7 +108,6 @@ const AddressScreen = (props) => {
       );
     }
     
-    
       return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
         <TouchableOpacity onPress={onConfirmPressed} style={styles.searchButtonTouch}>
           <Text style={styles.searchButtonText}>확인</Text>
@@ -125,7 +117,7 @@ const AddressScreen = (props) => {
   };
   
   const LoadingCurrentLocation = () => {
-    const { isLoadingGetCurrentLocation } = props;
+    const { isLoadingGetCurrentLocation } = useSelector(state => state.address);
     if (isLoadingGetCurrentLocation) {
       return (
         
@@ -187,30 +179,7 @@ const AddressScreen = (props) => {
   );
 };
 
-const mapStateToProps = ({ address }) => {
-  // address 리듀서에서 가져온 state를 현제 컴포넌트의 props로 맵핑시켜줌.
-  const { isAddressSelected, addressList, error, searchResultState, isLoadingGetCurrentLocation } = address;
-  
-  return {
-    isAddressSelected,
-    addressList,
-    error,
-    searchResultState,
-    isLoadingGetCurrentLocation,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    selectAddressItem,
-    deselectAddressItem,
-    getAddressList,
-    setInitialSearch,
-    getCurrentLocationAddress,
-    
-  }, // address 리듀서에서 가져온 function을 현재 컴포넌트의 props로 매핑시켜줌.
-)(AddressScreen);
+export default AddressScreen;
 
 const styles = StyleSheet.create({
   container: {

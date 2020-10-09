@@ -9,7 +9,7 @@ import BottomNavigator from './bottom/BottomNavigator';
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName = "BottomNavigator">
+      <Stack.Navigator initialRouteName = "SignUpNavigator">
         <Stack.Screen name="SignUpNavigator" options={{ headerShown: false }} component={SignUpStackNavigator}/>
         <Stack.Screen name="BottomNavigator" options={{ headerShown: false }} component={BottomNavigator}/>
       </Stack.Navigator>

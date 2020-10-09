@@ -1,5 +1,6 @@
-import React, { Component, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useCallback } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
@@ -36,12 +37,13 @@ const AddressSearch = (props) => {
    * 1. 주소값을 가진 배열을 입력받는다.
    * 2. 해당 배열을 selected 값을 포함시킨 objectItems로 변환시켜준다.
    */
+  const { addressList } = useSelector(state => state.address);
+  const dispatch = useDispatch();
   
-  const { addressList } = props;
   useEffect(() => {
     let updateArray = [...addressList];
     updateArray = updateArray.map((item, index) => {
-      return { address_name: item.address_name, index: index, selected: false };
+      return { address_name: item.address_name, index, selected: false };
     });
     
     setAddressSearchResultItems(updateArray);
@@ -50,45 +52,46 @@ const AddressSearch = (props) => {
   
   /**
    * 주소 Item이 클릭되었을때 동작하는 함수.
+   * 현재 컴포넌트가 가지고 있는 address 검색 결과 아이템에 대해 선택된 항목에 대한 업데이트를 수행한다.
+   * - 현재 컴포넌트의 아이템에 대한 selected값 전환.
+   * - 선택되었다는 결과를 address reducer로 전달.
    */
   const onPressAddressSearchResultItem = (item, index) => () => {
-    let updateArray = [...addressSearchResultItems];
-    
-    updateArray.map((item) => {
-      if (item.index === index) {
-        item.selected = true;
+    // console.log(updateArray);
+    const updateArray = addressSearchResultItems.map((resultItem) => {
+      const addressSearchItem = {...resultItem};
+      
+      if (addressSearchItem.index === index) {
+        addressSearchItem.selected = true;
       } else {
-        item.selected = false;
+        addressSearchItem.selected = false;
       }
-      return item;
+      
+      return addressSearchItem;
     });
     
+    console.log(updateArray);
     setAddressSearchResultItems(updateArray);
-    props.selectAddressItem();
+    dispatch(selectAddressItem());
     const { address_name } = updateArray[index];
     props.setInputText(address_name);
-    
   };
   
   // '다시 검색하기' 버튼 클릭시 동작하는 이벤트 리스너
-  const onPressSearchAgain = () => {
-    props.textInputRef.focus(); // AddressScreen으로 부터 받은 callback
-    props.setInputText(''); // AddressScreen으로 부터 받은 callback
-    
-    props.setInitialSearch();
-    
-  };
+  const onPressSearchAgain = useCallback(() => {
+    props.textInputRef.focus();
+    props.setInputText('');
+    dispatch(setInitialSearch());
+  }, []);
   
   const searchResult = () => {
-    const { searchResultState, keyword, currentLocationAddress, setInputText, selectAddressItem } = props;
+    const { searchResultState, keyword, currentLocationAddress, setInputText } = useSelector(state => state.address);
     
     switch (searchResultState) {
       // 초기 검색 시
       case INITIAL_SEARCH: {
         return (
-          <View>
-          
-          </View>
+          <View />
         );
       }
       
@@ -96,7 +99,7 @@ const AddressSearch = (props) => {
       case ADDRESS_SEARCH_SUCCESS: {
         return (
           <View style={{ flex: 1, paddingBottom: 70 }}>
-            <Text style={styles.searchResultLabel}>'{keyword.trim()}' 검색 결과</Text>
+            <Text style={styles.searchResultLabel}>`{keyword.trim()}` 검색 결과</Text>
             
             <FlatList
               style={styles.addressFlat}
@@ -144,14 +147,11 @@ const AddressSearch = (props) => {
         })();
         
         return (
-          <View>
-          
-          </View>
+          <View />
         );
       }
       
       case CURRENT_LOCATION_ADDRESS_SEARCH_FAILED: {
-        
         return (
           <View style={styles.searchFailView}>
             <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
@@ -163,8 +163,10 @@ const AddressSearch = (props) => {
           </View>
         );
       }
+      
+      default:
+        return null;
     }
-    
   };
   
   return (
@@ -172,6 +174,13 @@ const AddressSearch = (props) => {
       {searchResult()}
     </View>
   );
+};
+
+AddressSearch.propTypes = {
+  setInputText: PropTypes.func.isRequired,
+  textInputRef: PropTypes.shape({
+    focus: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = ({ address }) => {
@@ -194,7 +203,6 @@ export default connect(
     setInitialSearch,
   },
 )(AddressSearch);
-
 
 const styles = StyleSheet.create({
   container: {
@@ -220,7 +228,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderColor: '#EDEDED',
-    
   },
   
   circleImage: {
@@ -237,7 +244,6 @@ const styles = StyleSheet.create({
     color: '#3b3f4a',
     marginTop: 24,
     marginBottom: 11,
-    
   },
   
   searchFailView: {
@@ -245,14 +251,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    
   },
   
   searchFailImage: {
     width: '60%',
     height: '50%',
     resizeMode: 'contain',
-    
   },
   
   searchFailTitle: {
@@ -284,5 +288,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  
 });

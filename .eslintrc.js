@@ -17,6 +17,14 @@ module.exports = {
     "semi": [2, "always"],
     "react/prop-types": "off",
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "camelcase": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        extensions: [".js", ".jsx"]
+      }
+    ],
+  
     // "prettier/prettier": [
     //   "error",
     //   {
@@ -25,13 +33,7 @@ module.exports = {
     //     printWidth: 100,
     //   },
     // ],
-    
-    "react/jsx-filename-extension": [
-      1,
-      {
-        extensions: [".js", ".jsx"]
-      }
-    ],
+  
   },
   
   plugins: [
