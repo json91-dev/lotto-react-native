@@ -8,8 +8,6 @@ import {
   View,
 } from 'react-native';
 
-
-
 const SearchResult = (props) =>{
   useEffect(() => {
   
@@ -32,22 +30,21 @@ const SearchResult = (props) =>{
               
               <Image style={styles.flatListImageRight} source={require('../../assets/ic_black_arrow_right.png')} />
             </TouchableOpacity>
-          )
+          );
         }}
       />
     </View>
-  )
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(SearchResult);
-
 
 const styles = StyleSheet.create({
   container: {

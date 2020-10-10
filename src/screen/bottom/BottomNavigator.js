@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MapStackNavigator from './map/MapStackNavigator';
-import MainStackNavigator from './main/MainStackNavigator';
-import MyPageStackNavigator from './mypage/MyPageStackNavigator';
-const Tab = createBottomTabNavigator();
 import {
   Image,
 } from 'react-native';
+import MapStackNavigator from './map/MapStackNavigator';
+import MainStackNavigator from './main/MainStackNavigator';
+import MyPageStackNavigator from './mypage/MyPageStackNavigator';
+
+const Tab = createBottomTabNavigator();
 
 const setBottomIconImagePath = (navName, focused) => {
   // const key = navName + (focused? 'Focus': '');
@@ -20,8 +21,6 @@ const setBottomIconImagePath = (navName, focused) => {
   
   return imagePath[navName];
 };
-
-
 
 function BottomNavigator() {
   return (
@@ -63,7 +62,7 @@ function BottomNavigator() {
         }}
       />
     </Tab.Navigator>
-  )
+  );
 }
 
 export default BottomNavigator;

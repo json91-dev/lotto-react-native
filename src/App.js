@@ -7,7 +7,8 @@
  */
 
 import React from 'react';
-import Root from './screen/RootNavigator'
+import { Provider } from 'react-redux';
+import Root from './screen/RootNavigator';
 
 /**
  * 리덕스 기본 세팅
@@ -17,8 +18,8 @@ import Root from './screen/RootNavigator'
  *
  */
 
-import { Provider } from 'react-redux';
-import configureStore from './redux/configureStore'
+import configureStore from './redux/configureStore';
+
 const store = configureStore();
 
 const App  = () => {

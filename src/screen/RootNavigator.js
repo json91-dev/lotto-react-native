@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
 
 import SignUpStackNavigator from './signup/SignUpStackNavigator';
 import BottomNavigator from './bottom/BottomNavigator';
+
+const Stack = createStackNavigator();
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Stack.Screen name="BottomNavigator" options={{ headerShown: false }} component={BottomNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }
 
 export default App;

@@ -5,15 +5,14 @@ import {
   Text,
   Linking,
   TouchableOpacity
-} from 'react-native';
-
-import { Dimensions } from 'react-native';
-const deviceWidth = Dimensions.get('screen').width;
-const deviceHeight = Dimensions.get('screen').height;
+, Dimensions } from 'react-native';
 
 // import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
 // import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+
+const deviceWidth = Dimensions.get('screen').width;
+const deviceHeight = Dimensions.get('screen').height;
 
 const QRCodeScreen = (props) => {
   const [scan, setScan] = useState(false);
@@ -24,12 +23,11 @@ const QRCodeScreen = (props) => {
   
   const onSuccess = (e) => {
     const check = e.data.substring(0, 4);
-    console.log('scanned data' + check);
+    console.log(`scanned data${  check}`);
     
     setResult(e);
     setScan(false);
     setScanResult(true);
-    
     
     if (check === 'http') {
       Linking
@@ -45,17 +43,15 @@ const QRCodeScreen = (props) => {
   };
   
   const activeQR = () => {
-    setScan(true)
+    setScan(true);
   };
-  
   
   const scanAgain = () => {
     setScan(true);
     setScanResult(false);
   };
   
-  const desccription = 'QR code (abbreviated from Quick Response Code) is the trademark for a type of matrix barcode (or two-dimensional barcode) first designed in 1994 for the automotive industry in Japan. A barcode is a machine-readable optical label that contains information about the item to which it is attached. In practice, QR codes often contain data for a locator, identifier, or tracker that points to a website or application. A QR code uses four standardized encoding modes (numeric, alphanumeric, byte/binary, and kanji) to store data efficiently; extensions may also be used.'
-  
+  const desccription = 'QR code (abbreviated from Quick Response Code) is the trademark for a type of matrix barcode (or two-dimensional barcode) first designed in 1994 for the automotive industry in Japan. A barcode is a machine-readable optical label that contains information about the item to which it is attached. In practice, QR codes often contain data for a locator, identifier, or tracker that points to a website or application. A QR code uses four standardized encoding modes (numeric, alphanumeric, byte/binary, and kanji) to store data efficiently; extensions may also be used.';
   
   useEffect(() => {
   
@@ -64,7 +60,7 @@ const QRCodeScreen = (props) => {
   return (
     <View style={styles.container}>
       <View>
-        {/*<StatusBar barStyle="dark-content" />*/}
+        {/* <StatusBar barStyle="dark-content" /> */}
         <Text style={styles.textTitle}>Welcome To React-Native QR Code Tutorial !</Text>
         {!scan && !scanResult &&
         <View style={styles.cardView} >
@@ -92,12 +88,11 @@ const QRCodeScreen = (props) => {
         </Fragment>
         }
         
-        
         {scan &&
         <QRCodeScanner
-          reactivate={true}
-          showMarker={true}
-          ref={(node) => { scanner.current = node }}
+          reactivate
+          showMarker
+          ref={(node) => { scanner.current = node; }}
           onRead={this.onSuccess}
           topContent={
             <Text style={styles.centerText}>
@@ -119,7 +114,7 @@ const QRCodeScreen = (props) => {
         }
       </View>
     </View>
-  )
+  );
 };
 
 export default QRCodeScreen;
@@ -145,8 +140,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  
-  
   
   scrollViewStyle: {
     flex: 1,
@@ -217,7 +210,6 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     fontSize: 16
   },
-  
   
   highlight: {
     fontWeight: '700',

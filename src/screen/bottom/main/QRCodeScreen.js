@@ -1,25 +1,21 @@
-import React, {Component, useEffect, useState, useRef} from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  Linking,
   TouchableOpacity,
   SafeAreaView, Image,
-} from 'react-native';
+ Dimensions } from 'react-native';
 
-import { Dimensions } from 'react-native';
-const windowWidth = Dimensions.get('screen').width;
-const windowHeight = Dimensions.get('screen').height;
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { Col, Row } from "react-native-easy-grid";
 
-// import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
-// import { connect } from 'react-redux';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import BottomSheet from 'reanimated-bottom-sheet';
 import QrBottomSheet from '../../../components/qrcode/QrBottomSheet';
 import WinningBottomSheet from '../../../components/qrcode/WinningBottomSheet';
 
+const windowWidth = Dimensions.get('screen').width;
+const windowHeight = Dimensions.get('screen').height;
 
 const QRCodeScreen = (props) => {
   const scanner = React.useRef('');
@@ -28,25 +24,23 @@ const QRCodeScreen = (props) => {
   // qrcode 인식 성공시 콜백
   const onSuccess = (e) => {
     const check = e.data.substring(0, 4);
-    console.log('scanned data' + check);
+    console.log(`scanned data${  check}`);
     
     // 데이터가 http주소라면 해당 주소로 이동
     // TODO: 추후 스캔이 일어났을때는 스캔을 막아줘야함.
     if (check === 'http') {
       // Linking.openURL(e.data).catch(err => console.error('An error occured', err));
       console.log(e.data);
-    } else {
-    
     }
   };
   
   // 바텀시트의 컨텐츠를 나타내는 함수.
   const renderContent = () => {
     if (sheetIndex === 0) {
-      return <QrBottomSheet/>
-    } else {
-      return <WinningBottomSheet/>
+      return <QrBottomSheet/>;
     }
+      return <WinningBottomSheet/>;
+    
   };
   
   // 바텀시트의 header의 탭 클릭시 콜백함수.
@@ -61,8 +55,7 @@ const QRCodeScreen = (props) => {
         <View style={{ width: 50,
           height: 5,
           borderRadius: 2.5,
-          backgroundColor: "#abbdbe"}}>
-        </View>
+          backgroundColor: "#abbdbe"}} />
         
         {
           (sheetIndex === 0)?
@@ -101,9 +94,7 @@ const QRCodeScreen = (props) => {
             </Row>
         }
         
-        <View style={{backgroundColor: 'red', width: '100%'}}>
-      
-        </View>
+        <View style={{backgroundColor: 'red', width: '100%'}} />
         
         <View style={{
           position: 'absolute',
@@ -111,10 +102,9 @@ const QRCodeScreen = (props) => {
           width: 134,
           height: 5,
           borderRadius: 100,
-          backgroundColor: "#000000"}}>
-        </View>
+          backgroundColor: "#000000"}} />
       </View>
-    )
+    );
   };
 
   useEffect(() => {
@@ -126,9 +116,9 @@ const QRCodeScreen = (props) => {
       <View style={styles.qrScannerView}>
         <QRCodeScanner
           cameraStyle={styles.qrScannerCamera}
-          reactivate={true}
+          reactivate
           showMarker={false}
-          ref={(node) => { scanner.current = node }}
+          ref={(node) => { scanner.current = node; }}
           onRead={onSuccess}
         />
       </View>
@@ -164,7 +154,6 @@ const QRCodeScreen = (props) => {
         <Image style={styles.qrCodeGuideImage} source={require('../../../assets/ic_qr_guide_middle.png')} />
         <Text style={styles.qrCodeGuideText}>QR 코드를 인식해서{"\n"}당첨 여부를 확인해보세요.</Text>
         
-        
       </View>
   
       <BottomSheet
@@ -175,25 +164,10 @@ const QRCodeScreen = (props) => {
       />
       
     </SafeAreaView>
-  )
+  );
 };
 
 export default QRCodeScreen;
-
-// const mapStateToProps = ({address}) =>{
-//   const { isAddressSelected, selectedAddressItem, addressItems } = address;
-
-//   return {
-//     isAddressSelected,
-//     selectedAddressItem,
-//     addressItems
-//   }
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   {selectAddressItem, deselectAddressItem}
-// )(AddressScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -216,7 +190,6 @@ const styles = StyleSheet.create({
   qrScannerView: {
     position: 'absolute'
   },
-  
   
   /* 상단 버튼 */
   
@@ -366,6 +339,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center'
   },
-  
   
 });

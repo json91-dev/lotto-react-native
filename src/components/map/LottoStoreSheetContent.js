@@ -73,7 +73,7 @@ const LottoStoreSheetContent = (props) =>{
           <Grid>
             <Col>
               <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_2.jpg')}></Image>
+                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_2.jpg')} />
               </Row>
             </Col>
       
@@ -119,7 +119,7 @@ const LottoStoreSheetContent = (props) =>{
                 <Text style={{fontSize: 12,}}>로또투어 추천</Text>
               </Row>
               <Row style={{justifyContent: 'center'}}>
-                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../../assets/ic_recommend_good.png')}></Image>
+                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../../assets/ic_recommend_good.png')} />
               </Row>
               <Row style={{justifyContent: 'center', marginTop: 30}}>
                 <Text style={{fontSize: 14, fontWeight: 'bold'}}>좋지 않아요</Text>
@@ -140,12 +140,11 @@ const LottoStoreSheetContent = (props) =>{
       <View style={styles.lottoRecommendView}>
         <View style={styles.lottoRecommendLeftView}>
           <View style={styles.lottoRecommendPercentView}>
-            <View style={styles.lottoRecommendPercentBarAuto}></View>
+            <View style={styles.lottoRecommendPercentBarAuto} />
             <Text style={{marginLeft: 10}}>14% 자동</Text>
           </View>
           <View style={[styles.lottoRecommendPercentView,{marginTop: 10}]}>
-            <View style={styles.lottoRecommendPercentBarManual}>
-            </View>
+            <View style={styles.lottoRecommendPercentBarManual} />
             <Text style={{marginLeft: 10}}>37% 수동</Text>
           </View>
         </View>
@@ -164,18 +163,17 @@ const LottoStoreSheetContent = (props) =>{
         <Text style={styles.storeWinningPrizeTextRight}>19억 6472만원</Text>
       </View>
     </ScrollView>
-  )
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(LottoStoreSheetContent);
-
 
 const styles = StyleSheet.create({
   container: {

@@ -7,8 +7,6 @@ import {
   View,
 } from 'react-native';
 
-
-
 const FavoriteResult = (props) =>{
   useEffect(() => {
   
@@ -25,25 +23,24 @@ const FavoriteResult = (props) =>{
           return (
             <TouchableOpacity>
               <Image />
-              <Text></Text>
+              <Text />
               <Image />
             </TouchableOpacity>
-          )
+          );
         }}
       />
     </View>
-  )
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(FavoriteResult);
-
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +53,5 @@ const styles = StyleSheet.create({
   searchWordFlatList: {
     borderWidth: 1,
   },
-  
   
 });

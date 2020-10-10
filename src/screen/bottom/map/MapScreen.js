@@ -1,21 +1,18 @@
-import React, { Component, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   Image,
-} from 'react-native';
-
-import { Dimensions, StatusBar, Platform } from 'react-native';
+ Dimensions, StatusBar, Platform } from 'react-native';
 
 import NaverMapView, { Circle, Marker, Path, Polyline, Polygon } from 'react-native-nmap';
+import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
-import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 
 const MapScreen = (props) => {
   useEffect(() => {
@@ -28,7 +25,6 @@ const MapScreen = (props) => {
   };
   
   const [bottomSheetState, setBottomSheetState] = useState('bottom'); // bottom, middle, top
-  
   
   // 바텀시트의 헤더를 나타내는 함수.
   const renderHeader = () => {
@@ -55,36 +51,34 @@ const MapScreen = (props) => {
     }
   };
   
+  /**
+   * 바텀시트의 하단 snappoint를 구하기 위한 function.
+   * : statusBar : 상단 헤더
+   * : bottomTabBarHeight : 바텀 탭의 헤더
+   * : 윈도우의 Height에서 바텀탭의 헤더와 바텀시트의 높이를 빼준 높이를 snappoint로 지정한다.
+   * : 안드로이드일떄는 statusBarHeight도 추가하여 빼줘야 정상적으로 동작한다.
+   */
   const getSheetBottomPosition = () => {
     const bottomHeaderHeight = 190;
     const bottomTabBarHeight = 60;
     
     if (Platform.OS === 'android') {
       const statusBarHeight = StatusBar.currentHeight;
-      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight + statusBarHeight)
-    } else {
-      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight)
+      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight + statusBarHeight);
     }
+      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
     
-    
-    return;
   };
   
   return (
     <View style={styles.container}>
       <NaverMapView
         style={{ width: '100%', height: '100%' }}
-        showsMyLocationButton={true}
+        showsMyLocationButton
         center={{ ...P0, zoom: 16 }}
-        onTouch={e => this
-          // console.warn('onTouch', JSON.stringify(e.nativeEvent))
-        }
-        onCameraChange={e => this
-          // console.warn('onCameraChange', JSON.stringify(e))
-        }
-        onMapClick={e => this
-          // console.warn('onMapClick', JSON.stringify(e))
-        }
+        // onTouch={e =>}
+        // onCameraChange={e => this}
+        // onMapClick={e => this}
         mapPadding={{ bottom: 160 }}
         logoGravity={0}
       >
@@ -101,8 +95,8 @@ const MapScreen = (props) => {
         }/>
         <Path coordinates={[P0, P1]}/>
         <Polyline coordinates={[P1, P2]}/>
-        <Circle coordinate={P0} color={'rgba(255,0,0,0.3)'} radius={200}/>
-        <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`}/>
+        <Circle coordinate={P0} color="rgba(255,0,0,0.3)" radius={200}/>
+        <Polygon coordinates={[P0, P1, P2]} color="rgba(0, 0, 0, 0.5)"/>
       </NaverMapView>
       
       <View style={styles.backButtonView}>
@@ -140,22 +134,6 @@ const MapScreen = (props) => {
 };
 
 export default MapScreen;
-
-// const mapStateToProps = ({address}) =>{
-//   const { isAddressSelected, selectedAddressItem, addressItems } = address;
-
-//   return {
-//     isAddressSelected,
-//     selectedAddressItem,
-//     addressItems
-//   }
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   {selectAddressItem, deselectAddressItem}
-// )(AddressScreen)
-
 
 const styles = StyleSheet.create({
   container: {

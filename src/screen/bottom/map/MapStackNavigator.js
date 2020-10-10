@@ -11,7 +11,7 @@ function MapStackNavigator () {
       <Stack.Screen name="MapScreen" options={{ headerShown: false}} component={MapScreen}/>
       <Stack.Screen name="SearchStoreScreen" options={{ headerShown: false}} component={SearchStoreScreen}/>
     </Stack.Navigator>
-  )
+  );
 }
 
 export default MapStackNavigator;

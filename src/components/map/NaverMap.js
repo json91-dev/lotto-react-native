@@ -18,21 +18,18 @@ const NaverMap = (props) =>{
   }, []);
   
   return (
-    <View style={styles.container}>
-
-    </View>
-  )
+    <View style={styles.container} />
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(NaverMap);
-
 
 const styles = StyleSheet.create({
 

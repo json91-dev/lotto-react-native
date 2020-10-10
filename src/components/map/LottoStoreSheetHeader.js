@@ -2,9 +2,6 @@ import React, {Component, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import PropTypes from 'prop-types';
-
-const windowWidth = Dimensions.get('screen').width;
-const windowHeight = Dimensions.get('screen').height;
 import {
   StyleSheet,
   View,
@@ -15,13 +12,15 @@ import {
   Image, Dimensions,
 } from 'react-native';
 
+const windowWidth = Dimensions.get('screen').width;
+const windowHeight = Dimensions.get('screen').height;
+
 const dummy = {
   visit: 76,
   favorite: 127,
   address: '서울 성북구 종암동 132 종암우림카이저팰리서 1층 101호',
   distance: 118,
 };
-
 
 const LottoStoreSheetHeader = (props) =>{
   useEffect(() => {
@@ -33,8 +32,7 @@ const LottoStoreSheetHeader = (props) =>{
       return (
         <View style={styles.bottomContainer}>
           <View style={styles.topBarView}>
-            <View style={styles.topBarInnerView}>
-            </View>
+            <View style={styles.topBarInnerView} />
           </View>
           
           <View style={styles.storeTitleView}>
@@ -45,7 +43,7 @@ const LottoStoreSheetHeader = (props) =>{
           </View>
           
           <View style={styles.storeDetailView}>
-            {/*<Text>118m  |  방문  76  |  찜  1.27 </Text>*/}
+            {/* <Text>118m  |  방문  76  |  찜  1.27 </Text> */}
             <Text style={{color: '#2157f3'}}>118m</Text>
             <Text style={{color: '#74798a'}}>  |  </Text>
             <Text style={{color: '#abbdbe'}}>방문  </Text>
@@ -64,8 +62,7 @@ const LottoStoreSheetHeader = (props) =>{
           </TouchableOpacity>
           
           <View style={styles.bottomBarView}>
-            <View style={styles.bottomBarInnerView}>
-            </View>
+            <View style={styles.bottomBarInnerView} />
           </View>
         </View>
       );
@@ -75,8 +72,7 @@ const LottoStoreSheetHeader = (props) =>{
       return (
         <View style={styles.middleContainer}>
           <View style={styles.topBarView}>
-            <View style={styles.topBarInnerView}>
-            </View>
+            <View style={styles.topBarInnerView} />
           </View>
           
           <View style={[styles.storeTitleView, {paddingLeft: 20, paddingRight: 20}]}>
@@ -87,7 +83,7 @@ const LottoStoreSheetHeader = (props) =>{
           </View>
           
           <View style={[styles.storeDetailView, {paddingLeft: 20, paddingRight: 20}]}>
-            {/*<Text>118m  |  방문  76  |  찜  1.27 </Text>*/}
+            {/* <Text>118m  |  방문  76  |  찜  1.27 </Text> */}
             <Text style={{color: "#abbdbe"}}>방문  </Text>
             <Text style={{color: '#74798a'}}>76</Text>
             <Text style={{color: '#74798a'}}>  |  </Text>
@@ -110,7 +106,7 @@ const LottoStoreSheetHeader = (props) =>{
           <View style={[styles.divider, {marginTop: 7, height: 5}]} />
           
         </View>
-      )
+      );
     }
   
     case 'top': {
@@ -142,7 +138,7 @@ const LottoStoreSheetHeader = (props) =>{
   
           <View style={styles.divider} />
         </View>
-      )
+      );
     }
   }
   
@@ -153,14 +149,13 @@ LottoStoreSheetHeader.propTypes = {
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(LottoStoreSheetHeader);
-
 
 const styles = StyleSheet.create({
   // 최하단의 바텀시트
@@ -309,7 +304,6 @@ const styles = StyleSheet.create({
     height: 24,
     resizeMode: 'contain',
   },
-  
   
   topContainerBottomView: {
     marginTop: 13,

@@ -3,20 +3,16 @@ import {
   StyleSheet,
   View,
   Text,
-  Linking,
   TouchableOpacity,
-  SafeAreaView,
   Image,
   ScrollView
 } from 'react-native';
 
-import { Dimensions } from 'react-native';
-const SettingScreen = (props) => {
+const SettingScreen = () => {
   
   useEffect(() => {
   
   }, []);
-  
   
   return (
     <ScrollView style={styles.container}>
@@ -80,9 +76,8 @@ const SettingScreen = (props) => {
         <Image style={styles.promotionImage} source={require('../../../assets/ic_logo_promotion.png')} />
       </View>
       
-      
     </ScrollView>
-  )
+  );
 };
 
 export default SettingScreen;
@@ -101,9 +96,6 @@ export default SettingScreen;
 //   mapStateToProps,
 //   {selectAddressItem, deselectAddressItem}
 // )(AddressScreen)
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -171,6 +163,5 @@ const styles = StyleSheet.create({
     height: 165,
     resizeMode: 'contain',
   }
-  
  
 });

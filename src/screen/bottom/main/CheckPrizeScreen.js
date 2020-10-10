@@ -4,20 +4,15 @@ import {
   Image,
   View,
   Text,
-  SafeAreaView, TextInput, TouchableOpacity,
-  ScrollView, Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
-import RNPickerSelect from 'react-native-picker-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollPicker} from 'react-native-value-picker';
 import LottoNumbers from '../../../components/checkprize/LottoNumbers';
 import LottoDetail from '../../../components/checkprize/LottoDetail';
-const deviceWidth = Dimensions.get('screen').width;
-const deviceHeight = Dimensions.get('screen').height;
-
-// import { selectAddressItem, deselectAddressItem } from "../../redux/actions";
-// import { connect } from 'react-redux';
 
 const CheckPrizeScreen = (props) => {
   const pickerRef = useRef('');
@@ -100,8 +95,8 @@ const CheckPrizeScreen = (props) => {
 
       <RBSheet
         ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
+        closeOnDragDown
+        closeOnPressMask
         height={300}
         customStyles={{
           draggableIcon: {
@@ -127,27 +122,11 @@ const CheckPrizeScreen = (props) => {
       </RBSheet>
 
     </View>
-  )
+  );
 
 };
 
-
 export default CheckPrizeScreen;
-
-// const mapStateToProps = ({address}) =>{
-//   const { isAddressSelected, selectedAddressItem, addressItems } = address;
-
-//   return {
-//     isAddressSelected,
-//     selectedAddressItem,
-//     addressItems
-//   }
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   {selectAddressItem, deselectAddressItem}
-// )(AddressScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -305,8 +284,6 @@ const styles = StyleSheet.create({
     height: 16,
     resizeMode: 'cover',
   },
-
-
 
   // 바텀시트 라이브러리 css
   Container: {

@@ -3,20 +3,18 @@ import {
   StyleSheet,
   View,
   Text,
-  Linking,
   TouchableOpacity,
   SafeAreaView,
   Image,
   ScrollView,
   Switch
-} from 'react-native';
+, Dimensions } from 'react-native';
+
+import { Col, Row, Grid } from "react-native-easy-grid";
+import { VictoryPie, VictoryLabel } from "victory-native";
 
 const deviceWidth = Dimensions.get('screen').width;
 const deviceHeight = Dimensions.get('screen').height;
-import { Dimensions } from 'react-native';
-import { Col, Row, Grid } from "react-native-easy-grid";
-import { VictoryPie, VictoryLabel } from "victory-native";
-import reducers from '../../../redux/reducers';
 
 const MyPageScreen = (props) => {
   
@@ -40,7 +38,7 @@ const MyPageScreen = (props) => {
             <View style={styles.topHeaderMemberRight}>
               <Text style={styles.topHeaderMemberRightText}>프리니엄 회원</Text>
               <View style={styles.topHeaderMemberRightView}>
-                <Text style={styles.topHeaderMemberRightViewText}></Text>
+                <Text style={styles.topHeaderMemberRightViewText} />
                 <Image style={styles.topHeaderMemberRightViewImage} />
               </View>
             </View>
@@ -104,8 +102,7 @@ const MyPageScreen = (props) => {
               />}
             />
           </View>
-          <View style={styles.chartRightView}>
-          </View>
+          <View style={styles.chartRightView} />
         </View>
   
         <View style={styles.labelView}>
@@ -177,7 +174,7 @@ const MyPageScreen = (props) => {
             <Text style={styles.alertMoveNearStoreText}>명당 근처 이동시 알림받기</Text>
             <Switch
               style={styles.alertMoveNearStoreSwitch}
-              value = {true}/>
+              value/>
           </View>
           <View style={styles.alertEventView}>
             <View style={styles.alertEventLeftView}>
@@ -186,7 +183,7 @@ const MyPageScreen = (props) => {
             </View>
             <Switch
               style={styles.alertEventSwitch}
-              value = {true}/>
+              value/>
           </View>
         </View>
   
@@ -218,7 +215,6 @@ const MyPageScreen = (props) => {
           <Image style={styles.promotionImage} source={require('../../../assets/ic_logo_promotion.png')} />
         </View>
   
-  
         <View style={styles.labelView}>
           <Text style={styles.labelText}>이루다님, 로또투어에만 있는 {"\n"}이벤트를 확인해보세요.</Text>
         </View>
@@ -227,42 +223,20 @@ const MyPageScreen = (props) => {
           <Image style={styles.eventImage} source={require('../../../assets/ic_logo_event.png')} />
         </View>
         
-        <View style={[{marginBottom: 100}]}>
-        </View>
-        
+        <View style={[{marginBottom: 100}]} />
   
-  
-        {/* absolute 이미지*/}
+        {/* absolute 이미지 */}
         <TouchableOpacity style={styles.topHeaderSettingImageTouch} onPress={() => props.navigation.navigate('SettingScreen')}>
           <Image style={styles.topHeaderSettingImage} source={require('../../../assets/ic_setting.png')} />
         </TouchableOpacity>
         <Image style={styles.topHeaderPersonImage} source={require('../../../assets/ic_mypage_man.png')}/>
       </ScrollView>
       
-      
     </SafeAreaView>
-  )
+  );
 };
 
 export default MyPageScreen;
-
-// const mapStateToProps = ({address}) =>{
-//   const { isAddressSelected, selectedAddressItem, addressItems } = address;
-
-//   return {
-//     isAddressSelected,
-//     selectedAddressItem,
-//     addressItems
-//   }
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   {selectAddressItem, deselectAddressItem}
-// )(AddressScreen)
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -348,7 +322,6 @@ const styles = StyleSheet.create({
   topHeaderSetting: {
   
   },
-  
 
   winningCountView: {
     marginTop: 15,
@@ -395,7 +368,6 @@ const styles = StyleSheet.create({
     paddingTop: 19,
     paddingBottom: 19,
   },
-  
   
   labelView: {
     marginTop: 40,
@@ -479,12 +451,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   
-  
   alertView: {
     marginLeft: 20,
     marginRight: 20,
     marginTop: 15,
-  
     
     shadowOpacity: 0.45,
     shadowRadius: 3.84,
@@ -610,7 +580,4 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   }
   
-  
-  
 });
-

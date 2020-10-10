@@ -7,28 +7,24 @@ import {
   View,
 } from 'react-native';
 
-
-
 const WinningBottomSheet = (props) =>{
   useEffect(() => {
   
   }, []);
   
   return (
-    <View style={styles.container}>
-    </View>
-  )
+    <View style={styles.container} />
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(WinningBottomSheet);
-
 
 const styles = StyleSheet.create({
   container: {

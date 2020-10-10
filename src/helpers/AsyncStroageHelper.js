@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {isEmpty} from './Utils';
 
-
 // 아무값도 들어있지 않으면 빈 배열을 반환합니다.
 export const getItemFromAsync = (storageName) => {
   if (isEmpty(storageName)) {

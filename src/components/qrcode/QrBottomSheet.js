@@ -7,28 +7,24 @@ import {
   View,
 } from 'react-native';
 
-
-
 const QrBottomSheet = (props) =>{
   useEffect(() => {
   
   }, []);
   
   return (
-    <View style={styles.container}>
-    </View>
-  )
+    <View style={styles.container} />
+  );
 };
 
 const mapStateToProps = ({}) =>{
-  return {}
+  return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(QrBottomSheet);
-
 
 const styles = StyleSheet.create({
   container: {

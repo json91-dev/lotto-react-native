@@ -25,31 +25,30 @@ const LottoNumbers = (props) =>{
               <View key={item.toString()} style={styles.lottoNumberView}>
                 <Text style={styles.lottoNumberText}>{item}</Text>
               </View>
-            )
-          } else {
+            );
+          } 
             return (
               <View key={item.toString()} style={styles.lottoNumber7View}>
                 <Text style={styles.lottoNumberText}>{item}</Text>
               </View>
-            )
-          }
+            );
+          
         })}
       </View>
     </View>
-  )
+  );
 };
 
 const mapStateToProps = ({}) =>{
   return {
 
-  }
+  };
 };
 
 export default connect(
   mapStateToProps,
   {}
 )(LottoNumbers);
-
 
 const styles = StyleSheet.create({
   container: {

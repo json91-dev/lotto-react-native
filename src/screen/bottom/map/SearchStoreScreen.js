@@ -3,29 +3,23 @@ import {
   StyleSheet,
   View,
   Text,
-  Linking,
   TouchableOpacity,
   SafeAreaView,
   Image,
   TextInput,
-  FlatList
 } from 'react-native';
 
-import { Dimensions } from 'react-native';
 import FavoriteResult from '../../../components/searchstore/FavoriteResult';
 import SearchResult from '../../../components/searchstore/SearchResult';
+
 const SearchStoreScreen = (props) => {
   const [tabViewIndex, setTabViewIndex] = useState(0);
-  
   useEffect(() => {
   
   }, []);
   
-  const item = [{}, {}];
-  
-  
   const onTabViewIndexChange = (index) => () => {
-    setTabViewIndex(index)
+    setTabViewIndex(index);
   };
   
   const TabViewHeader = () => {
@@ -39,8 +33,8 @@ const SearchStoreScreen = (props) => {
             <Text>즐겨찾기</Text>
           </TouchableOpacity>
         </View>
-      )
-    } else {
+      );
+    }
       return (
         <View style={styles.tabViewHeaderView}>
           <TouchableOpacity style={styles.tabViewHeaderItem} onPress={onTabViewIndexChange(0)}>
@@ -50,16 +44,16 @@ const SearchStoreScreen = (props) => {
             <Text>즐겨찾기</Text>
           </TouchableOpacity>
         </View>
-      )
-    }
+      );
+    
   };
   
   const TabViewContent = () => {
     if (tabViewIndex === 0) {
-      return <SearchResult/>
-    } else {
-      return <FavoriteResult/>
+      return <SearchResult/>;
     }
+      return <FavoriteResult/>;
+    
   };
   
   return (
@@ -71,29 +65,10 @@ const SearchStoreScreen = (props) => {
       <TabViewHeader/>
       <TabViewContent/>
     </SafeAreaView>
-  )
+  );
 };
 
-
 export default SearchStoreScreen;
-
-// const mapStateToProps = ({address}) =>{
-//   const { isAddressSelected, selectedAddressItem, addressItems } = address;
-
-//   return {
-//     isAddressSelected,
-//     selectedAddressItem,
-//     addressItems
-//   }
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   {selectAddressItem, deselectAddressItem}
-// )(AddressScreen)
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -133,7 +108,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     borderBottomWidth: 1,
     borderColor: '#1534EF'
-    
   },
   
   tabViewHeaderItem: {
