@@ -1,13 +1,13 @@
 import {
   SELECT_ADDRESS_ITEM,
   DESELECT_ADDRESS_ITEM,
-  GET_ADDRESS_LIST,
+  GET_ADDRESS_LIST_REQUEST,
   GET_ADDRESS_LIST_SUCCESS,
-  GET_ADDRESS_LIST_ERROR,
+  GET_ADDRESS_LIST_FAILURE,
   SET_INITIAL_SEARCH,
-  GET_CURRENT_LOCATION_ADDRESS,
+  GET_CURRENT_LOCATION_ADDRESS_REQUEST,
   GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
-  GET_CURRENT_LOCATION_ADDRESS_ERROR,
+  GET_CURRENT_LOCATION_ADDRESS_FAILURE,
 } from '../actions';
 
 export const INITIAL_SEARCH = 'INITIAL_SEARCH';
@@ -15,7 +15,6 @@ export const ADDRESS_SEARCH_SUCCESS = 'ADDRESS_SEARCH_SUCCESS';
 export const ADDRESS_SEARCH_FAILED = 'ADDRESS_SEARCH_FAILED';
 export const CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS = 'CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS';
 export const CURRENT_LOCATION_ADDRESS_SEARCH_FAILED = 'CURRENT_LOCATION_ADDRESS_SEARCH_FAILED';
-
 
 const InitialState = {
   // selectedAddressItem: null, // 주소 검색 결과에서 선택된 아이템 저장.
@@ -27,7 +26,6 @@ const InitialState = {
   keyword: '', // 주소 검색시 키워드
   currentLocationAddress: '',
 };
-
 
 export default (state = InitialState, action) => {
   switch (action.type) {
@@ -54,10 +52,10 @@ export default (state = InitialState, action) => {
       };
     }
     
-    /** keyword로 주소 얻어오기 **/
+    /** keyword로 주소 얻어오기 * */
     
     // 주소 검색 실행
-    case GET_ADDRESS_LIST: {
+    case GET_ADDRESS_LIST_REQUEST: {
       return {
         ...state,
         keyword: action.payload.keyword,
@@ -74,17 +72,17 @@ export default (state = InitialState, action) => {
           addressList,
           searchResultState: ADDRESS_SEARCH_FAILED,
         };
-      } else {
+      }
         return {
           ...state,
           addressList,
           searchResultState: ADDRESS_SEARCH_SUCCESS,
         };
-      }
+      
     }
     
     // 주소 검색 후 결과 List 조회 실패
-    case GET_ADDRESS_LIST_ERROR: {
+    case GET_ADDRESS_LIST_FAILURE: {
       return {
         ...state,
         error: action.payload.message,
@@ -92,10 +90,10 @@ export default (state = InitialState, action) => {
       };
     }
     
-    /** 현재 주소 얻어오기 **/
+    /** 현재 주소 얻어오기 * */
     
     // 내 위치를 통해 현재 주소 검색
-    case GET_CURRENT_LOCATION_ADDRESS: {
+    case GET_CURRENT_LOCATION_ADDRESS_REQUEST: {
       return {
         ...state,
         error: action.payload.message,
@@ -118,7 +116,7 @@ export default (state = InitialState, action) => {
     }
     
     // 내 위치를 통해 현재 주소 실패
-    case GET_CURRENT_LOCATION_ADDRESS_ERROR: {
+    case GET_CURRENT_LOCATION_ADDRESS_FAILURE: {
       return {
         ...state,
         error: action.payload.message,
@@ -127,8 +125,7 @@ export default (state = InitialState, action) => {
       };
     }
     
-    
     default:
       return { ...state };
   }
-}
+};

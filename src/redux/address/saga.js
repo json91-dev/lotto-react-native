@@ -1,10 +1,9 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-  GET_ADDRESS_LIST,
-  GET_CURRENT_LOCATION_ADDRESS,
+  GET_ADDRESS_LIST_REQUEST,
+  GET_CURRENT_LOCATION_ADDRESS_REQUEST,
 } from '../actions';
-
 
 import {
   getAddressListSuccess,
@@ -14,9 +13,8 @@ import {
 } from './actions';
 import { KakaoGeoSearchUrl, KakaoLoctaionSearchUrl, KakaoRestApiKey } from '../../constraints/defaultValues';
 
-
 export function* watchGetAddressList() {
-  yield takeEvery (GET_ADDRESS_LIST, getAddressListByKeyword)
+  yield takeEvery (GET_ADDRESS_LIST_REQUEST, getAddressListByKeyword);
 }
 
 function* getAddressListByKeyword({payload}) {
@@ -34,16 +32,15 @@ function* getAddressListByKeyword({payload}) {
     yield put(getAddressListSuccess(addressList));
     
   } catch(error) {
-    yield put(getAddressListError(error.message))
+    yield put(getAddressListError(error.message));
   }
 }
 
 // 내 위치를 통한 현재 주소 검색
 
 export function* watchGetCurrentAddress() {
-  yield takeEvery (GET_CURRENT_LOCATION_ADDRESS, getCurrentAddressByLocation)
+  yield takeEvery (GET_CURRENT_LOCATION_ADDRESS_REQUEST, getCurrentAddressByLocation);
 }
-
 
 function* getCurrentAddressByLocation({payload}) {
   const { longitude, latitude } = payload;
@@ -61,7 +58,7 @@ function* getCurrentAddressByLocation({payload}) {
     
   } catch(error) {
     console.log(error);
-    yield put(getCurrentLocationAddressError(error.message))
+    yield put(getCurrentLocationAddressError(error.message));
   }
 }
 
