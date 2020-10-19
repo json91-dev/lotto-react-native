@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector, } from 'react-redux';
 import {
   StyleSheet,
   Image,
@@ -55,17 +55,15 @@ const AddressScreen = (props) => {
   };
   
   // 주소를 저장하고 메인화면으로 이동하는 콜백함수.
-  const onConfirmPressed = async () => {
-    const { isAddressSelected } = useSelector(state => state.address);
-    
+  const onConfirmPressed = (isAddressSelected) => async () => {
+  
     if (!isAddressSelected) {
       return;
     }
-    
+  
     const address = inputText;
     const singinInfo = await getItemFromAsync('signinInfo');
     await setItemToAsync('singninInfo', { ...singinInfo, address });
-    
     props.navigation.replace('BottomNavigator');
   };
   
@@ -108,11 +106,11 @@ const AddressScreen = (props) => {
       );
     }
     
-      return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
-        <TouchableOpacity onPress={onConfirmPressed} style={styles.searchButtonTouch}>
-          <Text style={styles.searchButtonText}>확인</Text>
-        </TouchableOpacity>
-      );
+    return ( // 특정 주소가 선택되었을때 '확인' 버튼 보여줌.
+      <TouchableOpacity onPress={onConfirmPressed(isAddressSelected)} style={styles.searchButtonTouch}>
+        <Text style={styles.searchButtonText}>확인</Text>
+      </TouchableOpacity>
+    );
     
   };
   

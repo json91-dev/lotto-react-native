@@ -31,8 +31,13 @@ const dummyLatestLottoRounds = [
   {
     roundNo: 892,
     roundDate: '2020-09-13'
+  },
+  
+  {
+    roundNo: 891,
+    roundDate: '2020-09-06'
   }
-]
+];
 
 export default (state = InitialState, action) => {
   switch (action.type) {
