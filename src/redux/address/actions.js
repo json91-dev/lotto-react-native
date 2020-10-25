@@ -12,45 +12,45 @@ import {
 
 export const selectAddressItem = () => ({
   type: SELECT_ADDRESS_ITEM,
-  payload: {}
+  data: {}
 });
 
 export const deselectAddressItem = () => ({
   type: DESELECT_ADDRESS_ITEM,
-  payload: {}
+  data: {}
 });
 
 /** 초기 상태 Action * */
 export const setInitialSearch = () => ({
   type: SET_INITIAL_SEARCH,
-  payload: {},
+  data: {},
 });
 
 /** 주소 검색 Actions * */
 export const getAddressList = (keyword) => ({
   type: GET_ADDRESS_LIST_REQUEST,
-  payload: {
+  data: {
     keyword,
   }
 });
 
 export const getAddressListSuccess = (addressList) => ({
   type: GET_ADDRESS_LIST_SUCCESS,
-  payload: {
+  data: {
     addressList,
   }
 });
 
 export const getAddressListError = (message) => ({
   type: GET_ADDRESS_LIST_FAILURE,
-  payload: {message}
+  data: {message}
 });
 
 /** 내 위치 검색 Actions * */
 
 export const getCurrentLocationAddress = (longitude, latitude)  => ({
   type: GET_CURRENT_LOCATION_ADDRESS_REQUEST,
-  payload: {
+  data: {
     longitude, // 경도
     latitude, // 위도
   }
@@ -58,12 +58,12 @@ export const getCurrentLocationAddress = (longitude, latitude)  => ({
 
 export const getCurrentLocationAddressSuccess = (currentLocationAddress) => ({
   type: GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
-  payload: {
+  data: {
     currentLocationAddress,
   }
 });
 
 export const getCurrentLocationAddressError = (message) => ({
   type: GET_CURRENT_LOCATION_ADDRESS_FAILURE,
-  payload: {message}
+  data: {message}
 });

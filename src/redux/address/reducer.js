@@ -58,15 +58,15 @@ export default (state = InitialState, action) => {
     case GET_ADDRESS_LIST_REQUEST: {
       return {
         ...state,
-        keyword: action.payload.keyword,
+        keyword: action.data.keyword,
       };
     }
     
     // 주소 검색 후 결과 List 조회 성공
     case GET_ADDRESS_LIST_SUCCESS: {
-      const { addressList } = action.payload;
+      const { addressList } = action.data;
       
-      if (action.payload.addressList.length === 0) {
+      if (action.data.addressList.length === 0) {
         return {
           ...state,
           addressList,
@@ -85,7 +85,7 @@ export default (state = InitialState, action) => {
     case GET_ADDRESS_LIST_FAILURE: {
       return {
         ...state,
-        error: action.payload.message,
+        error: action.data.message,
         searchResultState: ADDRESS_SEARCH_FAILED,
       };
     }
@@ -96,7 +96,7 @@ export default (state = InitialState, action) => {
     case GET_CURRENT_LOCATION_ADDRESS_REQUEST: {
       return {
         ...state,
-        error: action.payload.message,
+        error: action.data.message,
         searchResultState: INITIAL_SEARCH,
         isLoadingGetCurrentLocation: true,
       };
@@ -104,11 +104,11 @@ export default (state = InitialState, action) => {
     
     // 내 위치를 통해 현재 주소 성공
     case GET_CURRENT_LOCATION_ADDRESS_SUCCESS: {
-      const { currentLocationAddress } = action.payload;
+      const { currentLocationAddress } = action.data;
       
       return {
         ...state,
-        error: action.payload.message,
+        error: action.data.message,
         searchResultState: CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS,
         isLoadingGetCurrentLocation: false,
         currentLocationAddress,
@@ -119,7 +119,7 @@ export default (state = InitialState, action) => {
     case GET_CURRENT_LOCATION_ADDRESS_FAILURE: {
       return {
         ...state,
-        error: action.payload.message,
+        error: action.data.message,
         searchResultState: CURRENT_LOCATION_ADDRESS_SEARCH_FAILED,
         isLoadingGetCurrentLocation: false,
       };

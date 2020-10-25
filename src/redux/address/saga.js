@@ -13,12 +13,15 @@ import {
 } from './actions';
 import { KakaoGeoSearchUrl, KakaoLoctaionSearchUrl, KakaoRestApiKey } from '../../constraints/defaultValues';
 
+/**
+ * keyword로 주소목록 가져오기.
+ */
 export function* watchGetAddressList() {
   yield takeEvery (GET_ADDRESS_LIST_REQUEST, getAddressListByKeyword);
 }
 
-function* getAddressListByKeyword({payload}) {
-  const { keyword } = payload;
+function* getAddressListByKeyword({data}) {
+  const { keyword } = data;
   try {
     const config = {
       headers: {
@@ -36,14 +39,15 @@ function* getAddressListByKeyword({payload}) {
   }
 }
 
-// 내 위치를 통한 현재 주소 검색
-
+/**
+ * 내 위치 (위도, 경도)를 이용하여 현재 주소 찾기
+ */
 export function* watchGetCurrentAddress() {
   yield takeEvery (GET_CURRENT_LOCATION_ADDRESS_REQUEST, getCurrentAddressByLocation);
 }
 
-function* getCurrentAddressByLocation({payload}) {
-  const { longitude, latitude } = payload;
+function* getCurrentAddressByLocation({data}) {
+  const { longitude, latitude } = data;
   try {
     const config = {
       headers: {
