@@ -26,10 +26,6 @@ const CheckPrizeScreen = (props) => {
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   
-  const { isGettingLatestLottoRound, isGettingWinLottoNumbers } = useSelector(state => state.lottonumber);
-  console.log(isGettingLatestLottoRound, isGettingLatestLottoRound);
-
-  
   // 처음에 한번만 로또 정보를 불러와서 수행한다.
   useEffect(() => {
     dispatch(getLatestLottoRound());
@@ -41,25 +37,24 @@ const CheckPrizeScreen = (props) => {
     refRBSheet.current.open(); // 클릭시 하단 picker를 열어줌
   };
   
-  const SelectSheet = () => {
-    const MOCK_DATA = [
-      {
-        value: 1,
-        label: '2020.01.25. 895회',
-      },
-      {
-        value: 2,
-        label: '2020.02.01. 896회',
-      },
-      {
-        value: 15,
-        label: '2020.02.08. 897회',
-      },
-      {
-        value: 16,
-        label: '2020.02.15. 898회',
-      },
-    ];
+  const SelectSheet = (latestLottoRounds) => {
+    const selectSheetData = [];
+    
+    if (latestLottoRounds && latestLottoRounds.length > 0) {
+      latestLottoRounds.forEach((item, index) => {
+        const label = `${item.roundDate}      ${item.round}회`;
+        const roundData = {
+          value: index,
+          label
+        };
+        
+        selectSheetData.push(roundData);
+      });
+    } else {
+      selectSheetData.push({
+        value: '잠시만 기다려주세요.'
+      });
+    }
     
     return (
       <RBSheet
@@ -84,25 +79,33 @@ const CheckPrizeScreen = (props) => {
             // onItemPress: 선택된 값을 업데이트 하는 콜백 함수
             currentValue={pickedValue}
             extraData={pickedValue}
-            list={MOCK_DATA}
+            list={selectSheetData}
             onItemPress={setPickedValue}
           />
         </View>
       </RBSheet>
     );
-  }
+  };
+  
+  const loadingProgress = (isLoading) => {
+    if (isLoading) {
+      return (
+        <View style={styles.loadingView}>
+          <Image style={styles.loadingGifImage} source={require('../../../assets/anim_loading.gif')}/>
+          <Text style={styles.loadingText}>로또 정보를 가져오는 중입니다...</Text>
+        </View>
+      );
+    }
+    
+    return null;
+  };
+  
+  const { isGettingLatestLottoRound, isGettingWinLottoNumbers, latestLottoRounds } = useSelector(state => state.lottonumber);
+  const isLoading = (isGettingWinLottoNumbers || isGettingLatestLottoRound);
   
   return (
     <View style={styles.container}>
-      {
-        (isGettingLatestLottoRound || isGettingWinLottoNumbers)?
-          <View style={styles.loadingView}>
-            <Image style={styles.loadingGifImage} source={require('../../../assets/anim_loading.gif')}/>
-            <Text style={styles.loadingText}>로또 정보를 가져오는 중입니다...</Text>
-          </View>
-          : null
-      }
-      
+      {loadingProgress(isLoading)}
       <Image style={styles.topBackImg} source={require('../../../assets/ic_prize_back.png')}/>
       <SafeAreaView>
         <View style={styles.qrCodeButtonView}>
@@ -144,7 +147,7 @@ const CheckPrizeScreen = (props) => {
         <Text style={styles.lottoDetailLabel}>898회차 상세정보</Text>
         <LottoDetail/>
       </ScrollView>
-      {SelectSheet()}
+      {SelectSheet(latestLottoRounds)}
     </View>
   );
   
