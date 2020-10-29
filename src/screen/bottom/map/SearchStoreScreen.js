@@ -11,9 +11,11 @@ import {
 
 import FavoriteResult from '../../../components/searchstore/FavoriteResult';
 import SearchResult from '../../../components/searchstore/SearchResult';
+import Toast from 'react-native-easy-toast';
 
 const SearchStoreScreen = (props) => {
   const [tabViewIndex, setTabViewIndex] = useState(0);
+  
   useEffect(() => {
   
   }, []);

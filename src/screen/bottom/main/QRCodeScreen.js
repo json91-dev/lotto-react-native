@@ -13,6 +13,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import BottomSheet from 'reanimated-bottom-sheet';
 import QrBottomSheet from '../../../components/qrcode/QrBottomSheet';
 import WinningBottomSheet from '../../../components/qrcode/WinningBottomSheet';
+import Toast from 'react-native-easy-toast';
 
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('screen').height;
@@ -20,6 +21,7 @@ const windowHeight = Dimensions.get('screen').height;
 const QRCodeScreen = (props) => {
   const scanner = React.useRef('');
   const [sheetIndex, setSheetIndex]  = React.useState(0);
+  const toastRef = React.useRef('');
   
   // qrcode 인식 성공시 콜백
   const onSuccess = (e) => {
@@ -31,6 +33,7 @@ const QRCodeScreen = (props) => {
     if (check === 'http') {
       // Linking.openURL(e.data).catch(err => console.error('An error occured', err));
       console.log(e.data);
+      toastRef.current.show(e.data);
     }
   };
   
@@ -161,6 +164,12 @@ const QRCodeScreen = (props) => {
         renderContent = {renderContent}
         renderHeader = {renderHeader}
         initialSnap= {1}
+      />
+      
+      <Toast ref={toastRef}
+             positionValue={200}
+             fadeInDuration={100}
+             fadeOutDuration={10}
       />
       
     </SafeAreaView>

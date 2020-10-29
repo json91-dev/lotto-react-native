@@ -77,7 +77,6 @@ const MapScreen = (props) => {
         showsMyLocationButton
         center={{ ...P0, zoom: 16 }}
         // onTouch={e =>}
-        // onCameraChange={e => this}
         // onMapClick={e => this}
         mapPadding={{ bottom: 160 }}
         logoGravity={0}

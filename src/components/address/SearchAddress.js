@@ -140,7 +140,7 @@ const AddressSearch = (props) => {
       
       case CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS: {
         (async () => {
-          setInputText(currentLocationAddress); // 받아온 위치를 현재 내 위치로 저장함.
+          props.setInputText(currentLocationAddress); // 받아온 위치를 현재 내 위치로 저장함.
           selectAddressItem();
           const singinInfo = await getItemFromAsync('signinInfo');
           await setItemToAsync('singninInfo', { ...singinInfo, address: currentLocationAddress });

@@ -46,10 +46,8 @@ function getLatestLottoRoundsAPI() {
 // 최근 로또 라운드를 조회하는 사가 동작.
 function* getLatestLottoRounds(action) {
   try {
-    console.log('saga 로또 라운드 조회 전');
-    yield delay(3000);
+    yield delay(2000);
     const latestLottoRounds = yield call(getLatestLottoRoundsAPI);
-    console.log('saga 로또 라운드 조회');
     
     // 최신 로또 라운드 조회 성공
     yield put({
