@@ -10,6 +10,7 @@ import NaverMapView, { Circle, Marker, Path, Polyline, Polygon } from 'react-nat
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
+import NaverMap from '../../../components/map/NaverMap';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -72,31 +73,7 @@ const MapScreen = (props) => {
   
   return (
     <View style={styles.container}>
-      <NaverMapView
-        style={{ width: '100%', height: '100%' }}
-        showsMyLocationButton
-        center={{ ...P0, zoom: 16 }}
-        // onTouch={e =>}
-        // onMapClick={e => this}
-        mapPadding={{ bottom: 160 }}
-        logoGravity={0}
-      >
-        <Marker
-          coordinate={P0}
-        
-        />
-        <Marker
-          coordinate={P1}
-          pinColor="blue"
-        />
-        <Marker coordinate={P2} pinColor="red" onClick={() => this
-          // console.warn('onClick! p2')
-        }/>
-        <Path coordinates={[P0, P1]}/>
-        <Polyline coordinates={[P1, P2]}/>
-        <Circle coordinate={P0} color="rgba(255,0,0,0.3)" radius={200}/>
-        <Polygon coordinates={[P0, P1, P2]} color="rgba(0, 0, 0, 0.5)"/>
-      </NaverMapView>
+      <NaverMap/>
       
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>

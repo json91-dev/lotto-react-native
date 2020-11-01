@@ -20,6 +20,7 @@ import {
   getCurrentLocationAddress,
 } from '../../redux/actions';
 import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelper';
+import { getCurrentPosition } from '../../helpers/Location';
 
 const AddressScreen = (props) => {
   const [inputText, setInputText] = React.useState('');
@@ -75,16 +76,24 @@ const AddressScreen = (props) => {
   };
   
   const onSearchMyLocationPress = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        // Permission 허용
-        const longitude = JSON.stringify(position.coords.longitude);
-        const latitude = JSON.stringify(position.coords.latitude);
-        dispatch(getCurrentLocationAddress(longitude, latitude));
-      }, (error) => {
-        // Permission 거부
-        console.log(error);
-      });
+    getCurrentPosition().then(position => {
+      const {longitude, latitude} = position;
+      
+      const longitudeString = JSON.stringify(longitude);
+      const latitudeString = JSON.stringify(latitude);
+      dispatch(getCurrentLocationAddress(longitudeString, latitudeString));
+    });
+    
+    // Geolocation.getCurrentPosition(
+    //   (position) => {
+    //     // Permission 허용
+    //     const longitude = JSON.stringify(position.coords.longitude);
+    //     const latitude = JSON.stringify(position.coords.latitude);
+    //     dispatch(getCurrentLocationAddress(longitude, latitude));
+    //   }, (error) => {
+    //     // Permission 거부
+    //     console.log(error);
+    //   });
   };
   
   const BottomButton = () => {
