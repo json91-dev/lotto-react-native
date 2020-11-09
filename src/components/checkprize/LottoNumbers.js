@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
   StyleSheet,
@@ -7,13 +7,21 @@ import {
   Text,
 } from 'react-native';
 
-const LottoNumbers = (props) =>{
+const LottoNumbers = () =>{
   const [lottoNumbers, setLottoNumbers] = React.useState([]);
-
+  const {
+    winLottoNumbers, // 당첨번호, 디테일
+  } = useSelector(state => state.lottonumber);
+  
+  // 로또 번호 및 디테일 정보가 바뀔때마다 설정해줌.
   useEffect(() => {
-    const dummyLottoNumbers = [18, 21, 28, 35, 37, 42, 8];
-    setLottoNumbers(dummyLottoNumbers);
-  }, []);
+    const { winNumber } = winLottoNumbers;
+    if (winNumber) {
+      setLottoNumbers(winNumber);
+    } else {
+      setLottoNumbers([]);
+    }
+  }, [winLottoNumbers]);
   
   return (
     <View style={styles.container}>
@@ -26,29 +34,19 @@ const LottoNumbers = (props) =>{
                 <Text style={styles.lottoNumberText}>{item}</Text>
               </View>
             );
-          } 
+          }
             return (
               <View key={item.toString()} style={styles.lottoNumber7View}>
                 <Text style={styles.lottoNumberText}>{item}</Text>
               </View>
             );
-          
         })}
       </View>
     </View>
   );
 };
 
-const mapStateToProps = ({}) =>{
-  return {
-
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(LottoNumbers);
+export default LottoNumbers;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from 'react';
+import React, { Component, useEffect, useState, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
@@ -21,25 +21,26 @@ import {
 } from '../../../redux/actions';
 
 const CheckPrizeScreen = (props) => {
-  const pickerRef = useRef('');
-  const [pickedValue, setPickedValue] = useState(7);
-  const refRBSheet = useRef();
+  const [ pickedValue, setPickedValue ] = useState(7); // 선택된 index 저장.
+  const [ bottomSheetLottoRound, setBottomSheetLottoRound ] = useState([]);
+  const refRBSheet = useRef(); // bottomSheet의 on/off를 위한 ref.
   const dispatch = useDispatch();
   
-  // 처음에 한번만 로또 정보를 불러와서 수행한다.
+  const {
+    isGettingWinLottoNumbers, // 해당 로또 번호에 대한 당첨번호 및, 상세정보를 가져왔는지?
+    isGettingLatestLottoRound, // 최신 로또 rounds를 가져왔는지?
+    latestLottoRounds, // 최신 로또 rounds.
+  } = useSelector(state => state.lottonumber);
+  const isLoading = (isGettingWinLottoNumbers || isGettingLatestLottoRound);
+  
+  // 처음에 한번만 로또 정보를 불러와서 수행.
   useEffect(() => {
     dispatch(getLatestLottoRound());
   }, []);
   
-  // 로또 Round Button Click시 동작하는 콜백함수
-  const onLottoRoundButtonPress = () => {
-    // pickerRef.current.togglePicker(true);
-    refRBSheet.current.open(); // 클릭시 하단 picker를 열어줌
-  };
+  useEffect(() => {
+    const lottoRoundData = [];
   
-  const SelectSheet = (latestLottoRounds) => {
-    const selectSheetData = [];
-    
     if (latestLottoRounds && latestLottoRounds.length > 0) {
       latestLottoRounds.forEach((item, index) => {
         const label = `${item.roundDate}      ${item.round}회`;
@@ -47,15 +48,35 @@ const CheckPrizeScreen = (props) => {
           value: index,
           label
         };
-        
-        selectSheetData.push(roundData);
+      
+        lottoRoundData.push(roundData);
       });
     } else {
-      selectSheetData.push({
+      lottoRoundData.push({
         value: '잠시만 기다려주세요.'
       });
     }
+  
+    setBottomSheetLottoRound(lottoRoundData);
+  }, [latestLottoRounds]);
+  
+  // 로또 Round 버튼 click 콜백.
+  const onLottoRoundButtonPress = useCallback(() => {
+    refRBSheet.current.open(); // 클릭시 하단 bottom sheet를 열어줌
+  },[]);
+  
+  // 로또 Round 선택 시 동작.
+  const onBottomSheetItemClicked = useCallback((index) => {
+    const { round } = latestLottoRounds[index];
+    dispatch(getWinLottoNumber(round));
     
+    setPickedValue(index);
+    refRBSheet.current.close();
+  });
+  
+  // Select BottomSheet 컴포넌트.
+  const SelectSheet = () => {
+
     return (
       <RBSheet
         ref={refRBSheet}
@@ -79,14 +100,15 @@ const CheckPrizeScreen = (props) => {
             // onItemPress: 선택된 값을 업데이트 하는 콜백 함수
             currentValue={pickedValue}
             extraData={pickedValue}
-            list={selectSheetData}
-            onItemPress={setPickedValue}
+            list={bottomSheetLottoRound}
+            onItemPress={onBottomSheetItemClicked}
           />
         </View>
       </RBSheet>
     );
   };
   
+  // Loading 화면 컴포넌트.
   const loadingProgress = (isLoading) => {
     if (isLoading) {
       return (
@@ -99,9 +121,6 @@ const CheckPrizeScreen = (props) => {
     
     return null;
   };
-  
-  const { isGettingLatestLottoRound, isGettingWinLottoNumbers, latestLottoRounds } = useSelector(state => state.lottonumber);
-  const isLoading = (isGettingWinLottoNumbers || isGettingLatestLottoRound);
   
   return (
     <View style={styles.container}>

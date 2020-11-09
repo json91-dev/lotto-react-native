@@ -7,7 +7,9 @@ export const getLatestLottoRound = () => ({
   data: {},
 });
 
-export const getWinLottoNumber = () => ({
+export const getWinLottoNumber = (round) => ({
   type: GET_WIN_LOTTO_NUMBER_REQUEST,
-  data: {},
+  data: {
+    round,
+  },
 });

@@ -1,64 +1,43 @@
-/* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-
 import {StyleSheet, View, Text} from 'react-native';
+import { useSelector } from 'react-redux';
 
-const LottoDetail = (props) => {
-  const prizeData = [
-    {
-      grade: 1,
-      winners: 8,
-      prize: 2638313235,
-    },
-
-    {
-      grade: 2,
-      winners: 56,
-      prize: 62840792,
-    },
-
-    {
-      grade: 3,
-      winners: 3240,
-      prize: 1086138,
-    },
-
-    {
-      grade: 4,
-      winners: 137051,
-      prize: 50000,
-    },
-
-    {
-      grade: 5,
-      winners: 2005739,
-      prize: 5000,
-    },
-  ];
+const LottoDetail = () => {
+  const [winnerInfo, setWinnerInfo] = useState([]);
   
+  // 숫자를 입력했을때 ,가 있는 숫자로 바꿔줌.
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `,`);
   };
   
-  useEffect(() => {}, []);
+  const {
+    winLottoNumbers, // 당첨번호, 디테일
+  } = useSelector(state => state.lottonumber);
+  
+  useEffect(() => {
+    if (winLottoNumbers.winnerInfo) {
+      setWinnerInfo(winLottoNumbers.winnerInfo);
+    } else {
+      setWinnerInfo([]);
+    }
+  }, [winLottoNumbers]);
 
   return (
     <View style={styles.container}>
       <View style={styles.detailContainer}>
         <Grid>
-          {prizeData.map((item, index) => {
+          {winnerInfo.map((item, index) => {
             return (
               <Row style={styles.detailRow} key={item + index}>
                 <Col style={styles.gradeCol}>
-                  <Text style={styles.gradeText}>{numberWithCommas(item.grade)}등</Text>
+                  <Text style={styles.gradeText}>{numberWithCommas(item.prize)}등</Text>
                 </Col>
                 <Col style={styles.winnersCol}>
-                  <Text style={styles.winnersText}>{numberWithCommas(item.winners)}명</Text>
+                  <Text style={styles.winnersText}>{numberWithCommas(item.numOfWin)}명</Text>
                 </Col>
                 <Col style={styles.prizeCol}>
-                  <Text style={styles.prizeText}>{numberWithCommas(item.prize)}명</Text>
+                  <Text style={styles.prizeText}>{numberWithCommas(item.priceOfWin)}</Text>
                 </Col>
               </Row>
             );
@@ -69,11 +48,7 @@ const LottoDetail = (props) => {
   );
 };
 
-const mapStateToProps = ({}) => {
-  return {};
-};
-
-export default connect(mapStateToProps, {})(LottoDetail);
+export default LottoDetail;
 
 const styles = StyleSheet.create({
   container: {

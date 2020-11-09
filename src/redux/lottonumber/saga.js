@@ -43,8 +43,7 @@ function getLatestLottoRoundsAPI() {
   return dummyLatestLottoRounds;
 }
 
-// 최근 로또 라운드를 조회하는 사가 동작.
-function* getLatestLottoRounds(action) {
+function* getLatestLottoRounds() {
   try {
     yield delay(2000);
     const latestLottoRounds = yield call(getLatestLottoRoundsAPI);
@@ -233,15 +232,18 @@ function getWinLottoNumbersAPI(data) {
     },
   ];
   
-  return dummyWinLottoNumbersList.filter((object) => {
-    return object[round] === round;
+  const lottoNumberAndDetail = dummyWinLottoNumbersList.filter((object) => {
+    return object.round === round;
   });
+  
+  return lottoNumberAndDetail[0];
 }
 
 function* getWinLottoNumbers(action) {
   try {
     // yield delay(2000);
     const winLottoNumbers = yield call(getWinLottoNumbersAPI, action.data);
+    
     yield put({
       type: GET_WIN_LOTTO_NUMBER_SUCCESS,
       data: {

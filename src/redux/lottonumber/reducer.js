@@ -16,7 +16,7 @@ const InitialState = {
   isGettingLatestLottoRoundError: '',
   
   isGettingWinLottoNumbers: false, // 로또 당첨 번호 조회중
-  winLottoNumbers: [], // 로또 당첨번호
+  winLottoNumbers: {}, // 로또 당첨번호
   isGettingWinLottoNumbersError: '',
 };
 
@@ -60,8 +60,8 @@ export default (state = InitialState, action) => {
     /** 로또 번호 얻어오기 **/
     case GET_WIN_LOTTO_NUMBER_REQUEST: {
       return {
-        isGettingWinLottoNumbers: true,
         ...state,
+        isGettingWinLottoNumbers: true,
       };
     }
     
@@ -69,9 +69,9 @@ export default (state = InitialState, action) => {
       const { winLottoNumbers } = action.data;
       
       return {
+        ...state,
         isGettingWinLottoNumbers: false,
         winLottoNumbers,
-        ...state,
       };
     }
     
@@ -79,9 +79,9 @@ export default (state = InitialState, action) => {
       const { error } = action.data;
       
       return {
+        ...state,
         isGettingWinLottoNumbers: false,
         isGettingWinLottoNumbersError: error,
-        ...state,
       };
     }
     
