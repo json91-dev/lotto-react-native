@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   StyleSheet,
   View,
   TouchableOpacity,
   Image,
- Dimensions, StatusBar, Platform } from 'react-native';
+  Dimensions, StatusBar, Platform,
+} from 'react-native';
 
-import NaverMapView, { Circle, Marker, Path, Polyline, Polygon } from 'react-native-nmap';
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
 import NaverMap from '../../../components/map/NaverMap';
+import MapLinkButtonsComponent from '../../../components/map/MapLinkButtonsComponent';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -19,6 +20,8 @@ const MapScreen = (props) => {
   useEffect(() => {
   
   }, []);
+  
+  const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
   
   // 바텀시트의 컨텐츠를 나타내는 함수.
   const renderContent = () => {
@@ -30,7 +33,7 @@ const MapScreen = (props) => {
   // 바텀시트의 헤더를 나타내는 함수.
   const renderHeader = () => {
     return (
-      <LottoStoreSheetHeader bottomSheetState={bottomSheetState}/>
+      <LottoStoreSheetHeader bottomSheetState={bottomSheetState} setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
     );
   };
   
@@ -48,6 +51,8 @@ const MapScreen = (props) => {
         break;
       case 2:
         setBottomSheetState('bottom');
+        break;
+      default:
         break;
     }
   };
@@ -67,31 +72,31 @@ const MapScreen = (props) => {
       const statusBarHeight = StatusBar.currentHeight;
       return windowHeight - (bottomHeaderHeight + bottomTabBarHeight + statusBarHeight);
     }
-      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
-    
+    return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
   };
   
   return (
     <View style={styles.container}>
+      {isOpenedMapLinkButtons
+        ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
+        : null
+      }
       <NaverMap/>
-      
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
           <Image style={styles.backButtonImage} source={require('../../../assets/ic_black_back_arrow.png')}/>
         </TouchableOpacity>
       </View>
-      
       <View style={styles.searchButtonView}>
         <TouchableOpacity style={styles.searchButtonTouch}
                           onPress={() => props.navigation.navigate('SearchStoreScreen')}>
           <Image style={styles.searchButtonImage} source={require('../../../assets/ic_black_search.png')}/>
         </TouchableOpacity>
       </View>
-      
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
-        snapPoints={[0, windowHeight * 0.3 , getSheetBottomPosition()]}
+        snapPoints={[0, windowHeight * 0.3, getSheetBottomPosition()]}
         initialSnapIndex={2}
         renderHandle={() => (
           renderHeader()
@@ -101,10 +106,8 @@ const MapScreen = (props) => {
         renderItem={({ item }) => (
           renderContent()
         )}
-
         onSettle={onPressBottomSheetSettle}
-        />
-
+      />
     </View>
   );
 };
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: '#EDEDED'
+    borderColor: '#EDEDED',
     
   },
   
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: '#EDEDED'
+    borderColor: '#EDEDED',
   },
   
   searchButtonImage: {
@@ -177,8 +180,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   
-  contentContainerStyle: {
-  
-  }
+  contentContainerStyle: {},
   
 });

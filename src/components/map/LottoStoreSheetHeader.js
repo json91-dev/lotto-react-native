@@ -6,14 +6,9 @@ import {
   StyleSheet,
   View,
   Text,
-  Linking,
   TouchableOpacity,
-  SafeAreaView,
-  Image, Dimensions,
+  Image,
 } from 'react-native';
-
-const windowWidth = Dimensions.get('screen').width;
-const windowHeight = Dimensions.get('screen').height;
 
 const dummy = {
   visit: 76,
@@ -22,10 +17,11 @@ const dummy = {
   distance: 118,
 };
 
-const LottoStoreSheetHeader = (props) =>{
+const LottoStoreSheetHeader = (props) => {
   useEffect(() => {
   
   }, []);
+  const { setIsOpenedMapLinkButtons } = props;
   
   switch(props.bottomSheetState) {
     case 'bottom': {
@@ -57,7 +53,7 @@ const LottoStoreSheetHeader = (props) =>{
             <Text style={styles.storeAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호</Text>
           </View>
           
-          <TouchableOpacity style={styles.storeGuideTouch}>
+          <TouchableOpacity style={styles.storeGuideTouch} onPress={()=> setIsOpenedMapLinkButtons(true)}>
             <Text style={styles.storeGuideText}>길 안내 시작</Text>
           </TouchableOpacity>
           
@@ -98,7 +94,7 @@ const LottoStoreSheetHeader = (props) =>{
               <Text style={styles.moreDetailAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층</Text>
               <Text style={styles.moreDetailDistanceText}>418m</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> setIsOpenedMapLinkButtons(true)}>
               <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
@@ -131,7 +127,7 @@ const LottoStoreSheetHeader = (props) =>{
               <Text style={styles.topContainerBottomViewLeftAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호</Text>
               <Text style={styles.topContainerBottomViewLeftDistanceText}>418m</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> setIsOpenedMapLinkButtons(true)}>
               <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
@@ -145,17 +141,11 @@ const LottoStoreSheetHeader = (props) =>{
 };
 
 LottoStoreSheetHeader.propTypes = {
-  bottomSheetState: PropTypes.oneOf(['bottom', 'middle', 'top'])
+  bottomSheetState: PropTypes.oneOf(['bottom', 'middle', 'top']),
+  setIsOpenedMapLinkButtons: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({}) =>{
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(LottoStoreSheetHeader);
+export default LottoStoreSheetHeader;
 
 const styles = StyleSheet.create({
   // 최하단의 바텀시트
@@ -328,5 +318,4 @@ const styles = StyleSheet.create({
   topContainerBottomViewLeftDistanceText: {
     color: "#2157f3"
   }
-  
 });

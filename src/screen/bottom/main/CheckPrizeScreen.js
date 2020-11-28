@@ -14,7 +14,6 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollPicker } from 'react-native-value-picker';
 import LottoNumbers from '../../../components/checkprize/LottoNumbers';
 import LottoDetail from '../../../components/checkprize/LottoDetail';
-
 import {
   getLatestLottoRound,
   getWinLottoNumber,
@@ -25,7 +24,6 @@ const CheckPrizeScreen = (props) => {
   const [ bottomSheetLottoRound, setBottomSheetLottoRound ] = useState([]);
   const refRBSheet = useRef(); // bottomSheet의 on/off를 위한 ref.
   const dispatch = useDispatch();
-  
   const {
     isGettingWinLottoNumbers, // 해당 로또 번호에 대한 당첨번호 및, 상세정보를 가져왔는지?
     isGettingLatestLottoRound, // 최신 로또 rounds를 가져왔는지?
@@ -40,7 +38,7 @@ const CheckPrizeScreen = (props) => {
   
   useEffect(() => {
     const lottoRoundData = [];
-  
+    
     if (latestLottoRounds && latestLottoRounds.length > 0) {
       latestLottoRounds.forEach((item, index) => {
         const label = `${item.roundDate}      ${item.round}회`;
@@ -48,7 +46,6 @@ const CheckPrizeScreen = (props) => {
           value: index,
           label
         };
-      
         lottoRoundData.push(roundData);
       });
     } else {
@@ -56,7 +53,6 @@ const CheckPrizeScreen = (props) => {
         value: '잠시만 기다려주세요.'
       });
     }
-  
     setBottomSheetLottoRound(lottoRoundData);
   }, [latestLottoRounds]);
   
@@ -69,14 +65,12 @@ const CheckPrizeScreen = (props) => {
   const onBottomSheetItemClicked = useCallback((index) => {
     const { round } = latestLottoRounds[index];
     dispatch(getWinLottoNumber(round));
-    
     setPickedValue(index);
     refRBSheet.current.close();
   });
   
   // Select BottomSheet 컴포넌트.
   const SelectSheet = () => {
-
     return (
       <RBSheet
         ref={refRBSheet}
@@ -118,7 +112,6 @@ const CheckPrizeScreen = (props) => {
         </View>
       );
     }
-    
     return null;
   };
   

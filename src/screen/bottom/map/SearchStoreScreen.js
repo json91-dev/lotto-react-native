@@ -47,7 +47,6 @@ const SearchStoreScreen = (props) => {
           </TouchableOpacity>
         </View>
       );
-    
   };
   
   const TabViewContent = () => {
@@ -55,7 +54,6 @@ const SearchStoreScreen = (props) => {
       return <SearchResult/>;
     }
       return <FavoriteResult/>;
-    
   };
   
   return (
@@ -121,5 +119,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.7,
     borderColor: '#EDEDED'
   },
-  
 });
