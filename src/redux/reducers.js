@@ -8,7 +8,7 @@ import lottonumber from './lottonumber/reducer';
  */
 const reducers = combineReducers({
   address,
-  lottonumber
+  lottonumber,
 });
 
 export default reducers;

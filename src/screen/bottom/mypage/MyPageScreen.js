@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState, useRef} from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -26,6 +26,8 @@ const MyPageScreen = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{height: '100%',}}>
+        <Image style={styles.topHeaderPersonImage} source={require('../../../assets/ic_mypage_man.png')}/>
+        
         <View style={styles.topHeader}>
           <Text style={styles.topHeaderTitle}>안녕하세요 이루다님</Text>
           <View style={styles.topHeaderPlayer}>
@@ -229,7 +231,6 @@ const MyPageScreen = (props) => {
         <TouchableOpacity style={styles.topHeaderSettingImageTouch} onPress={() => props.navigation.navigate('SettingScreen')}>
           <Image style={styles.topHeaderSettingImage} source={require('../../../assets/ic_setting.png')} />
         </TouchableOpacity>
-        <Image style={styles.topHeaderPersonImage} source={require('../../../assets/ic_mypage_man.png')}/>
       </ScrollView>
       
     </SafeAreaView>
@@ -250,6 +251,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     paddingLeft: 140,
     paddingTop: deviceHeight * 0.1,
+  },
+  
+  topHeaderPersonImage: {
+    
+    height: deviceHeight * 0.25,
+    resizeMode: 'contain',
+    position: 'absolute',
+    top: deviceHeight * 0.075,
+    left: 20,
+    zIndex: 100
   },
   
   topHeaderTitle: {
@@ -307,16 +318,6 @@ const styles = StyleSheet.create({
   topHeaderSettingImage: {
     width: 24,
     height: 24,
-  },
-  
-  topHeaderPersonImage: {
-    width: 90,
-    height: 190,
-    resizeMode: 'cover',
-    position: 'absolute',
-    top: deviceHeight * 0.07,
-    left: 20,
-    
   },
   
   topHeaderSetting: {

@@ -11,9 +11,9 @@ import { Col, Row } from "react-native-easy-grid";
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import BottomSheet from 'reanimated-bottom-sheet';
-import QrBottomSheet from '../../../components/qrcode/QrBottomSheet';
-import WinningBottomSheet from '../../../components/qrcode/WinningBottomSheet';
 import Toast from 'react-native-easy-toast';
+import QrBottomSheet from '../../../components/QrBottomSheet';
+import WinningBottomSheet from '../../../components/WinningBottomSheet';
 
 const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('screen').height;

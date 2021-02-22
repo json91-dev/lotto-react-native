@@ -10,8 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
-import AddressSearch from '../../components/address/SearchAddress';
+import AddressSearch from '../../components/SearchAddress';
 
 import {
   deselectAddressItem,

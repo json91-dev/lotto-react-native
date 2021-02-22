@@ -48,11 +48,11 @@ export default function NicknameScreen({navigation}) {
   // 확인버튼을 눌렀을때 동작하는 콜백함수.
   const confirm = async () => {
     if(getByte(inputText) < 6) {
-      toastRef.current.show('최소 3글자 (영문 6글자) 이상 입력해주세요.');
+      toastRef.current.show('최소 3글자 이상 입력해주세요.');
     }
     
     else if  (getByte(inputText) > 16) {
-      toastRef.current.show('한글, 영문, 숫자 최대 16byte로 입력해주세요.');
+      toastRef.current.show('한글, 영문, 숫자 최대 8자로 입력해주세요.');
     }
     
     // 조건에 맞을 시, AsyncStorage로 유저 닉네임 저장.
@@ -73,7 +73,7 @@ export default function NicknameScreen({navigation}) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
-          placeholder="한글, 영문, 숫자 최대 16byte로 입력해주세요."
+          placeholder="한글, 영문, 숫자 최대 8자로 입력해주세요."
           onChangeText={(text) => {
             setInputText(text);
           }}

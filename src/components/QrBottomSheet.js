@@ -1,36 +1,32 @@
-import React, {Component, useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Col, Row, Grid } from "react-native-easy-grid";
 
 import {
   StyleSheet,
   View,
 } from 'react-native';
 
-const WinningBottomSheet = (props) =>{
-  useEffect(() => {
-  
-  }, []);
+const QrBottomSheet = () =>{
   
   return (
     <View style={styles.container} />
   );
 };
 
-const mapStateToProps = ({}) =>{
+const mapStateToProps = () =>{
   return {};
 };
 
 export default connect(
   mapStateToProps,
   {}
-)(WinningBottomSheet);
+)(QrBottomSheet);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'blue',
+    backgroundColor: 'green',
     borderWidth: 10,
     height: '100%',
-    borderColor: 'pink'
+    borderColor: 'yellow'
   },
 });

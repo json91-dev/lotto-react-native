@@ -15,7 +15,7 @@ import {
   selectAddressItem,
   deselectAddressItem,
   setInitialSearch,
-} from '../../redux/actions';
+} from '../redux/actions';
 
 import {
   INITIAL_SEARCH, // 검색전 맨 처음화면
@@ -23,10 +23,9 @@ import {
   ADDRESS_SEARCH_FAILED, // 주소 검색이 실패했을때
   CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS, // 내 위치 찾기가 성공했을때
   CURRENT_LOCATION_ADDRESS_SEARCH_FAILED,
-  
 } // 내 위치 찾기가 실패했을때
-  from '../../redux/address/reducer';
-import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelper';
+  from '../redux/address/reducer';
+import { getItemFromAsync, setItemToAsync } from '../helpers/AsyncStroageHelper';
 
 // address 주소 검색 후
 const AddressSearch = (props) => {
@@ -114,8 +113,8 @@ const AddressSearch = (props) => {
                     <Text>{item.address_name}</Text>
                     {
                       (item.selected === true)
-                        ? <Image style={styles.circleImage} source={require('../../assets/ic_circle_select_on.png')}/>
-                        : <Image style={styles.circleImage} source={require('../../assets/ic_circle_cancel_on.png')}/>
+                        ? <Image style={styles.circleImage} source={require('../assets/ic_circle_select_on.png')}/>
+                        : <Image style={styles.circleImage} source={require('../assets/ic_circle_cancel_on.png')}/>
                     }
                   </TouchableOpacity>
                 );
@@ -128,7 +127,7 @@ const AddressSearch = (props) => {
       case ADDRESS_SEARCH_FAILED: {
         return (
           <View style={styles.searchFailView}>
-            <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
+            <Image style={styles.searchFailImage} source={require('../assets/ic_crying.png')}/>
             <Text style={styles.searchFailTitle}>검색결과가 없습니다.</Text>
             <Text style={styles.searchFailSubTitle}>검색 내용을 확인해주세요.</Text>
             <TouchableOpacity style={styles.searchFailTouch} onPress={onPressSearchAgain}>
@@ -154,7 +153,7 @@ const AddressSearch = (props) => {
       case CURRENT_LOCATION_ADDRESS_SEARCH_FAILED: {
         return (
           <View style={styles.searchFailView}>
-            <Image style={styles.searchFailImage} source={require('../../assets/ic_disappoint_persion.png')}/>
+            <Image style={styles.searchFailImage} source={require('../assets/ic_crying.png')}/>
             <Text style={styles.searchFailTitle}>현재 위치를 불러오지 못했습니다.</Text>
             <Text style={styles.searchFailSubTitle}>직접 검색으로 지역을 등록해주세요.</Text>
             <TouchableOpacity style={styles.searchFailTouch}>

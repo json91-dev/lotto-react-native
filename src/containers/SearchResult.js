@@ -1,7 +1,4 @@
-import React, {Component, useEffect} from 'react';
-import { connect } from 'react-redux';
-import { Col, Row, Grid } from "react-native-easy-grid";
-
+import React, { useEffect } from 'react';
 import {
   FlatList, Image, SafeAreaView,
   StyleSheet, Text, TouchableOpacity,
@@ -24,11 +21,11 @@ const SearchResult = (props) =>{
           return (
             <TouchableOpacity style={styles.flatListTouch}>
               <View style={styles.flatListTouchView}>
-                <Image style={styles.flatListImageLeft} source={require('../../assets/ic_time.png')} />
+                <Image style={styles.flatListImageLeft} source={require('../assets/ic_time.png')} />
                 <Text style={styles.flatListText}>로또 복권방</Text>
               </View>
               
-              <Image style={styles.flatListImageRight} source={require('../../assets/ic_black_arrow_right.png')} />
+              <Image style={styles.flatListImageRight} source={require('../assets/ic_black_arrow_right.png')} />
             </TouchableOpacity>
           );
         }}
@@ -37,14 +34,7 @@ const SearchResult = (props) =>{
   );
 };
 
-const mapStateToProps = ({}) =>{
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(SearchResult);
+export default SearchResult;
 
 const styles = StyleSheet.create({
   container: {

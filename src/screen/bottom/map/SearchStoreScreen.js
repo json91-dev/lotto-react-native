@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,11 +9,10 @@ import {
   TextInput,
 } from 'react-native';
 
-import FavoriteResult from '../../../components/searchstore/FavoriteResult';
-import SearchResult from '../../../components/searchstore/SearchResult';
-import Toast from 'react-native-easy-toast';
+import FavoriteResult from '../../../components/FavoriteResult';
+import SearchResult from '../../../containers/SearchResult';
 
-const SearchStoreScreen = (props) => {
+const SearchStoreScreen = () => {
   const [tabViewIndex, setTabViewIndex] = useState(0);
   
   useEffect(() => {

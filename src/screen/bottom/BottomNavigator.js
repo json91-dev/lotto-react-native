@@ -26,7 +26,7 @@ function BottomNavigator() {
               : require('../../assets/ic_pin_inactive.png');
           } else if (route.name === 'MyPageStackNavigator') {
             iconPath = focused
-              ? require('../../assets/ic_more_inactive.png')
+              ? require('../../assets/ic_more_active.png')
               : require('../../assets/ic_more_inactive.png');
           }
           // You can return any component that you like here!

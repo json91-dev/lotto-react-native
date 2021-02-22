@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
-import LottoStoreSheetHeader from '../../../components/map/LottoStoreSheetHeader';
-import LottoStoreSheetContent from '../../../components/map/LottoStoreSheetContent';
-import NaverMap from '../../../components/map/NaverMap';
-import MapLinkButtonsComponent from '../../../components/map/MapLinkButtonsComponent';
+import LottoStoreSheetHeader from '../../../components/LottoStoreSheetHeader';
+import LottoStoreSheetContent from '../../../components/LottoStoreSheetContent';
+import NaverMap from '../../../components/NaverMap';
+import MapLinkButtonsComponent from '../../../components/MapLinkButtonsComponent';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

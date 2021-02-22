@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 import {
@@ -10,10 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 
-const LottoStoreSheetContent = (props) =>{
-  useEffect(() => {
-  
-  }, []);
+const LottoStoreSheetContent = () =>{
   
   return (
     <ScrollView contentContainerStyle={{paddingLeft: 20, paddingRight: 20,}} style={styles.container}>
@@ -31,7 +27,7 @@ const LottoStoreSheetContent = (props) =>{
           <Grid>
             <Col>
               <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../../assets/ic_rank_1.jpg')} />
+                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../assets/ic_rank_1.jpg')} />
               </Row>
             </Col>
             
@@ -73,7 +69,7 @@ const LottoStoreSheetContent = (props) =>{
           <Grid>
             <Col>
               <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../../assets/ic_rank_2.jpg')} />
+                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../assets/ic_rank_2.jpg')} />
               </Row>
             </Col>
       
@@ -119,7 +115,7 @@ const LottoStoreSheetContent = (props) =>{
                 <Text style={{fontSize: 12,}}>로또투어 추천</Text>
               </Row>
               <Row style={{justifyContent: 'center'}}>
-                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../../assets/ic_recommend_good.png')} />
+                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../assets/ic_recommend_good.png')} />
               </Row>
               <Row style={{justifyContent: 'center', marginTop: 30}}>
                 <Text style={{fontSize: 14, fontWeight: 'bold'}}>좋지 않아요</Text>
@@ -166,14 +162,7 @@ const LottoStoreSheetContent = (props) =>{
   );
 };
 
-const mapStateToProps = ({}) =>{
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(LottoStoreSheetContent);
+export default LottoStoreSheetContent;
 
 const styles = StyleSheet.create({
   container: {

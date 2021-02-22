@@ -19,9 +19,11 @@ const MapLinkButtonsComponent = (props) => {
         <TouchableOpacity style={styles.linkTouch}>
           <Text style={styles.linkText}>카카오내비로 안내</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.linkTouch}>
           <Text style={styles.linkText}>티맵으로 안내</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.linkCopyTouch}>
           <Text style={styles.linkCopyText}>주소 복사</Text>
         </TouchableOpacity>

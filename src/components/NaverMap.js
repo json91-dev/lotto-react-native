@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from 'react';
 import NaverMapView, { Circle, Marker } from 'react-native-nmap';
-import { getCurrentPosition } from '../../helpers/Location';
+import { getCurrentPosition } from '../helpers/Location';
 
 const NaverMap = () =>{
   useEffect(() => {

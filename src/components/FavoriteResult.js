@@ -1,16 +1,12 @@
-import React, {Component, useEffect} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import {
-  FlatList, Image, SafeAreaView,
+  FlatList, Image,
   StyleSheet, Text, TouchableOpacity,
   View,
 } from 'react-native';
 
-const FavoriteResult = (props) =>{
-  useEffect(() => {
-  
-  }, []);
+const FavoriteResult = (props) => {
   const item = [{}, {}];
   
   return (
@@ -19,12 +15,12 @@ const FavoriteResult = (props) =>{
         style={styles.searchWordFlatList}
         data={item}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           return (
             <TouchableOpacity>
-              <Image />
-              <Text />
-              <Image />
+              <Image/>
+              <Text/>
+              <Image/>
             </TouchableOpacity>
           );
         }}
@@ -33,21 +29,14 @@ const FavoriteResult = (props) =>{
   );
 };
 
-const mapStateToProps = ({}) =>{
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  {}
-)(FavoriteResult);
+export default FavoriteResult;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'blue',
     borderWidth: 10,
     height: '100%',
-    borderColor: 'pink'
+    borderColor: 'pink',
   },
   
   searchWordFlatList: {

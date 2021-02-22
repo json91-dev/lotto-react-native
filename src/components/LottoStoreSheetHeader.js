@@ -1,6 +1,4 @@
 import React, {Component, useEffect} from 'react';
-import { connect } from 'react-redux';
-import { Col, Row, Grid } from "react-native-easy-grid";
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -10,17 +8,8 @@ import {
   Image,
 } from 'react-native';
 
-const dummy = {
-  visit: 76,
-  favorite: 127,
-  address: '서울 성북구 종암동 132 종암우림카이저팰리서 1층 101호',
-  distance: 118,
-};
-
 const LottoStoreSheetHeader = (props) => {
-  useEffect(() => {
   
-  }, []);
   const { setIsOpenedMapLinkButtons } = props;
   
   switch(props.bottomSheetState) {
@@ -34,7 +23,7 @@ const LottoStoreSheetHeader = (props) => {
           <View style={styles.storeTitleView}>
             <Text style={styles.storeNameText}>스파</Text>
             <TouchableOpacity>
-              <Image style={styles.favoriteImage} source={require('../../assets/ic_favorite_star.png')}/>
+              <Image style={styles.favoriteImage} source={require('../assets/ic_favorite_star.png')}/>
             </TouchableOpacity>
           </View>
           
@@ -74,7 +63,7 @@ const LottoStoreSheetHeader = (props) => {
           <View style={[styles.storeTitleView, {paddingLeft: 20, paddingRight: 20}]}>
             <Text style={styles.storeNameText}>스파</Text>
             <TouchableOpacity>
-              <Image style={styles.favoriteImage} source={require('../../assets/ic_favorite_star.png')}/>
+              <Image style={styles.favoriteImage} source={require('../assets/ic_favorite_star.png')}/>
             </TouchableOpacity>
           </View>
           
@@ -95,7 +84,7 @@ const LottoStoreSheetHeader = (props) => {
               <Text style={styles.moreDetailDistanceText}>418m</Text>
             </View>
             <TouchableOpacity onPress={()=> setIsOpenedMapLinkButtons(true)}>
-              <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
+              <Image style={styles.findRoadImage} source={require('../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
   
@@ -110,13 +99,13 @@ const LottoStoreSheetHeader = (props) => {
         <View style={styles.topContainer}>
           <View style={styles.topContainerHeaderView}>
             <TouchableOpacity>
-              <Image style={styles.topContainerHeaderViewBackImage} source={require('../../assets/ic_back_arrow.png')} />
+              <Image style={styles.topContainerHeaderViewBackImage} source={require('../assets/ic_back_arrow.png')} />
             </TouchableOpacity>
             
             <Text style={styles.topContainerHeaderViewText}>스파</Text>
             
             <TouchableOpacity>
-              <Image style={styles.topContainerHeaderViewBackStarImage} source={require('../../assets/ic_favorite_star.png')}/>
+              <Image style={styles.topContainerHeaderViewBackStarImage} source={require('../assets/ic_favorite_star.png')}/>
             </TouchableOpacity>
           </View>
   
@@ -128,7 +117,7 @@ const LottoStoreSheetHeader = (props) => {
               <Text style={styles.topContainerBottomViewLeftDistanceText}>418m</Text>
             </View>
             <TouchableOpacity onPress={()=> setIsOpenedMapLinkButtons(true)}>
-              <Image style={styles.findRoadImage} source={require('../../assets/ic_find_road.png')}/>
+              <Image style={styles.findRoadImage} source={require('../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
   

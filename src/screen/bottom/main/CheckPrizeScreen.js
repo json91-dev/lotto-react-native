@@ -12,23 +12,21 @@ import {
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollPicker } from 'react-native-value-picker';
-import LottoNumbers from '../../../components/checkprize/LottoNumbers';
-import LottoDetail from '../../../components/checkprize/LottoDetail';
+import LottoNumbers from '../../../components/LottoNumbers';
+import LottoDetail from '../../../components/LottoDetail';
 import {
   getLatestLottoRound,
   getWinLottoNumber,
 } from '../../../redux/actions';
 
 const CheckPrizeScreen = (props) => {
-  const [ pickedValue, setPickedValue ] = useState(7); // 선택된 index 저장.
+  const [ pickedValue, setPickedValue ] = useState(0);
   const [ bottomSheetLottoRound, setBottomSheetLottoRound ] = useState([]);
-  const refRBSheet = useRef(); // bottomSheet의 on/off를 위한 ref.
+  const [ round , setRound] = useState('');
+  const [ roundDate, setRoundDate ] = useState('');
+  const refRBSheet = useRef();
   const dispatch = useDispatch();
-  const {
-    isGettingWinLottoNumbers, // 해당 로또 번호에 대한 당첨번호 및, 상세정보를 가져왔는지?
-    isGettingLatestLottoRound, // 최신 로또 rounds를 가져왔는지?
-    latestLottoRounds, // 최신 로또 rounds.
-  } = useSelector(state => state.lottonumber);
+  const { isGettingWinLottoNumbers, isGettingLatestLottoRound, latestLottoRounds} = useSelector(state => state.lottonumber);
   const isLoading = (isGettingWinLottoNumbers || isGettingLatestLottoRound);
   
   // 처음에 한번만 로또 정보를 불러와서 수행.
@@ -47,6 +45,12 @@ const CheckPrizeScreen = (props) => {
           label
         };
         lottoRoundData.push(roundData);
+        
+        if (index === 0) { // 첫번째 로또 데이터를 화면에 보여줌
+          const {round, roundDate} = latestLottoRounds[index];
+          setRound(round);
+          setRoundDate(roundDate);
+        }
       });
     } else {
       lottoRoundData.push({
@@ -63,10 +67,14 @@ const CheckPrizeScreen = (props) => {
   
   // 로또 Round 선택 시 동작.
   const onBottomSheetItemClicked = useCallback((index) => {
-    const { round } = latestLottoRounds[index];
+    const { round, roundDate } = latestLottoRounds[index];
+    
     dispatch(getWinLottoNumber(round));
     setPickedValue(index);
     refRBSheet.current.close();
+    
+    setRound(round);
+    setRoundDate(roundDate);
   });
   
   // Select BottomSheet 컴포넌트.
@@ -118,7 +126,7 @@ const CheckPrizeScreen = (props) => {
   return (
     <View style={styles.container}>
       {loadingProgress(isLoading)}
-      <Image style={styles.topBackImg} source={require('../../../assets/ic_prize_back.png')}/>
+      <Image style={styles.topBackImg} source={require('../../../assets/ic_money_human.png')}/>
       <SafeAreaView>
         <View style={styles.qrCodeButtonView}>
           <TouchableOpacity onPress={() => props.navigation.navigate('QRCodeScreen')}>
@@ -146,17 +154,17 @@ const CheckPrizeScreen = (props) => {
       <ScrollView style={styles.bottomViewContainer}>
         <View style={styles.lottoRoundView}>
           <TouchableOpacity style={styles.lottoRoundTouch} onPress={onLottoRoundButtonPress}>
-            <Text style={styles.lottoRoundDate}>2020.02.15</Text>
+            <Text style={styles.lottoRoundDate}>{roundDate}</Text>
             <View style={styles.lottoRoundRight}>
-              <Text style={styles.lottoRoundText}>898</Text>
+              <Text style={styles.lottoRoundText}>{round}</Text>
               <Image style={styles.lottoRoundImg} source={require('../../../assets/ic_black_arrow_bottom.png')}/>
             </View>
           </TouchableOpacity>
         </View>
-        <Text style={styles.lottoNumberLabel}>898회차 당첨번호</Text>
+        <Text style={styles.lottoNumberLabel}>{round}회차 당첨번호</Text>
         <LottoNumbers/>
         
-        <Text style={styles.lottoDetailLabel}>898회차 상세정보</Text>
+        <Text style={styles.lottoDetailLabel}>{round}회차 상세정보</Text>
         <LottoDetail/>
       </ScrollView>
       {SelectSheet(latestLottoRounds)}
@@ -191,7 +199,9 @@ const styles = StyleSheet.create({
   topBackImg: {
     position: 'absolute',
     height: '38%',
-    resizeMode: 'cover',
+    width: '100%',
+    resizeMode: 'stretch',
+
   },
   
   qrCodeButtonView: {
@@ -243,7 +253,6 @@ const styles = StyleSheet.create({
   detailButtonTouch: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    
     marginLeft: 7,
   },
   
