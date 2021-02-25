@@ -1,17 +1,11 @@
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 import {
-  GET_ADDRESS_LIST_REQUEST,
-  GET_CURRENT_LOCATION_ADDRESS_REQUEST,
-} from '../actions';
-
-import {
-  getAddressListSuccess,
-  getAddressListError,
-  getCurrentLocationAddressSuccess,
-  getCurrentLocationAddressError
-} from './actions';
-import { KakaoGeoSearchUrl, KakaoLoctaionSearchUrl, KakaoRestApiKey } from '../../constraints/defaultValues';
+  GET_ADDRESS_LIST_FAILURE,
+  GET_ADDRESS_LIST_REQUEST, GET_ADDRESS_LIST_SUCCESS, GET_CURRENT_LOCATION_ADDRESS_FAILURE,
+  GET_CURRENT_LOCATION_ADDRESS_REQUEST, GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
+} from '../reducers/address';
+import { KakaoGeoSearchUrl, KakaoLoctaionSearchUrl, KakaoRestApiKey } from '../constraints/defaultValues';
 
 /**
  * keyword로 주소목록 가져오기.
@@ -20,8 +14,9 @@ export function* watchGetAddressList() {
   yield takeEvery (GET_ADDRESS_LIST_REQUEST, getAddressListByKeyword);
 }
 
-function* getAddressListByKeyword({data}) {
-  const { keyword } = data;
+function* getAddressListByKeyword(action) {
+  
+  const keyword = action.data;
   try {
     const config = {
       headers: {
@@ -31,11 +26,16 @@ function* getAddressListByKeyword({data}) {
     
     const result = yield axios.get(`${KakaoLoctaionSearchUrl}?query=${keyword}`, config);
     const addressList = result.data.documents;
-    // console.log(addressList);
-    yield put(getAddressListSuccess(addressList));
+    yield put({
+      type: GET_ADDRESS_LIST_SUCCESS,
+      data: addressList,
+    });
     
-  } catch(error) {
-    yield put(getAddressListError(error.message));
+  } catch(e) {
+    yield put({
+      type: GET_ADDRESS_LIST_FAILURE,
+      error: e,
+    });
   }
 }
 
@@ -46,23 +46,29 @@ export function* watchGetCurrentAddress() {
   yield takeEvery (GET_CURRENT_LOCATION_ADDRESS_REQUEST, getCurrentAddressByLocation);
 }
 
-function* getCurrentAddressByLocation({data}) {
-  const { longitude, latitude } = data;
+function* getCurrentAddressByLocation(action) {
+  const { longitude, latitude } = action.data;
   try {
     const config = {
       headers: {
         Authorization: KakaoRestApiKey
       }
     };
+    console.log('1111');
     
     const result = yield axios.get(`${KakaoGeoSearchUrl}?x=${longitude}&y=${latitude}`, config);
     const currentLocationAddress = result.data.documents[0].address_name;
     
-    yield put(getCurrentLocationAddressSuccess(currentLocationAddress));
+    yield put({
+      type: GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
+      data: currentLocationAddress
+    });
     
-  } catch(error) {
-    console.log(error);
-    yield put(getCurrentLocationAddressError(error.message));
+  } catch(e) {
+    yield put({
+      type: GET_CURRENT_LOCATION_ADDRESS_FAILURE,
+      error: e
+    });
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  FlatList, Image, SafeAreaView,
+  FlatList, Image,
   StyleSheet, Text, TouchableOpacity,
   View,
 } from 'react-native';

@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects';
-import addressSagas from './address/saga';
-import lottonumberSagas from './lottonumber/saga';
+import addressSagas from './address';
+import lottonumberSagas from './lottonumber';
 
 export default function* rootSaga(getState) {
   yield all([

@@ -10,14 +10,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import AddressSearch from '../../components/SearchAddress';
+import SearchAddress from '../../containers/SearchAddress';
 
 import {
-  deselectAddressItem,
-  getAddressList,
-  setInitialSearch,
-  getCurrentLocationAddress,
-} from '../../redux/actions';
+  SELECT_ADDRESS_ITEM,
+  SET_INITIAL_SEARCH,
+  GET_ADDRESS_LIST_REQUEST,
+  DESELECT_ADDRESS_ITEM,
+  GET_CURRENT_LOCATION_ADDRESS_REQUEST,
+} from '../../reducers/address';
+
 import { getItemFromAsync, setItemToAsync } from '../../helpers/AsyncStroageHelper';
 import { getCurrentPosition } from '../../helpers/Location';
 
@@ -31,8 +33,15 @@ const AddressScreen = (props) => {
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
     Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
     
-    dispatch(deselectAddressItem());
-    dispatch(setInitialSearch());
+    dispatch({
+      type: SET_INITIAL_SEARCH,
+    });
+  
+    dispatch({
+      type: DESELECT_ADDRESS_ITEM,
+    });
+  
+    setInputText('');
     
     return () => {
       Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
@@ -50,7 +59,10 @@ const AddressScreen = (props) => {
   };
   
   const onSearchPressed = () => {
-    dispatch(getAddressList(inputText));
+    dispatch({
+      type: GET_ADDRESS_LIST_REQUEST,
+      data: inputText
+    });
     Keyboard.dismiss();
   };
   
@@ -69,34 +81,38 @@ const AddressScreen = (props) => {
   
   // Input버튼의 x버튼을 눌렀을때 동작하는 콜백함수.
   const onInputCancalButtonPressed = () => {
-    dispatch(setInitialSearch());
-    dispatch(deselectAddressItem());
+    dispatch({
+      type: SET_INITIAL_SEARCH,
+    });
+    
+    dispatch({
+      type: DESELECT_ADDRESS_ITEM,
+    });
+    
     setInputText('');
   };
   
   const onSearchMyLocationPress = () => {
     getCurrentPosition().then(position => {
-      const {longitude, latitude} = position;
+      const { longitude, latitude } = position;
       
       const longitudeString = JSON.stringify(longitude);
       const latitudeString = JSON.stringify(latitude);
-      dispatch(getCurrentLocationAddress(longitudeString, latitudeString));
+      
+      dispatch({
+        type: GET_CURRENT_LOCATION_ADDRESS_REQUEST,
+        data: {
+          longitude: longitudeString, // 경도
+          latitude: latitudeString, // 위도
+        }
+      });
     });
-    
-    // Geolocation.getCurrentPosition(
-    //   (position) => {
-    //     // Permission 허용
-    //     const longitude = JSON.stringify(position.coords.longitude);
-    //     const latitude = JSON.stringify(position.coords.latitude);
-    //     dispatch(getCurrentLocationAddress(longitude, latitude));
-    //   }, (error) => {
-    //     // Permission 거부
-    //     console.log(error);
-    //   });
   };
   
   const BottomButton = () => {
     const { isAddressSelected } = useSelector(state => state.address);
+    console.log('BottomButton');
+    console.log(`isAddressSelected ${isAddressSelected}`);
     
     if (isOpenKeyboard) { // 키보드 화면이 열렸을때 하단 버튼을 보여줌.
       return (
@@ -123,10 +139,10 @@ const AddressScreen = (props) => {
   };
   
   const LoadingCurrentLocation = () => {
+    console.log('LoadingCurrentLocation');
     const { isLoadingGetCurrentLocation } = useSelector(state => state.address);
     if (isLoadingGetCurrentLocation) {
       return (
-        
           <View style={styles.currentLocationLoadingView}>
             <Image style={styles.currentLocationLoadingGifImage} source={require('../../assets/anim_loading.gif')}/>
             <Text style={styles.currentLocationLoadingText}>근처의 숨겨진 로또 명당을 찾기 위해 {"\n"}현재 위치를 찾고 있습니다.</Text>
@@ -134,9 +150,10 @@ const AddressScreen = (props) => {
         
       );
     }
-      return null;
-    
+    return null;
   };
+  
+  console.log('AddressScreen');
   
   return (
     <SafeAreaView style={styles.container}>
@@ -177,7 +194,7 @@ const AddressScreen = (props) => {
         <Text style={styles.searchText}>내 위치</Text>
       </TouchableOpacity>
       
-      <AddressSearch textInputRef={textInputRef.current} setInputText={setInputText}/>
+      <SearchAddress textInputRef={textInputRef.current} setInputText={setInputText}/>
       
       {BottomButton()}
       {LoadingCurrentLocation()}

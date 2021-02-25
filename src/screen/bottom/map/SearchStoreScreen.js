@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import FavoriteResult from '../../../components/FavoriteResult';
-import SearchResult from '../../../containers/SearchResult';
+import SearchResult from '../../../components/SearchResult';
 
 const SearchStoreScreen = () => {
   const [tabViewIndex, setTabViewIndex] = useState(0);

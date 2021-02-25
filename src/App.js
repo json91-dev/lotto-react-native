@@ -9,6 +9,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Root from './screen/RootNavigator';
+import { applyMiddleware, createStore } from 'redux';
+import reducer from './reducers';
+import rootSaga from './sagas';
+import createSagaMiddleware from 'redux-saga';
+const sagaMiddleware = createSagaMiddleware();
 
 /**
  * 리덕스 기본 세팅
@@ -18,7 +23,12 @@ import Root from './screen/RootNavigator';
  *
  */
 
-import configureStore from './redux/configureStore';
+function configureStore() {
+  const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+  sagaMiddleware.run(rootSaga);
+  
+  return store;
+}
 
 const store = configureStore();
 

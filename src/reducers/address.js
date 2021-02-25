@@ -1,15 +1,20 @@
-import {
-  SELECT_ADDRESS_ITEM,
-  DESELECT_ADDRESS_ITEM,
-  GET_ADDRESS_LIST_REQUEST,
-  GET_ADDRESS_LIST_SUCCESS,
-  GET_ADDRESS_LIST_FAILURE,
-  SET_INITIAL_SEARCH,
-  GET_CURRENT_LOCATION_ADDRESS_REQUEST,
-  GET_CURRENT_LOCATION_ADDRESS_SUCCESS,
-  GET_CURRENT_LOCATION_ADDRESS_FAILURE,
-} from '../actions';
+export const SET_INITIAL_SEARCH = "SET_INITIAL_SEARCH";
 
+// 주소 검색
+export const GET_ADDRESS_LIST_REQUEST ="GET_ADDRESS_LIST_REQUEST";
+export const GET_ADDRESS_LIST_SUCCESS = "GET_ADDRESS_LIST_SUCCESS";
+export const GET_ADDRESS_LIST_FAILURE = "GET_ADDRESS_LIST_FAILURE";
+
+// 주소 리스트 item 선택
+export const SELECT_ADDRESS_ITEM = "SELECT_ADDRESS_ITEM";
+export const DESELECT_ADDRESS_ITEM = "DESELECT_ADDRESS_ITEM";
+
+// 현재 위치 검색
+export const GET_CURRENT_LOCATION_ADDRESS_REQUEST =  "GET_CURRENT_LOCATION_ADDRESS_REQUEST";
+export const GET_CURRENT_LOCATION_ADDRESS_SUCCESS =  "GET_CURRENT_LOCATION_ADDRESS_SUCCESS";
+export const GET_CURRENT_LOCATION_ADDRESS_FAILURE =  "GET_CURRENT_LOCATION_ADDRESS_FAILURE";
+
+// 지도 검색 상태값
 export const INITIAL_SEARCH = 'INITIAL_SEARCH';
 export const ADDRESS_SEARCH_SUCCESS = 'ADDRESS_SEARCH_SUCCESS';
 export const ADDRESS_SEARCH_FAILED = 'ADDRESS_SEARCH_FAILED';
@@ -22,12 +27,15 @@ const InitialState = {
   addressList: [], // 주소 검색 결과로 얻어온 주소들의 배열 저장.
   searchResultState: INITIAL_SEARCH, // SearchAddress 컴포넌트의 상태값 저장
   error: '', // 발생한 에러 저장.
+  getAddressListError: null,
+  getCurrentLocationAddressError: null,
   isLoadingGetCurrentLocation: false, // 현재 위치 정보를 가져오는 로딩상태 저장.
   keyword: '', // 주소 검색시 키워드
   currentLocationAddress: '',
 };
 
 export default (state = InitialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case SET_INITIAL_SEARCH : {
       return {
@@ -58,34 +66,34 @@ export default (state = InitialState, action) => {
     case GET_ADDRESS_LIST_REQUEST: {
       return {
         ...state,
-        keyword: action.data.keyword,
+        keyword: action.data,
       };
     }
     
     // 주소 검색 후 결과 List 조회 성공
     case GET_ADDRESS_LIST_SUCCESS: {
-      const { addressList } = action.data;
+      const addressList = action.data;
       
-      if (action.data.addressList.length === 0) {
+      if (addressList.length === 0) {
         return {
           ...state,
           addressList,
           searchResultState: ADDRESS_SEARCH_FAILED,
         };
       }
-        return {
-          ...state,
-          addressList,
-          searchResultState: ADDRESS_SEARCH_SUCCESS,
-        };
       
+      return {
+        ...state,
+        addressList,
+        searchResultState: ADDRESS_SEARCH_SUCCESS,
+      };
     }
     
     // 주소 검색 후 결과 List 조회 실패
     case GET_ADDRESS_LIST_FAILURE: {
       return {
         ...state,
-        error: action.data.message,
+        getAddressListError: action.error,
         searchResultState: ADDRESS_SEARCH_FAILED,
       };
     }
@@ -104,7 +112,9 @@ export default (state = InitialState, action) => {
     
     // 내 위치를 통해 현재 주소 성공
     case GET_CURRENT_LOCATION_ADDRESS_SUCCESS: {
-      const { currentLocationAddress } = action.data;
+      const currentLocationAddress  = action.data;
+  
+      console.log(`isAddressSelected OK`);
       
       return {
         ...state,
@@ -112,6 +122,7 @@ export default (state = InitialState, action) => {
         searchResultState: CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS,
         isLoadingGetCurrentLocation: false,
         currentLocationAddress,
+        isAddressSelected: true,
       };
     }
     
@@ -119,7 +130,7 @@ export default (state = InitialState, action) => {
     case GET_CURRENT_LOCATION_ADDRESS_FAILURE: {
       return {
         ...state,
-        error: action.data.message,
+        getCurrentLocationAddressError: action.error,
         searchResultState: CURRENT_LOCATION_ADDRESS_SEARCH_FAILED,
         isLoadingGetCurrentLocation: false,
       };

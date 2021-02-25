@@ -1,14 +1,12 @@
-import {
-  GET_LATEST_LOTTO_ROUNDS_REQUEST,
-  GET_LATEST_LOTTO_ROUNDS_SUCCESS,
-  GET_LATEST_LOTTO_ROUNDS_FAILURE,
-  
-  GET_WIN_LOTTO_NUMBER_REQUEST,
-  GET_WIN_LOTTO_NUMBER_SUCCESS,
-  GET_WIN_LOTTO_NUMBER_FAILURE,
-  
-} from '../actions';
-import { INITIAL_SEARCH } from '../address/reducer';
+// 최신 로또 회차 검색
+export const GET_LATEST_LOTTO_ROUNDS_REQUEST = "GET_LATEST_LOTTO_ROUNDS_REQUEST";
+export const GET_LATEST_LOTTO_ROUNDS_SUCCESS= "GET_LATEST_LOTTO_ROUNDS_SUCCESS";
+export const GET_LATEST_LOTTO_ROUNDS_FAILURE = "GET_LATEST_LOTTO_ROUNDS_FAILURE";
+
+// 로또 번호 검색
+export const GET_WIN_LOTTO_NUMBER_REQUEST = "GET_WIN_LOTTO_NUMBER_REQUEST";
+export const GET_WIN_LOTTO_NUMBER_SUCCESS= "GET_WIN_LOTTO_NUMBER_SUCCESS";
+export const GET_WIN_LOTTO_NUMBER_FAILURE= "GET_WIN_LOTTO_NUMBER_FAILURE";
 
 const InitialState = {
   isGettingLatestLottoRound: false, // 최근 로또 라운드 조회중
@@ -32,7 +30,7 @@ export default (state = InitialState, action) => {
     }
     
     case GET_LATEST_LOTTO_ROUNDS_SUCCESS: {
-      const { latestLottoRounds } = action.data;
+      const latestLottoRounds  = action.data;
       return {
         ...state,
         isGettingLatestLottoRound: false,
@@ -41,12 +39,10 @@ export default (state = InitialState, action) => {
     }
     
     case GET_LATEST_LOTTO_ROUNDS_FAILURE: {
-      const { error } = action.data;
-      
       return {
         ...state,
         isGettingLatestLottoRound: false,
-        isGettingWinLottoNumbersError: error,
+        isGettingWinLottoNumbersError: action.error,
       };
     }
     
@@ -59,7 +55,7 @@ export default (state = InitialState, action) => {
     }
     
     case GET_WIN_LOTTO_NUMBER_SUCCESS: {
-      const { winLottoNumbers } = action.data;
+      const winLottoNumbers  = action.data;
       
       return {
         ...state,
@@ -69,12 +65,10 @@ export default (state = InitialState, action) => {
     }
     
     case GET_WIN_LOTTO_NUMBER_FAILURE: {
-      const { error } = action.data;
-      
       return {
         ...state,
         isGettingWinLottoNumbers: false,
-        isGettingWinLottoNumbersError: error,
+        isGettingWinLottoNumbersError: action.error,
       };
     }
     

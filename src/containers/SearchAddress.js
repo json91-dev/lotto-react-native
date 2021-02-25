@@ -12,23 +12,21 @@ import {
 } from 'react-native';
 
 import {
-  selectAddressItem,
-  deselectAddressItem,
-  setInitialSearch,
-} from '../redux/actions';
-
-import {
   INITIAL_SEARCH, // 검색전 맨 처음화면
   ADDRESS_SEARCH_SUCCESS, // 주소 검색이 성공했을때
   ADDRESS_SEARCH_FAILED, // 주소 검색이 실패했을때
   CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS, // 내 위치 찾기가 성공했을때
   CURRENT_LOCATION_ADDRESS_SEARCH_FAILED,
+  SELECT_ADDRESS_ITEM,
+  SET_INITIAL_SEARCH,
 } // 내 위치 찾기가 실패했을때
-  from '../redux/address/reducer';
+  from '../reducers/address';
 import { getItemFromAsync, setItemToAsync } from '../helpers/AsyncStroageHelper';
 
 // address 주소 검색 후
-const AddressSearch = (props) => {
+const SearchAddress = (props) => {
+  console.log('SearchAddress');
+  
   const [addressSearchResultItems, setAddressSearchResultItems] = React.useState([]);
   
   /**
@@ -56,22 +54,23 @@ const AddressSearch = (props) => {
    * - 선택되었다는 결과를 address reducer로 전달.
    */
   const onPressAddressSearchResultItem = (item, index) => () => {
-    // console.log(updateArray);
     const updateArray = addressSearchResultItems.map((resultItem) => {
-      const addressSearchItem = {...resultItem};
+      const addressSearchItem = { ...resultItem };
       
       if (addressSearchItem.index === index) {
         addressSearchItem.selected = true;
       } else {
         addressSearchItem.selected = false;
       }
+  
+      dispatch({
+        type: SELECT_ADDRESS_ITEM,
+      });
       
       return addressSearchItem;
     });
     
-    console.log(updateArray);
     setAddressSearchResultItems(updateArray);
-    dispatch(selectAddressItem());
     const { address_name } = updateArray[index];
     props.setInputText(address_name);
   };
@@ -80,11 +79,13 @@ const AddressSearch = (props) => {
   const onPressSearchAgain = useCallback(() => {
     props.textInputRef.focus();
     props.setInputText('');
-    dispatch(setInitialSearch());
+    dispatch({
+      type: SET_INITIAL_SEARCH,
+    });
   }, []);
   
   const searchResult = () => {
-    const { searchResultState, keyword, currentLocationAddress, setInputText } = useSelector(state => state.address);
+    const { searchResultState, keyword, currentLocationAddress } = useSelector(state => state.address);
     
     switch (searchResultState) {
       // 초기 검색 시
@@ -139,8 +140,8 @@ const AddressSearch = (props) => {
       
       case CURRENT_LOCATION_ADDRESS_SEARCH_SUCCESS: {
         (async () => {
+          console.log('22');
           props.setInputText(currentLocationAddress); // 받아온 위치를 현재 내 위치로 저장함.
-          selectAddressItem();
           const singinInfo = await getItemFromAsync('signinInfo');
           await setItemToAsync('singninInfo', { ...singinInfo, address: currentLocationAddress });
         })();
@@ -175,33 +176,14 @@ const AddressSearch = (props) => {
   );
 };
 
-AddressSearch.propTypes = {
+SearchAddress.propTypes = {
   setInputText: PropTypes.func.isRequired,
   textInputRef: PropTypes.shape({
     focus: PropTypes.func,
   }).isRequired,
 };
 
-const mapStateToProps = ({ address }) => {
-  const { isAddressSelected,  addressList, searchResultState, keyword, currentLocationAddress } = address;
-  
-  return {
-    isAddressSelected,
-    addressList,
-    searchResultState,
-    keyword,
-    currentLocationAddress
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    selectAddressItem,
-    deselectAddressItem,
-    setInitialSearch,
-  },
-)(AddressSearch);
+export default SearchAddress;
 
 const styles = StyleSheet.create({
   container: {

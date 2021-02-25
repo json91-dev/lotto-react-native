@@ -7,7 +7,7 @@ import {
   GET_WIN_LOTTO_NUMBER_REQUEST,
   GET_WIN_LOTTO_NUMBER_SUCCESS,
   GET_WIN_LOTTO_NUMBER_FAILURE,
-} from '../actions';
+} from '../reducers/lottonumber';
 
 /**
  * 최근 로또 번호에 대한 회차 정보 가져오기
@@ -51,9 +51,8 @@ function* getLatestLottoRounds() {
     // 최신 로또 라운드 조회 성공
     yield put({
       type: GET_LATEST_LOTTO_ROUNDS_SUCCESS,
-      data: {
-        latestLottoRounds,
-      }
+      data: latestLottoRounds,
+      
     });
     
     const { round } = latestLottoRounds[0];
@@ -61,9 +60,7 @@ function* getLatestLottoRounds() {
     // 최신 로또 라운드의 결과에서 가장 최신의 round에 대해 로또 정보를 가져오는 Action dispatch
     yield put({
       type: GET_WIN_LOTTO_NUMBER_REQUEST,
-      data: {
-        round,
-      }
+      data: round,
     });
     
   } catch (e) {
@@ -82,9 +79,7 @@ function* watchGetWinLottoNumbers() {
   yield takeEvery (GET_WIN_LOTTO_NUMBER_REQUEST, getWinLottoNumbers);
 }
 
-function getWinLottoNumbersAPI(data) {
-  const { round } = data;
-  
+function getWinLottoNumbersAPI(round) {
   // 요청한 회차의 당첨번호와 당첨 정보에 대한 데이터
   const dummyWinLottoNumbersList = [
     {
@@ -241,17 +236,13 @@ function getWinLottoNumbersAPI(data) {
 
 function* getWinLottoNumbers(action) {
   try {
-    // yield delay(2000);
     const winLottoNumbers = yield call(getWinLottoNumbersAPI, action.data);
     
     yield put({
       type: GET_WIN_LOTTO_NUMBER_SUCCESS,
-      data: {
-        winLottoNumbers,
-      },
+      data: winLottoNumbers,
     });
   } catch (e) {
-    console.log(e);
     yield put({
       type: GET_WIN_LOTTO_NUMBER_FAILURE,
       error: e,

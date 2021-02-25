@@ -15,9 +15,8 @@ import { ScrollPicker } from 'react-native-value-picker';
 import LottoNumbers from '../../../components/LottoNumbers';
 import LottoDetail from '../../../components/LottoDetail';
 import {
-  getLatestLottoRound,
-  getWinLottoNumber,
-} from '../../../redux/actions';
+  GET_LATEST_LOTTO_ROUNDS_REQUEST, GET_WIN_LOTTO_NUMBER_REQUEST,
+} from '../../../reducers/lottonumber';
 
 const CheckPrizeScreen = (props) => {
   const [ pickedValue, setPickedValue ] = useState(0);
@@ -31,7 +30,9 @@ const CheckPrizeScreen = (props) => {
   
   // 처음에 한번만 로또 정보를 불러와서 수행.
   useEffect(() => {
-    dispatch(getLatestLottoRound());
+    dispatch({
+      type: GET_LATEST_LOTTO_ROUNDS_REQUEST,
+    });
   }, []);
   
   useEffect(() => {
@@ -69,7 +70,11 @@ const CheckPrizeScreen = (props) => {
   const onBottomSheetItemClicked = useCallback((index) => {
     const { round, roundDate } = latestLottoRounds[index];
     
-    dispatch(getWinLottoNumber(round));
+    dispatch({
+      type: GET_WIN_LOTTO_NUMBER_REQUEST,
+      data: round,
+    });
+    
     setPickedValue(index);
     refRBSheet.current.close();
     
