@@ -12,9 +12,6 @@ import {
 /**
  * 최근 로또 번호에 대한 회차 정보 가져오기
  */
-function* watchGetLatestLottoRounds() {
-  yield takeEvery (GET_LATEST_LOTTO_ROUNDS_REQUEST, getLatestLottoRounds);
-}
 
 function getLatestLottoRoundsAPI() {
   // 각 로또 라운드에서 최신 라운드를 가져오는 dummy 데이터
@@ -72,12 +69,13 @@ function* getLatestLottoRounds() {
   }
 }
 
+function* watchGetLatestLottoRounds() {
+  yield takeEvery (GET_LATEST_LOTTO_ROUNDS_REQUEST, getLatestLottoRounds);
+}
+
 /**
  * 해당 회차에 대한 로또 정보 가져오기
  */
-function* watchGetWinLottoNumbers() {
-  yield takeEvery (GET_WIN_LOTTO_NUMBER_REQUEST, getWinLottoNumbers);
-}
 
 function getWinLottoNumbersAPI(round) {
   // 요청한 회차의 당첨번호와 당첨 정보에 대한 데이터
@@ -248,6 +246,10 @@ function* getWinLottoNumbers(action) {
       error: e,
     });
   }
+}
+
+function* watchGetWinLottoNumbers() {
+  yield takeEvery (GET_WIN_LOTTO_NUMBER_REQUEST, getWinLottoNumbers);
 }
 
 export default function* rootSaga() {
