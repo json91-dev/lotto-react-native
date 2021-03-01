@@ -135,7 +135,9 @@ const dummyStore = [
 
 function getStoresAPI() {
   // return axios.get('/stores');
-  return dummyStore;
+  return {
+    data: dummyStore,
+  };
 }
 
 function* getStores(action) {
@@ -164,7 +166,10 @@ export function* watchGetStore() {
 function getStoresRadiusAPI(location) {
   const { longitude, latitude, radius } = location;
   // return axios.get(`/stores/searchRadius?long=${longitude}&lat=${latitude}&rad=${radius}`);
-  return dummyStore;
+  
+  return {
+    data: dummyStore
+  };
 }
 
 function* getStoresRadius(action) {

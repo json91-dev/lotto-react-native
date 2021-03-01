@@ -10,7 +10,7 @@ import {
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/LottoStoreSheetContent';
-import NaverMap from '../../../components/NaverMap';
+import NMap from '../../../containers/NMap';
 import MapLinkButtonsComponent from '../../../components/MapLinkButtonsComponent';
 
 const windowWidth = Dimensions.get('window').width;
@@ -81,7 +81,7 @@ const MapScreen = (props) => {
         ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
         : null
       }
-      <NaverMap/>
+      <NMap/>
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
           <Image style={styles.backButtonImage} source={require('../../../assets/ic_black_back_arrow.png')}/>
