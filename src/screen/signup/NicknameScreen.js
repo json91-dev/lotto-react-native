@@ -21,6 +21,19 @@ export default function NicknameScreen({navigation}) {
   // 토스트의 위치 조정을 위한 변수
   const [toastPostionValue, setToastPositionValue] = React.useState(200);
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+  
+  // 키보드가 보일때 동작하는 콜백함수.
+  const _keyboardDidShow = (e) => {
+    const currentKeyboardHeight = e.endCoordinates.height;
+    setToastPositionValue(toastPostionValue + currentKeyboardHeight);
+    setKeyboardHeight(currentKeyboardHeight);
+  };
+  
+  // 키보드가 보이지 않을때 동작하는 콜백함
+  const _keyboardDidHide = () => {
+    textInputRef.current.blur();
+    setToastPositionValue(toastPostionValue - keyboardHeight);
+  };
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
@@ -32,34 +45,22 @@ export default function NicknameScreen({navigation}) {
     };
   }, []);
 
-  // 키보드가 보일때 동작하는 콜백함수.
-  const _keyboardDidShow = (e) => {
-    const currentKeyboardHeight = e.endCoordinates.height;
-    setToastPositionValue(toastPostionValue + currentKeyboardHeight);
-    setKeyboardHeight(currentKeyboardHeight);
-  };
-
-  // 키보드가 보이지 않을때 동작하는 콜백함
-  const _keyboardDidHide = () => {
-    textInputRef.current.blur();
-    setToastPositionValue(toastPostionValue - keyboardHeight);
-  };
-
-  // 확인버튼을 눌렀을때 동작하는 콜백함수.
+  // 확인 버튼을 누르면 텍스트 유효성 검사 진행
+  // 유효하지 않을시 토스트 메세지 출력
+  // 유효하면 다음 화면으로 이동
   const confirm = async () => {
-    if(getByte(inputText) < 6) {
+    if (getByte(inputText) < 6) {
       toastRef.current.show('최소 3글자 이상 입력해주세요.');
+      return;
     }
     
-    else if  (getByte(inputText) > 16) {
+    if (getByte(inputText) > 16) {
       toastRef.current.show('한글, 영문, 숫자 최대 8자로 입력해주세요.');
+      return;
     }
-    
-    // 조건에 맞을 시, AsyncStorage로 유저 닉네임 저장.
-    else {
-      await setItemToAsync('signinInfo', {nickname: inputText});
-      navigation.navigate('AddressScreen');
-    }
+  
+    await setItemToAsync('signinInfo', { nickname: inputText });
+    navigation.navigate('AddressScreen');
   };
   
   // inputText의 입력값을 ''으로 설정하는 콜백함수.

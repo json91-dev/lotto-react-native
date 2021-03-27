@@ -3,7 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import SignUpStackNavigator from './signup/SignUpStackNavigator';
-import BottomNavigator from './bottom/BottomNavigator';
+import MapStackNavigator from './map/MapStackNavigator';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +12,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName = "SignUpNavigator">
         <Stack.Screen name="SignUpNavigator" options={{ headerShown: false }} component={SignUpStackNavigator}/>
-        <Stack.Screen name="BottomNavigator" options={{ headerShown: false }} component={BottomNavigator}/>
+        <Stack.Screen name="MapStackNavigator" options={{ headerShown: false }} component={MapStackNavigator}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

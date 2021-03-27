@@ -3,6 +3,7 @@ import axios from 'axios';
 import addressSagas from './address';
 import lottonumberSagas from './lottonumber';
 import storesSagas from './stores';
+import userSagas from './user';
 import { backUrl } from "../config/config";
 
 axios.defaults.baseURL = `${backUrl}/api`;
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     addressSagas(),
     lottonumberSagas(),
     storesSagas(),
+    userSagas(),
   ]);
 }

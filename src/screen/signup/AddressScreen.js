@@ -10,7 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import SearchAddress from '../../containers/SearchAddress';
+import AddressSearchForm from '../../containers/AddressSearchForm';
 
 import {
   SELECT_ADDRESS_ITEM,
@@ -76,7 +76,7 @@ const AddressScreen = (props) => {
     const address = inputText;
     const singinInfo = await getItemFromAsync('signinInfo');
     await setItemToAsync('singninInfo', { ...singinInfo, address });
-    props.navigation.replace('BottomNavigator');
+    props.navigation.replace('MapStackNavigator');
   };
   
   // Input버튼의 x버튼을 눌렀을때 동작하는 콜백함수.
@@ -194,7 +194,7 @@ const AddressScreen = (props) => {
         <Text style={styles.searchText}>내 위치</Text>
       </TouchableOpacity>
       
-      <SearchAddress textInputRef={textInputRef.current} setInputText={setInputText}/>
+      <AddressSearchForm textInputRef={textInputRef.current} setInputText={setInputText}/>
       
       {BottomButton()}
       {LoadingCurrentLocation()}

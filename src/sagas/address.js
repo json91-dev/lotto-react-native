@@ -48,7 +48,7 @@ export function* watchGetAddressList() {
  */
 
 function getCurrentLocationAddressAPI(location) {
-  const {longitude, latitude} = location
+  const {longitude, latitude} = location;
   const config = {
     headers: {
       Authorization: KakaoRestApiKey

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import address from './address';
 import lottonumber from './lottonumber';
 import stores from './stores';
+import user from './user';
 
 /**
  * 모든 리듀서를 불러온다.
@@ -10,7 +11,8 @@ import stores from './stores';
 const index = combineReducers({
   address,
   lottonumber,
-  stores
+  stores,
+  user,
 });
 
 export default index;

@@ -142,7 +142,6 @@ function getStoresAPI() {
 
 function* getStores(action) {
   try {
-  
     yield delay(2000);
     const result = yield call(getStoresAPI, action.data);
   

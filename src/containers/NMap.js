@@ -26,7 +26,7 @@ const NMap = () => {
   
   const [currentLocation, setCurrentLocation] = useState({ latitude: 0, longitude: 0 });
   
-  console.log(stores);
+  
   return (
     <NaverMapView
       style={{ width: '100%', height: '100%' }}
@@ -40,8 +40,9 @@ const NMap = () => {
       {
         stores ?
           stores.map((item, index) => {
+            console.log('마커');
             return (
-              <NMarker key={+new Date() + item.id} store={item} pinColor="red"/>
+              <NMarker key={+new Date() + item.id} store={item} />
             );
           })
           : null

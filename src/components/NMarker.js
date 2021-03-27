@@ -1,19 +1,56 @@
 import NaverMapView, { Circle, Marker } from 'react-native-nmap';
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { SET_CURRENT_STORE } from '../reducers/stores';
 
 const NMarker = ({store}) => {
-  
   const { longitude, latitude } = store;
   const coordinate = {
     longitude,
     latitude,
   };
+  const dispatch = useDispatch();
+  const stores = useSelector(state => state.stores);
   
-  console.log('NMAP 호출');
+  const [ markerWidth, setMarkerWidth ]  = useState(18);
+  const [ markerHeight, setMarkerHeight ] = useState(18);
+  
+  useEffect(() => {
+    if (stores.currentStore.id === store.id) {
+      setMarkerWidth(55);
+      setMarkerHeight(36);
+    } else {
+      setMarkerWidth(22);
+      setMarkerHeight(22);
+    }
+    
+  },[stores.currentStore]);
+  
+  const getMarkerImage = () => {
+    if (stores.currentStore.id === store.id) {
+      return require('../assets/ic_pin_map.png');
+    } else {
+      return require('../assets/ic_marker_red.png');
+    }
+  };
+  
+  const onClickMarker = (store) => () => {
+    console.log(store);
+    dispatch({
+      type: SET_CURRENT_STORE,
+      data: store,
+    });
+  };
   
   return (
-    <Marker coordinate={coordinate} pinColor="red"
+    <Marker coordinate={coordinate}
+            image={getMarkerImage()}
+            width={markerWidth}
+            height={markerHeight}
+            onClick={onClickMarker(store)}
     />
   );
 };

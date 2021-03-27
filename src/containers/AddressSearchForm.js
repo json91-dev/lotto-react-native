@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -24,7 +24,7 @@ import {
 import { getItemFromAsync, setItemToAsync } from '../helpers/AsyncStroageHelper';
 
 // address 주소 검색 후
-const SearchAddress = (props) => {
+const AddressSearchForm = (props) => {
   console.log('SearchAddress');
   
   const [addressSearchResultItems, setAddressSearchResultItems] = React.useState([]);
@@ -176,14 +176,14 @@ const SearchAddress = (props) => {
   );
 };
 
-SearchAddress.propTypes = {
+AddressSearchForm.propTypes = {
   setInputText: PropTypes.func.isRequired,
   textInputRef: PropTypes.shape({
     focus: PropTypes.func,
   }).isRequired,
 };
 
-export default SearchAddress;
+export default AddressSearchForm;
 
 const styles = StyleSheet.create({
   container: {
