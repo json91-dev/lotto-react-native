@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -37,10 +37,6 @@ const MapScreen = (props) => {
     );
   };
   
-  const P0 = { latitude: 37.564362, longitude: 126.977011 };
-  const P1 = { latitude: 37.565051, longitude: 126.978567 };
-  const P2 = { latitude: 37.565383, longitude: 126.976292 };
-  
   const onPressBottomSheetSettle = (state) => {
     switch (state) {
       case 0:
@@ -66,7 +62,7 @@ const MapScreen = (props) => {
    */
   const getSheetBottomPosition = () => {
     const bottomHeaderHeight = 190;
-    const bottomTabBarHeight = 60;
+    const bottomTabBarHeight = 0;
     
     if (Platform.OS === 'android') {
       const statusBarHeight = StatusBar.currentHeight;

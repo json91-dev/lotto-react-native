@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { StyleSheet ,
   View,
   Text,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -13,6 +14,11 @@ const MapLinkButtonsComponent = (props) => {
   
   }, []);
   
+  const onPressTmap = useCallback(() => {
+    const urlToOpen = 'tmap://route?goalx=126.980316&goaly=37.568091';
+    Linking.openURL(urlToOpen);
+  }, []);
+  
   return (
     <View style={styles.container}>
       <View style={styles.linkContainer}>
@@ -20,7 +26,7 @@ const MapLinkButtonsComponent = (props) => {
           <Text style={styles.linkText}>카카오내비로 안내</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity style={styles.linkTouch}>
+        <TouchableOpacity style={styles.linkTouch} onPress={onPressTmap}>
           <Text style={styles.linkText}>티맵으로 안내</Text>
         </TouchableOpacity>
         
