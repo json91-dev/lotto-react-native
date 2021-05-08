@@ -35,7 +35,6 @@ const InitialState = {
 };
 
 export default (state = InitialState, action) => {
-  console.log(action.type);
   switch (action.type) {
     case SET_INITIAL_SEARCH : {
       return {
@@ -113,8 +112,6 @@ export default (state = InitialState, action) => {
     // 내 위치를 통해 현재 주소 성공
     case GET_CURRENT_LOCATION_ADDRESS_SUCCESS: {
       const currentLocationAddress  = action.data;
-  
-      console.log(`isAddressSelected OK`);
       
       return {
         ...state,

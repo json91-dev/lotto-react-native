@@ -26,6 +26,7 @@
     "react-native-device-info": "^8.0.2",
     "react-native-easy-grid": "^0.2.2",
     "react-native-easy-toast": "^1.2.0",
+    "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-nmap": "0.0.51",
     "react-native-permissions": "^2.1.5",
@@ -36,6 +37,7 @@
     "react-native-safe-area-context": "^0.6.4",
     "react-native-screens": "^2.0.0-alpha.33",
     "react-native-scroll-bottom-sheet": "^0.7.0",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^12.1.0",
     "react-native-value-picker": "^0.1.1",
     "react-redux": "^7.2.0",
@@ -48,6 +50,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
+    "@bam.tech/react-native-make": "^3.0.0",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",

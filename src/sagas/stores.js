@@ -164,16 +164,12 @@ export function* watchGetStore() {
 
 function getStoresRadiusAPI(location) {
   const { longitude, latitude, radius } = location;
-  // return axios.get(`/stores/searchRadius?long=${longitude}&lat=${latitude}&rad=${radius}`);
-  
-  return {
-    data: dummyStore
-  };
+  console.log(axios.defaults.baseURL);
+  return axios.get(`/stores/searchRadius?long=${longitude}&lat=${latitude}&rad=${radius}`);
 }
 
 function* getStoresRadius(action) {
   try {
-    yield delay(2000);
     const result = yield call(getStoresRadiusAPI, action.data);
     
     yield put({

@@ -19,6 +19,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* LottoProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LottoProjectTests.m */; };
 		44B780C66AEA205E4A656AA0 /* libPods-LottoProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C9A5D3BCB676BE588ECD48 /* libPods-LottoProject.a */; };
+		85CBAAA42646EAB800D668FB /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */; };
 		90605518D80661C4C74A7BE4 /* libPods-LottoProject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4499986EAAACA34A46EBC30 /* libPods-LottoProject-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		386B76A59D6D9B3B33A95147 /* Pods-LottoProject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-LottoProject-tvOSTests/Pods-LottoProject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		446E5238CF29CE2FF7BC03E7 /* Pods-LottoProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-LottoProject-tvOS/Pods-LottoProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7713C4BC1F305B1F2BFB9082 /* Pods-LottoProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-LottoProject-tvOSTests/Pods-LottoProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		9A9057E87E01B43C4B2DA395 /* libPods-LottoProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LottoProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FAC6B2CF2AF6927AF07433D /* libPods-LottoProject-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LottoProject-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4499986EAAACA34A46EBC30 /* libPods-LottoProject-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LottoProject-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,7 +163,6 @@
 				25B129205CBCC8CFCF843542 /* Pods-LottoProjectTests.debug.xcconfig */,
 				1B4B67142CE5AD3BC923966F /* Pods-LottoProjectTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */,
 				13B07FAE1A68108700A75B9A /* LottoProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* LottoProjectTests */,
@@ -309,6 +311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				85CBAAA42646EAB800D668FB /* SplashScreen.storyboard in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

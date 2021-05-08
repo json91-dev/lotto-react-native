@@ -77,7 +77,7 @@ const MapScreen = (props) => {
         ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
         : null
       }
-      <NMap/>
+      <NMap key={+new Date() + Math.random()}/>
       <View style={styles.backButtonView}>
         <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
           <Image style={styles.backButtonImage} source={require('../../../assets/ic_black_back_arrow.png')}/>

@@ -6,13 +6,15 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Provider } from 'react-redux';
-import Root from './screen/RootNavigator';
 import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import Root from './screen/RootNavigator';
 import reducer from './reducers';
 import rootSaga from './sagas';
-import createSagaMiddleware from 'redux-saga';
+import SplashScreen from 'react-native-splash-screen';
+
 const sagaMiddleware = createSagaMiddleware();
 
 /**
@@ -33,6 +35,16 @@ function configureStore() {
 const store = configureStore();
 
 const App  = () => {
+  
+  useEffect(() => {
+    try {
+      SplashScreen.hide();
+    } catch(e) {
+      console.warn('에러발생');
+      console.warn(e);
+    }
+  })
+  
   return (
     <Provider store={store}>
       <Root/>

@@ -1,12 +1,12 @@
 import NaverMapView, { Circle, Marker } from 'react-native-nmap';
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_STORE } from '../reducers/stores';
 
-const NMarker = ({store}) => {
+const NMarker = memo(({store}) => {
   const { longitude, latitude } = store;
   const coordinate = {
     longitude,
@@ -26,7 +26,6 @@ const NMarker = ({store}) => {
       setMarkerWidth(22);
       setMarkerHeight(22);
     }
-    
   },[stores.currentStore]);
   
   const getMarkerImage = () => {
@@ -38,7 +37,6 @@ const NMarker = ({store}) => {
   };
   
   const onClickMarker = (store) => () => {
-    console.log(store);
     dispatch({
       type: SET_CURRENT_STORE,
       data: store,
@@ -53,7 +51,7 @@ const NMarker = ({store}) => {
             onClick={onClickMarker(store)}
     />
   );
-};
+});
 
 NMarker.propTypes = {
   store: PropTypes.shape({
