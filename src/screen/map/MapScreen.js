@@ -18,7 +18,6 @@ const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {
   useEffect(() => {
-  
   }, []);
   
   const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
@@ -70,6 +69,8 @@ const MapScreen = (props) => {
     }
     return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
   };
+  
+  console.log('Mapscreen');
   
   return (
     <View style={styles.container}>
