@@ -12,12 +12,15 @@ import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../containers/NMap';
 import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
+import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {
   useEffect(() => {
+  
+  
   }, []);
   
   const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
@@ -36,6 +39,7 @@ const MapScreen = (props) => {
     );
   };
   
+  // 현재 BottomSheet의 상태를 반환하고 bottomSheetState를 업데이트하는 함수
   const onPressBottomSheetSettle = (state) => {
     switch (state) {
       case 0:
@@ -60,7 +64,7 @@ const MapScreen = (props) => {
    * : 안드로이드일떄는 statusBarHeight도 추가하여 빼줘야 정상적으로 동작한다.
    */
   const getSheetBottomPosition = () => {
-    const bottomHeaderHeight = 190;
+    const bottomHeaderHeight = 160;
     const bottomTabBarHeight = 0;
     
     if (Platform.OS === 'android') {
@@ -70,8 +74,6 @@ const MapScreen = (props) => {
     return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
   };
   
-  console.log('Mapscreen');
-  
   return (
     <View style={styles.container}>
       {isOpenedMapLinkButtons
@@ -79,21 +81,23 @@ const MapScreen = (props) => {
         : null
       }
       <NMap/>
-      <View style={styles.backButtonView}>
-        <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>
-          <Image style={styles.backButtonImage} source={require('../../assets/ic_black_back_arrow.png')}/>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.searchButtonView}>
-        <TouchableOpacity style={styles.searchButtonTouch}
-                          onPress={() => props.navigation.navigate('SearchStoreScreen')}>
-          <Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/>
-        </TouchableOpacity>
-      </View>
+      {/*<View style={styles.backButtonView}>*/}
+        {/*<TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>*/}
+          {/*<Image style={styles.backButtonImage} source={require('../../assets/ic_black_back_arrow.png')}/>*/}
+        {/*</TouchableOpacity>*/}
+      {/*</View>*/}
+      {/*<View style={styles.searchButtonView}>*/}
+        {/*<TouchableOpacity style={styles.searchButtonTouch}*/}
+                          {/*onPress={() => props.navigation.navigate('SearchStoreScreen')}>*/}
+          {/*<Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/>*/}
+        {/*</TouchableOpacity>*/}
+      {/*</View>*/}
+      
+      <MapSearchRadiusButton/>
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
-        snapPoints={[0, windowHeight * 0.3, getSheetBottomPosition()]}
+        snapPoints={[getSheetBottomPosition(), getSheetBottomPosition(), getSheetBottomPosition()]}
         initialSnapIndex={2}
         renderHandle={() => (
           renderHeader()
@@ -103,7 +107,7 @@ const MapScreen = (props) => {
         renderItem={({ item }) => (
           renderContent()
         )}
-        onSettle={onPressBottomSheetSettle}
+        // onSettle={onPressBottomSheetSettle} // 추후 Scroll 바텀시트 구현시 사용
       />
     </View>
   );

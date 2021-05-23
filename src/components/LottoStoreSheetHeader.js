@@ -1,18 +1,31 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component, useEffect, } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  Image,
+  Image, Dimensions,
+  PixelRatio,
+  Platform
+  
 } from 'react-native';
+import { getFontSize } from '../helpers/Utils';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const vh = windowHeight / 100;
+const vw = windowWidth / 100;
+
+import { isIphoneX } from "react-native-iphone-x-helper";
+
 
 const LottoStoreSheetHeader = (props) => {
   
   const { setIsOpenedMapLinkButtons } = props;
-  
-  switch(props.bottomSheetState) {
+
+  switch (props.bottomSheetState) {
     case 'bottom': {
       return (
         <View style={styles.bottomContainer}>
@@ -21,34 +34,36 @@ const LottoStoreSheetHeader = (props) => {
           </View>
           
           <View style={styles.storeTitleView}>
-            <Text style={styles.storeNameText}>스파</Text>
-            <TouchableOpacity>
-              <Image style={styles.favoriteImage} source={require('../assets/ic_favorite_star.png')}/>
+            <View>
+              <Text style={styles.storeNameText}>상점명</Text>
+              <View style={styles.storeDetailView}>
+                <Text style={{color: '#abbdbe', marginRight: 5}}>1등</Text>
+                <Text style={{color: '#74798a'}}>76회</Text>
+                <Text style={{color: '#74798a', marginLeft: 15, marginRight: 15}}>|</Text>
+                <Text style={{color: "#abbdbe", marginRight: 5}}>2등</Text>
+                <Text style={{color: '#74798a'}}>127회 </Text>
+              </View>
+            </View>
+            <TouchableOpacity style={{justifyContent: 'center'}}>
+              <Image style={styles.findRoadImage} source={require('../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
           
-          <View style={styles.storeDetailView}>
-            {/* <Text>118m  |  방문  76  |  찜  1.27 </Text> */}
-            <Text style={{color: '#2157f3'}}>118m</Text>
-            <Text style={{color: '#74798a'}}>  |  </Text>
-            <Text style={{color: '#abbdbe'}}>방문  </Text>
-            <Text>76</Text>
-            <Text style={{color: '#74798a'}}>  |  </Text>
-            <Text style={{color: "#abbdbe"}}>찜  </Text>
-            <Text>1.27 </Text>
+          <View style={styles.storeAddressView}>
+            <View style={styles.storeAddressViewLeft}>
+              <Text style={styles.storeAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호 </Text>
+            </View>
+            <View style={styles.storeAddressViewRight}>
+              <Text style={styles.moreDetailDistanceText}>418m</Text>
+            </View>
           </View>
           
-          <View style={{marginTop: 6}}>
-            <Text style={styles.storeAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호</Text>
-          </View>
-          
-          <TouchableOpacity style={styles.storeGuideTouch} onPress={()=> setIsOpenedMapLinkButtons(true)}>
-            <Text style={styles.storeGuideText}>길 안내 시작</Text>
-          </TouchableOpacity>
-          
-          <View style={styles.bottomBarView}>
-            <View style={styles.bottomBarInnerView} />
-          </View>
+          { !isIphoneX() ?
+              <View style={styles.bottomBarView}>
+                <View style={styles.bottomBarInnerView} />
+              </View>
+            : null
+          }
         </View>
       );
     }
@@ -113,7 +128,7 @@ const LottoStoreSheetHeader = (props) => {
           
           <View style={styles.topContainerBottomView}>
             <View style={styles.topContainerBottomViewLeft}>
-              <Text style={styles.topContainerBottomViewLeftAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호</Text>
+              <Text style={styles.topContainerBottomViewLeftAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호 </Text>
               <Text style={styles.topContainerBottomViewLeftDistanceText}>418m</Text>
             </View>
             <TouchableOpacity onPress={()=> setIsOpenedMapLinkButtons(true)}>
@@ -143,9 +158,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: 'white',
-    height: 190,
+    height: 160,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
+    justifyContent: 'center'
   },
   
   storeTitleView: {
@@ -159,16 +175,18 @@ const styles = StyleSheet.create({
   },
   
   storeNameText: {
-    fontSize: 20,
+    fontSize: getFontSize() + 6,
+    marginBottom: vh,
   },
   
   storeDetailView: {
-    marginTop: 6,
-    flexDirection: 'row'
+    fontSize: getFontSize(),
+    flexDirection: 'row',
+    marginBottom: 10,
   },
   
   storeAddressText: {
-    fontSize: 14,
+    fontSize: getFontSize(),
     color: "#74798a"
   },
   
@@ -231,7 +249,10 @@ const styles = StyleSheet.create({
   },
   
   topBarView: {
-    width: '100%', alignItems: 'center', marginTop: 7
+    width: '100%',
+    position: 'absolute',
+    top: 5,
+    left: windowWidth * 0.5 - 25
   },
   
   topBarInnerView: {
@@ -242,8 +263,11 @@ const styles = StyleSheet.create({
   },
   
   bottomBarView: {
-    width: '100%',
-    alignItems: 'center'
+    position: 'absolute',
+    alignItems: 'center',
+    bottom: 3,
+    left: windowWidth * 0.5 - 67
+    
   },
   
   bottomBarInnerView: {
@@ -306,5 +330,22 @@ const styles = StyleSheet.create({
   
   topContainerBottomViewLeftDistanceText: {
     color: "#2157f3"
-  }
+  },
+  
+  storeAddressView: {
+    marginTop: 0,
+    flexDirection: 'row',
+  },
+  
+  storeAddressViewLeft: {
+    width: '87%',
+  },
+  
+  storeAddressViewRight: {
+    width: '13%',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    paddingRight: 1
+  },
+  
 });

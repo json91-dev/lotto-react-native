@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, memo} from 'react';
 import NaverMapView from 'react-native-nmap';
-import NMarker from '../components/NMarker';
 import { useSelector, useDispatch } from 'react-redux';
+import NMarker from '../components/NMarker';
 import { getCurrentPosition } from '../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST, GET_STORES_RADIUS_SUCCESS, GET_STORES_REQUEST } from '../reducers/stores';
 
@@ -31,9 +31,11 @@ const NMap = memo(() => {
   }, []);
   
   // 초기에는 nmap을 그리지 않도록 예외처리
-  if (currentLocationRef.current["latitude"] === 0 && currentLocationRef.current["longitude"] === 0) {
+  if (currentLocationRef.current.latitude === 0 && currentLocationRef.current.longitude === 0) {
     return null;
   }
+  
+  console.log('nmapView 호출');
   
   return (
     <NaverMapView
@@ -42,7 +44,7 @@ const NMap = memo(() => {
       center={{ ...currentLocationRef.current, zoom: 16 }}
       // onTouch={e =>}
       // onMapClick={e => this}
-      mapPadding={{ bottom: 160 }}
+      mapPadding={{ bottom: 130 }}
       logoGravity={0}
       key={+new Date()}
     >
