@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState, } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,19 +7,37 @@ import {
   Dimensions, StatusBar, Platform,
 } from 'react-native';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../containers/NMap';
 import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
+import { getCurrentPosition } from '../../helpers/Location';
+import { GET_STORES_RADIUS_REQUEST } from '../../reducers/stores';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {
-  useEffect(() => {
+  const dispatch = useDispatch();
   
+  useEffect(() => {
+    getCurrentPosition().then(position => {
+      const { latitude, longitude } = position;
+      const radius = 1;
+
+      dispatch({
+        type: GET_STORES_RADIUS_REQUEST,
+        data: {
+          latitude,
+          longitude,
+          radius,
+        }
+      });
+    });
   
   }, []);
   

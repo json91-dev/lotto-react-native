@@ -3,16 +3,12 @@ import React, {useState, useCallback} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Animated} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentPosition } from '../helpers/Location';
-import { GET_STORES_RADIUS_REQUEST } from '../reducers/stores';
+import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_RADIUS } from '../reducers/stores';
 
 const viewHeightAnim = new Animated.Value(40);
 const fadeAnim1km = new Animated.Value(0);
 const fadeAnim2km = new Animated.Value(0);
 const fadeAnim3km = new Animated.Value(0);
-
-
-
-
 
 const increateViewHeight = () => {
   Animated.timing(
@@ -93,6 +89,11 @@ const MapSearchRadiusButton = () => {
           radius,
         }
       });
+  
+      dispatch({
+        type: SET_CURRENT_RADIUS,
+        data: radius,
+      });
     });
   };
   
@@ -140,8 +141,6 @@ const MapSearchRadiusButton = () => {
     // fadeIn3km();
     // increateViewHeight();
   },[]);
-  
-  
   
   let fontColor1km = {};
   let fontColor2km = {};

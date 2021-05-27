@@ -8,10 +8,12 @@ export const GET_STORES_RADIUS_SUCCESS = 'GET_STORES_RADIUS_SUCCESS';
 export const GET_STORES_RADIUS_FAILURE = 'GET_STORES_RADIUS_FAILURE';
 
 export const SET_CURRENT_STORE = 'SET_CURRENT_STORE';
+export const SET_CURRENT_RADIUS = "GET_CURRENT_RADIUS";
 
 const InitialState = {
   stores: [],
   currentStore: {},
+  currentRadius: 1,
   getStoresErrorReason: '',
   isGettingStores: false,
   getStoresRadiusErrorReason: '',
@@ -24,6 +26,13 @@ export default (state = InitialState, action) => {
       return {
         ...state,
         currentStore: action.data,
+      };
+    }
+  
+    case SET_CURRENT_RADIUS : {
+      return {
+        ...state,
+        currentRadius: action.data,
       };
     }
     
