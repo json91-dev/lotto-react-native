@@ -13,7 +13,7 @@ import LottoStoreSheetContent from '../../../components/LottoStoreSheetContent';
 import NMap from '../../../containers/NMap';
 import MapLinkButtonsComponent from '../../../components/MapLinkButtonsComponent';
 
-const windowWidth = Dimensions.get('window').width;
+// const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {

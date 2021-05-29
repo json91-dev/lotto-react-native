@@ -1,30 +1,36 @@
-import React, {Component, useEffect, } from 'react';
+import React, {Component, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  Image, Dimensions,
-  PixelRatio,
-  Platform
-  
+  Image,
+  Dimensions,
 } from 'react-native';
+import { isIphoneX } from "react-native-iphone-x-helper";
 import { getFontSize } from '../helpers/Utils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 const vh = windowHeight / 100;
-const vw = windowWidth / 100;
-
-import { isIphoneX } from "react-native-iphone-x-helper";
-
+// const vw = windowWidth / 100;
 
 const LottoStoreSheetHeader = (props) => {
   
   const { setIsOpenedMapLinkButtons } = props;
-
+  const currentStore = useSelector(state => state.stores.currentStore);
+  let firstPrizeCount = 0;
+  let secondPrizeCount = 0;
+  let storeName = '없음';
+  
+  if (currentStore) {
+    storeName = currentStore.name;
+    firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
+    secondPrizeCount = currentStore.Winnings.filter((item) => item.rank === 2).length;
+  }
+  
   switch (props.bottomSheetState) {
     case 'bottom': {
       return (
@@ -35,13 +41,13 @@ const LottoStoreSheetHeader = (props) => {
           
           <View style={styles.storeTitleView}>
             <View>
-              <Text style={styles.storeNameText}>상점명</Text>
+              <Text style={styles.storeNameText}>{storeName}</Text>
               <View style={styles.storeDetailView}>
                 <Text style={{color: '#abbdbe', marginRight: 5}}>1등</Text>
-                <Text style={{color: '#74798a'}}>76회</Text>
+                <Text style={{color: '#74798a'}}>{firstPrizeCount}회</Text>
                 <Text style={{color: '#74798a', marginLeft: 15, marginRight: 15}}>|</Text>
                 <Text style={{color: "#abbdbe", marginRight: 5}}>2등</Text>
-                <Text style={{color: '#74798a'}}>127회 </Text>
+                <Text style={{color: '#74798a'}}>{secondPrizeCount}회</Text>
               </View>
             </View>
             <TouchableOpacity style={{justifyContent: 'center'}}>
@@ -51,14 +57,14 @@ const LottoStoreSheetHeader = (props) => {
           
           <View style={styles.storeAddressView}>
             <View style={styles.storeAddressViewLeft}>
-              <Text style={styles.storeAddressText}>서울 성북구 종암동 132 종암우림카이저팰리스 1층 101호 </Text>
+              <Text style={styles.storeAddressText}>{currentStore.address} </Text>
             </View>
             <View style={styles.storeAddressViewRight}>
               <Text style={styles.moreDetailDistanceText}>418m</Text>
             </View>
           </View>
           
-          { !isIphoneX() ?
+          { !isIphoneX() ? // iPhoneX 일때는 하단선을 표시하지 않음
               <View style={styles.bottomBarView}>
                 <View style={styles.bottomBarInnerView} />
               </View>
@@ -67,7 +73,7 @@ const LottoStoreSheetHeader = (props) => {
         </View>
       );
     }
-  
+    
     case 'middle': {
       return (
         <View style={styles.middleContainer}>
@@ -139,6 +145,10 @@ const LottoStoreSheetHeader = (props) => {
           <View style={styles.divider} />
         </View>
       );
+    }
+    
+    default: {
+      return null;
     }
   }
   
