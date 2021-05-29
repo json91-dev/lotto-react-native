@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { isIphoneX } from "react-native-iphone-x-helper";
-import { getFontSize } from '../helpers/Utils';
+import { getDistance, getFontSize } from '../helpers/Utils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -18,17 +18,21 @@ const vh = windowHeight / 100;
 // const vw = windowWidth / 100;
 
 const LottoStoreSheetHeader = (props) => {
-  
   const { setIsOpenedMapLinkButtons } = props;
   const currentStore = useSelector(state => state.stores.currentStore);
+  const currentLatitude = useSelector(state => state.stores.currentLatitude);
+  const currentLongitude = useSelector(state => state.stores.currentLongitude);
+  
   let firstPrizeCount = 0;
   let secondPrizeCount = 0;
   let storeName = '없음';
+  let storeDistance = 0;
   
-  if (currentStore) {
+  if (Object.keys(currentStore).length !== 0 ) { // 빈 객체인지 확인
     storeName = currentStore.name;
     firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
     secondPrizeCount = currentStore.Winnings.filter((item) => item.rank === 2).length;
+    storeDistance = getDistance(currentLatitude, currentLongitude, currentStore.latitude, currentStore.longitude);
   }
   
   switch (props.bottomSheetState) {
@@ -60,7 +64,7 @@ const LottoStoreSheetHeader = (props) => {
               <Text style={styles.storeAddressText}>{currentStore.address} </Text>
             </View>
             <View style={styles.storeAddressViewRight}>
-              <Text style={styles.moreDetailDistanceText}>418m</Text>
+              <Text style={styles.moreDetailDistanceText}>{storeDistance}m</Text>
             </View>
           </View>
           
@@ -197,7 +201,7 @@ const styles = StyleSheet.create({
   
   storeAddressText: {
     fontSize: getFontSize(),
-    color: "#74798a"
+    color: "#74798a",
   },
   
   storeGuideTouch: {

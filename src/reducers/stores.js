@@ -14,6 +14,8 @@ const InitialState = {
   stores: [],
   currentStore: {},
   currentRadius: 1,
+  currentLatitude: 0.0,
+  currentLongitude: 0.0,
   getStoresErrorReason: '',
   isGettingStores: false,
   getStoresRadiusErrorReason: '',
@@ -63,6 +65,8 @@ export default (state = InitialState, action) => {
       return {
         ...state,
         isGettingStoresRadius: true,
+        currentLatitude: action.data.latitude,
+        currentLongitude: action.data.longitude,
       };
     }
   
