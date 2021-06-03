@@ -67,7 +67,7 @@ const NMap = memo(() => {
     >
       <Circle
         coordinate={currentLocationRef.current}
-        color="rgba(255,0,0,0.1)"
+        color="rgba(33, 87, 243, 0.15)"
         radius={1000 * currentRadius}
         outlineWidth={10}
         outlineColor="rgba(0,0,255,0)"

@@ -53,8 +53,9 @@ export const getDistance = (lat1, lon1, lat2, lon2) => {
   dist = Math.acos(dist);
   dist = dist * 180 / Math.PI;
   dist = dist * 60 * 1.1515 * 1.609344 * 1000;
-  if (dist < 100) dist = Math.round(dist / 10) * 10;
+  // if (dist < 100) dist = Math.round(dist / 10) * 10;
   // else dist = Math.round(dist / 100) * 100;
-  else dist = Math.round(dist / 10) * 10;
-  return dist;
+  // else dist = Math.round(dist / 10) * 10;
+  
+  return Math.round(dist);
 }

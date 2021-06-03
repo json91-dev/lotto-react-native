@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_STORE } from '../reducers/stores';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const vh = windowHeight / 100;
+const vw = windowWidth / 100;
 
 const NMarker = memo(({store}) => {
   const { longitude, latitude } = store;
@@ -20,8 +26,8 @@ const NMarker = memo(({store}) => {
   
   useEffect(() => {
     if (stores.currentStore.id === store.id) {
-      setMarkerWidth(35);
-      setMarkerHeight(35);
+      setMarkerWidth(30);
+      setMarkerHeight(44);
     } else {
       setMarkerWidth(22);
       setMarkerHeight(22);
@@ -30,9 +36,9 @@ const NMarker = memo(({store}) => {
   
   const getMarkerImage = () => {
     if (stores.currentStore.id === store.id) {
-      return require('../assets/ic_pin_map.png');
+      return require('../assets/ic_pin_active.png');
     } else {
-      return require('../assets/ic_marker_red.png');
+      return require('../assets/ic_pin_inactive.png');
     }
   };
   
@@ -49,6 +55,7 @@ const NMarker = memo(({store}) => {
             width={markerWidth}
             height={markerHeight}
             onClick={onClickMarker(store)}
+            style={{resizeMode: 'contain'}}
     />
   );
 });

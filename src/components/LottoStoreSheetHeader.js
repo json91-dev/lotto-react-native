@@ -27,12 +27,18 @@ const LottoStoreSheetHeader = (props) => {
   let secondPrizeCount = 0;
   let storeName = '없음';
   let storeDistance = 0;
+  let storeDistanceText = '';
   
   if (Object.keys(currentStore).length !== 0 ) { // 빈 객체인지 확인
     storeName = currentStore.name;
     firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
     secondPrizeCount = currentStore.Winnings.filter((item) => item.rank === 2).length;
     storeDistance = getDistance(currentLatitude, currentLongitude, currentStore.latitude, currentStore.longitude);
+    if (storeDistance < 1000) {
+      storeDistanceText = `${storeDistance}m`;
+    } else {
+      storeDistanceText = `${(storeDistance / 1000).toFixed(2)}km`;
+    }
   }
   
   switch (props.bottomSheetState) {
@@ -61,10 +67,13 @@ const LottoStoreSheetHeader = (props) => {
           
           <View style={styles.storeAddressView}>
             <View style={styles.storeAddressViewLeft}>
-              <Text style={styles.storeAddressText}>{currentStore.address} </Text>
+              <Text style={styles.storeAddressText} numberOfLines={1} ellipsizeMode="tail">{currentStore.address} </Text>
+              <TouchableOpacity style={styles.storeAddressCopyTouch}>
+                <Image style={styles.storeAddressCopyImage} source={require('../assets/ic_copy.png')}/>
+              </TouchableOpacity>
             </View>
             <View style={styles.storeAddressViewRight}>
-              <Text style={styles.moreDetailDistanceText}>{storeDistance}m</Text>
+              <Text style={styles.moreDetailDistanceText}>{storeDistanceText}</Text>
             </View>
           </View>
           
@@ -202,6 +211,18 @@ const styles = StyleSheet.create({
   storeAddressText: {
     fontSize: getFontSize(),
     color: "#74798a",
+    width: '90%',
+  },
+  
+  storeAddressCopyTouch: {
+    width: '10%',
+    height: 15,
+  },
+  
+  storeAddressCopyImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   
   storeGuideTouch: {
@@ -251,6 +272,7 @@ const styles = StyleSheet.create({
   findRoadImage: {
     width: 40,
     height: 40,
+    
     resizeMode: 'cover',
   },
   
@@ -352,11 +374,13 @@ const styles = StyleSheet.create({
   },
   
   storeAddressViewLeft: {
-    width: '87%',
+    width: '85%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   
   storeAddressViewRight: {
-    width: '13%',
+    width: '15%',
     flexDirection: 'column',
     alignItems: 'flex-end',
     paddingRight: 1
