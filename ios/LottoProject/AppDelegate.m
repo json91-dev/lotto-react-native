@@ -13,6 +13,9 @@
 
 #import "RNSplashScreen.h" // splash 플러그인
 
+@import UIKit;
+@import Firebase;
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,6 +33,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [RNSplashScreen show]; // splash 플러그인
+  [FIRApp configure]; // Firebase 플러그인
 
   return YES;
 }

@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply plugin: 'com.google.gms.google-services' // For firebase
 import com.android.build.OutputFile
 
 /**
@@ -193,6 +193,10 @@ dependencies {
     // GIF Image
     implementation 'com.facebook.fresco:fresco:1.+'
     implementation 'com.facebook.fresco:animated-gif:1.+'
+
+    // Import the Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    // implementation 'com.google.firebase:firebase-analytics'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

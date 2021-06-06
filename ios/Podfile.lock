@@ -259,7 +259,7 @@ PODS:
     - React
   - react-native-geolocation (2.0.2):
     - React
-  - react-native-nmap (0.0.51):
+  - react-native-nmap (0.0.52):
     - NMapsMap (~> 3.7.0)
     - React
   - react-native-safe-area-context (0.6.4):
@@ -305,7 +305,7 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (8.0.2):
+  - RNDeviceInfo (8.1.3):
     - React-Core
   - RNFirebase (5.6.0):
     - Firebase/Core
@@ -505,7 +505,7 @@ SPEC CHECKSUMS:
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-camera: 4e47bcac13263ef3cde5bbb4daa3c72703d6e256
   react-native-geolocation: cbd9d6bd06bac411eed2671810f454d4908484a8
-  react-native-nmap: a51fb2ea768c25cb6dd6d0b93b904a36162cec86
+  react-native-nmap: 5d572d0318d0cecdc711e319b896604db349c880
   react-native-safe-area-context: 042dfc9d4db17196841df962ba9497f6e7a5bd02
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
@@ -520,7 +520,7 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNCAsyncStorage: 3eea36d9460c5159b592f9ecbe5a77f8aca98006
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
-  RNDeviceInfo: 71696ed3282a5058d08378a17d78d7367d9496e5
+  RNDeviceInfo: 49f6d50f861c7810fac2dd9b71cfb56cc1940e14
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNPermissions: 1888705aebcc81714efa5dbff94351e4388ae012

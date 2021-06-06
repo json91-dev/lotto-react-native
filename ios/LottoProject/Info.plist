@@ -63,5 +63,11 @@
 
     <key>NMFClientId</key>
     <string>9lu6hutn6b</string>
+
+	<key>GADIsAdManagerApp</key>
+	<true/>
+	<key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-4400769153197740/7391394265</string>
+
 </dict>
 </plist>

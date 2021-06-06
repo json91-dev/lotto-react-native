@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "629138485951",
+    "project_id": "lotto-tour-e9018",
+    "storage_bucket": "lotto-tour-e9018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629138485951:android:b63270b93a5e96522f0c0a",
+        "android_client_info": {
+          "package_name": "com.lottoproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629138485951-tuo6otkq8tmf29oi5v3gpggssh03drcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8Dqq7zoRG3JdCiPawb8A5q0XWnBCbkwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629138485951-tuo6otkq8tmf29oi5v3gpggssh03drcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
