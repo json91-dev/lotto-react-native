@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "28.0.3"
+        buildToolsVersion = "29.0.2"
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
@@ -12,7 +12,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.google.gms:google-services:4.3.8' // For firebase
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -38,7 +38,8 @@ allprojects {
 
         // 네이버 지도 저장소
         maven {
-            url 'https://navercorp.bintray.com/maps'
+            // url 'https://navercorp.bintray.com/maps'
+            url 'https://naver.jfrog.io/artifactory/maven/'
         }
     }
 }
