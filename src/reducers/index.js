@@ -3,6 +3,7 @@ import address from './address';
 import lottonumber from './lottonumber';
 import stores from './stores';
 import user from './user';
+import map from './map';
 
 /**
  * 모든 리듀서를 불러온다.
@@ -13,6 +14,7 @@ const index = combineReducers({
   lottonumber,
   stores,
   user,
+  map,
 });
 
 export default index;

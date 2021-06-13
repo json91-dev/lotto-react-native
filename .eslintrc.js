@@ -16,7 +16,7 @@ module.exports = {
     "global-require" : 0,
     "semi": [2, "always"],
     "react/prop-types": 0,
-    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0 }],
     "camelcase": 0,
     "no-shadow": 0,
     "react/jsx-filename-extension": [

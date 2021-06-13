@@ -23,8 +23,14 @@ const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {
   const dispatch = useDispatch();
+  const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
+  const mapSearchRadiusButtonRef = useRef();
   
   useEffect(() => {
+    setTimeout(() => {
+      console.log(mapSearchRadiusButtonRef);
+    }, 2000);
+    
     getCurrentPosition().then(position => {
       const { latitude, longitude } = position;
       const radius = 1;
@@ -41,8 +47,6 @@ const MapScreen = (props) => {
   
   }, []);
   
-  const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
-  
   // 바텀시트의 컨텐츠를 나타내는 함수.
   const renderContent = () => {
     return <LottoStoreSheetContent/>;
@@ -53,7 +57,9 @@ const MapScreen = (props) => {
   // 바텀시트의 헤더를 나타내는 함수.
   const renderHeader = () => {
     return (
-      <LottoStoreSheetHeader bottomSheetState={bottomSheetState} setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
+      <LottoStoreSheetHeader
+        bottomSheetState={bottomSheetState}
+        setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
     );
   };
   
@@ -94,24 +100,8 @@ const MapScreen = (props) => {
   
   return (
     <View style={styles.container}>
-      {isOpenedMapLinkButtons
-        ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
-        : null
-      }
       <NMap/>
-      {/*<View style={styles.backButtonView}>*/}
-        {/*<TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}>*/}
-          {/*<Image style={styles.backButtonImage} source={require('../../assets/ic_black_back_arrow.png')}/>*/}
-        {/*</TouchableOpacity>*/}
-      {/*</View>*/}
-      {/*<View style={styles.searchButtonView}>*/}
-        {/*<TouchableOpacity style={styles.searchButtonTouch}*/}
-                          {/*onPress={() => props.navigation.navigate('SearchStoreScreen')}>*/}
-          {/*<Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/>*/}
-        {/*</TouchableOpacity>*/}
-      {/*</View>*/}
-      
-      <MapSearchRadiusButton/>
+      <MapSearchRadiusButton ref={mapSearchRadiusButtonRef.current}/>
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
@@ -127,6 +117,24 @@ const MapScreen = (props) => {
         )}
         // onSettle={onPressBottomSheetSettle} // 추후 Scroll 바텀시트 구현시 사용
       />
+  
+      
+      {/* 맵 링크 버튼 : deprecated */}
+      {/* {isOpenedMapLinkButtons */}
+      {/* ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/> */}
+      {/*: null */}
+      {/* } */}
+      {/* <View style={styles.backButtonView}> */}
+      {/* <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}> */}
+      {/* <Image style={styles.backButtonImage} source={require('../../assets/ic_black_back_arrow.png')}/> */}
+      {/* </TouchableOpacity> */}
+      {/* </View> */}
+      {/* <View style={styles.searchButtonView}> */}
+      {/* <TouchableOpacity style={styles.searchButtonTouch} */}
+      {/* onPress={() => props.navigation.navigate('SearchStoreScreen')}> */}
+      {/* <Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/> */}
+      {/* </TouchableOpacity> */}
+      {/* </View> */}
     </View>
   );
 };

@@ -1,9 +1,9 @@
-
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Animated} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentPosition } from '../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_RADIUS } from '../reducers/stores';
+import { SET_MAP_TOUCH } from '../reducers/map';
 
 const viewHeightAnim = new Animated.Value(40);
 const fadeAnim1km = new Animated.Value(0);
@@ -76,6 +76,7 @@ const MapSearchRadiusButton = () => {
   const [isListOpened, setIsListOpened] = useState(false);
   const [selectedRadius, setSelectedRadius] = useState(1);
   const dispatch = useDispatch();
+  const isMapTouch = useSelector(state => state.map.isMapTouch);
   
   const getStoreByRadius = (radius) => {
     getCurrentPosition().then(position => {
@@ -97,54 +98,62 @@ const MapSearchRadiusButton = () => {
     });
   };
   
-  const onPress1kmTouch = useCallback(() => {
-    fadeOut1km();
-    fadeOut2km();
-    fadeOut3km();
-    decreateViewHeight();
-    setIsListOpened(false);
-    setSelectedRadius(1);
-    getStoreByRadius(1);
-  }, [isListOpened, selectedRadius]);
-  
-  const onPress2kmTouch = useCallback(() => {
-    fadeOut1km();
-    fadeOut2km();
-    fadeOut3km();
-    decreateViewHeight();
-    setIsListOpened(false);
-    setSelectedRadius(2);
-    getStoreByRadius(2);
-  }, [isListOpened, selectedRadius]);
-  
-  const onPress3kmTouch = useCallback(() => {
-    fadeOut1km();
-    fadeOut2km();
-    fadeOut3km();
-    decreateViewHeight();
-    setIsListOpened(false);
-    setSelectedRadius(3);
-    getStoreByRadius(3);
-  }, [isListOpened, selectedRadius]);
-  
-  const onPressSelectedTouch = useCallback(() => {
+  // km 리스트를 여는 함수.
+  const openListButton = () => {
     fadeIn1km();
     fadeIn2km();
     fadeIn3km();
     increateViewHeight();
     setIsListOpened(true);
+    dispatch({ type: SET_MAP_TOUCH, data: false });
+  };
+  
+  // km 리스트를 닫는 함수.
+  const closeListButton = () => {
+    if (isListOpened) {
+      fadeOut1km();
+      fadeOut2km();
+      fadeOut3km();
+      decreateViewHeight();
+      setIsListOpened(false);
+    }
+  };
+  
+  // map에 Touch이벤트 발생시 km 리스트를 닫음
+  useEffect(() => {
+    if (isMapTouch) {
+      closeListButton();
+    }
+  }, [isMapTouch]);
+  
+  // 1km 선택시 km 리스트를 닫고 반경 1km로 판매점 검색
+  const onPress1kmTouch = useCallback(() => {
+    closeListButton();
+    setSelectedRadius(1);
+    getStoreByRadius(1);
+  }, [isListOpened, selectedRadius]);
+  
+  // 2km 선택시 km 리스트를 닫고 반경 2km로 판매점 검색
+  const onPress2kmTouch = useCallback(() => {
+    closeListButton();
+    setSelectedRadius(2);
+    getStoreByRadius(2);
+  }, [isListOpened, selectedRadius]);
+  
+  // 3km 선택시 km 리스트를 닫고 반경 3km로 판매점 검색
+  const onPress3kmTouch = useCallback(() => {
+    closeListButton();
+    setSelectedRadius(3);
+    getStoreByRadius(3);
+  }, [isListOpened, selectedRadius]);
+  
+  const onPressSelectedTouch = useCallback(() => {
+    openListButton();
   }, [isListOpened]);
   
-  useState(() => {
-    // fadeIn1km();
-    // fadeIn2km();
-    // fadeIn3km();
-    // increateViewHeight();
-  },[]);
-  
-  let fontColor1km = {};
-  let fontColor2km = {};
-  let fontColor3km = {};
+  const fontColor1km = {};
+  const fontColor2km = {};
+  const fontColor3km = {};
   
   switch (selectedRadius) {
     case 1:
