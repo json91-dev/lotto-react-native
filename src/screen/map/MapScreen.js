@@ -1,30 +1,33 @@
-import React, { useEffect, useRef, useState, } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
-  TouchableOpacity,
-  Image,
-  Dimensions, StatusBar, Platform,
+  Dimensions,
+  StatusBar,
+  Platform,
+  Clipboard,
 } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../containers/NMap';
-import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
+// import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 import { getCurrentPosition } from '../../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST } from '../../reducers/stores';
+import Toast from 'react-native-easy-toast';
 
-const windowWidth = Dimensions.get('window').width;
+// const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = (props) => {
   const dispatch = useDispatch();
   const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
   const mapSearchRadiusButtonRef = useRef();
+  const toastRef = useRef();
   
   useEffect(() => {
     setTimeout(() => {
@@ -59,8 +62,21 @@ const MapScreen = (props) => {
     return (
       <LottoStoreSheetHeader
         bottomSheetState={bottomSheetState}
-        setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/>
+        setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}
+        copyClipboard={copyClipboard}
+      />
     );
+  };
+  
+  // 주소 복사 Toast 메세지 출력
+  const showCopyToast = useCallback(() => {
+    toastRef.current.show('주소가 복사되었습니다.');
+  }, []);
+  
+  // Clipboard에 텍스트 저장 및 Toast 출력
+  const copyClipboard = (text) => {
+    Clipboard.setString(text);
+    showCopyToast();
   };
   
   // 현재 BottomSheet의 상태를 반환하고 bottomSheetState를 업데이트하는 함수
@@ -118,6 +134,13 @@ const MapScreen = (props) => {
         // onSettle={onPressBottomSheetSettle} // 추후 Scroll 바텀시트 구현시 사용
       />
   
+  
+      <Toast ref={toastRef}
+             positionValue={windowHeight * 0.55}
+             fadeInDuration={200}
+             fadeOutDuration={1000}
+             style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
+      />
       
       {/* 맵 링크 버튼 : deprecated */}
       {/* {isOpenedMapLinkButtons */}

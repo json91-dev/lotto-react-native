@@ -1,4 +1,4 @@
-import React, {Component, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -18,17 +18,19 @@ const vh = windowHeight / 100;
 // const vw = windowWidth / 100;
 
 const LottoStoreSheetHeader = (props) => {
-  const { setIsOpenedMapLinkButtons } = props;
+  const { setIsOpenedMapLinkButtons, copyClipboard } = props;
   const currentStore = useSelector(state => state.stores.currentStore);
   const currentLatitude = useSelector(state => state.stores.currentLatitude);
   const currentLongitude = useSelector(state => state.stores.currentLongitude);
   
+  const storeAddress = currentStore.address;
   let firstPrizeCount = 0;
   let secondPrizeCount = 0;
   let storeName = '없음';
   let storeDistance = 0;
   let storeDistanceText = '';
   
+  // 현재 선택된 로또판매점에 대한 정보를 하단 바텀시트에 렌더링.
   if (Object.keys(currentStore).length !== 0 ) { // 빈 객체인지 확인
     storeName = currentStore.name;
     firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
@@ -40,6 +42,11 @@ const LottoStoreSheetHeader = (props) => {
       storeDistanceText = `${(storeDistance / 1000).toFixed(2)}km`;
     }
   }
+  
+  const onPressCopy = useCallback(() => {
+    console.log('copyImage');
+    copyClipboard(storeAddress);
+  }, [storeAddress]);
   
   switch (props.bottomSheetState) {
     case 'bottom': {
@@ -67,9 +74,9 @@ const LottoStoreSheetHeader = (props) => {
           
           <View style={styles.storeAddressView}>
             <View style={styles.storeAddressViewLeft}>
-              <Text style={styles.storeAddressText} numberOfLines={1} ellipsizeMode="tail">{currentStore.address} </Text>
-              <TouchableOpacity style={styles.storeAddressCopyTouch}>
-                <Image style={styles.storeAddressCopyImage} source={require('../assets/ic_copy.png')}/>
+              <Text style={styles.storeAddressText} numberOfLines={1} ellipsizeMode="tail">{storeAddress} </Text>
+              <TouchableOpacity style={styles.storeAddressCopyTouch} onPress={onPressCopy}>
+                <Image style={styles.storeAddressCopyImage} source={require('../assets/ic_copy.png')} />
               </TouchableOpacity>
             </View>
             <View style={styles.storeAddressViewRight}>
@@ -170,6 +177,7 @@ const LottoStoreSheetHeader = (props) => {
 LottoStoreSheetHeader.propTypes = {
   bottomSheetState: PropTypes.oneOf(['bottom', 'middle', 'top']),
   setIsOpenedMapLinkButtons: PropTypes.func.isRequired,
+  copyClipboard: PropTypes.func.isRequired,
 };
 
 export default LottoStoreSheetHeader;
