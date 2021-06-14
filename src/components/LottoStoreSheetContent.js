@@ -11,155 +11,157 @@ import {
 
 const LottoStoreSheetContent = () =>{
   
-  return (
-    <ScrollView contentContainerStyle={{paddingLeft: 20, paddingRight: 20,}} style={styles.container}>
-      <View style={styles.lottoRoundView}>
-        <Text style={styles.lottoRoundDate}>2020.02.15.</Text>
-        <Text style={styles.lottoRoundText}>898</Text>
-      </View>
-      
-      <View style={{marginTop: 15,}}>
-        <Text style={{fontSize: 18}}>예상 확률</Text>
-      </View>
-      
-      <View style={styles.lottoWinningView}>
-        <View style={styles.lottoWinningCard}>
-          <Grid>
-            <Col>
-              <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../assets/ic_rank_1.jpg')} />
-              </Row>
-            </Col>
-            
-            <Col>
-              <Row style={{alignItems: 'flex-end'}}>
-                <Text style={styles.lottoWinningPercentLabel}>확률</Text>
-              </Row>
-              <Row>
-                <Text>33%</Text>
-              </Row>
-              
-            </Col>
-          </Grid>
+  return null;
   
-          <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
-          
-          <Grid>
-            <Row style={{marginTop: 5,}}>
-              <Col>
-                <Text style={styles.lottoWinningCountLabel}>횟수</Text>
-              </Col>
-              <Col>
-                <Text style={styles.lottoWinningCountText}>35</Text>
-              </Col>
-            </Row>
-            
-            <Row>
-              <Col>
-                <Text style={styles.lottoWinningPrizeLabel}>순위</Text>
-              </Col>
-              <Col>
-                <Text style={styles.lottoWinningPrizeText}>3</Text>
-              </Col>
-            </Row>
-          </Grid>
-        </View>
-  
-        <View style={styles.lottoWinningCard}>
-          <Grid>
-            <Col>
-              <Row style={{ alignItems: 'center'}}>
-                <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../assets/ic_rank_2.jpg')} />
-              </Row>
-            </Col>
-      
-            <Col>
-              <Row style={{alignItems: 'flex-end'}}>
-                <Text style={styles.lottoWinningPercentLabel}>확률</Text>
-              </Row>
-              <Row>
-                <Text>33%</Text>
-              </Row>
-          
-            </Col>
-    
-          </Grid>
-  
-          <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
-    
-          <Grid>
-            <Row style={{marginTop: 5,}}>
-              <Col>
-                <Text style={styles.lottoWinningCountLabel}>횟수</Text>
-              </Col>
-              <Col>
-                <Text style={styles.lottoWinningCountText}>124</Text>
-              </Col>
-            </Row>
-      
-            <Row>
-              <Col>
-                <Text style={styles.lottoWinningPrizeLabel}>순위</Text>
-              </Col>
-              <Col>
-                <Text style={styles.lottoWinningPrizeText}>1</Text>
-              </Col>
-            </Row>
-          </Grid>
-        </View>
-  
-        <View style={styles.lottoWinningCard}>
-          <Grid>
-            <Col>
-              <Row style={{justifyContent: 'center', height: '20%'}}>
-                <Text style={{fontSize: 12,}}>로또투어 추천</Text>
-              </Row>
-              <Row style={{justifyContent: 'center'}}>
-                <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../assets/ic_recommend_good.png')} />
-              </Row>
-              <Row style={{justifyContent: 'center', marginTop: 30}}>
-                <Text style={{fontSize: 14, fontWeight: 'bold'}}>좋지 않아요</Text>
-              </Row>
-            </Col>
-          </Grid>
-        </View>
-      </View>
-  
-      <View style={{marginTop: 30,}}>
-        <Text style={{fontSize: 18}}>자동 VS 수동</Text>
-      </View>
-  
-      <View style={{paddingLeft: 15, marginTop: 30}}>
-        <Text>이번주 추천 방식은?</Text>
-      </View>
-  
-      <View style={styles.lottoRecommendView}>
-        <View style={styles.lottoRecommendLeftView}>
-          <View style={styles.lottoRecommendPercentView}>
-            <View style={styles.lottoRecommendPercentBarAuto} />
-            <Text style={{marginLeft: 10}}>14% 자동</Text>
-          </View>
-          <View style={[styles.lottoRecommendPercentView,{marginTop: 10}]}>
-            <View style={styles.lottoRecommendPercentBarManual} />
-            <Text style={{marginLeft: 10}}>37% 수동</Text>
-          </View>
-        </View>
-        
-        <View style={styles.lottoRecommendRightView}>
-          <Text style={styles.lottoRecommendRightText}>수동</Text>
-        </View>
-      </View>
-  
-      <View style={{marginTop: 30,}}>
-        <Text style={{fontSize: 18}}>판매점 성적표</Text>
-      </View>
-      
-      <View style={styles.storeWinningPrizeView}>
-        <Text style={styles.storeWinningPrizeTextLeft}>누적 당첨 금액</Text>
-        <Text style={styles.storeWinningPrizeTextRight}>19억 6472만원</Text>
-      </View>
-    </ScrollView>
-  );
+  // return (
+  //   <ScrollView contentContainerStyle={{paddingLeft: 20, paddingRight: 20,}} style={styles.container}>
+  //     <View style={styles.lottoRoundView}>
+  //       <Text style={styles.lottoRoundDate}>2020.02.15.</Text>
+  //       <Text style={styles.lottoRoundText}>898</Text>
+  //     </View>
+  //
+  //     <View style={{marginTop: 15,}}>
+  //       <Text style={{fontSize: 18}}>예상 확률</Text>
+  //     </View>
+  //
+  //     <View style={styles.lottoWinningView}>
+  //       <View style={styles.lottoWinningCard}>
+  //         <Grid>
+  //           <Col>
+  //             <Row style={{ alignItems: 'center'}}>
+  //               <Image style={{resizeMode: 'cover', width: 26, height: 33}} source={require('../assets/ic_rank_1.jpg')} />
+  //             </Row>
+  //           </Col>
+  //
+  //           <Col>
+  //             <Row style={{alignItems: 'flex-end'}}>
+  //               <Text style={styles.lottoWinningPercentLabel}>확률</Text>
+  //             </Row>
+  //             <Row>
+  //               <Text>33%</Text>
+  //             </Row>
+  //
+  //           </Col>
+  //         </Grid>
+  //
+  //         <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
+  //
+  //         <Grid>
+  //           <Row style={{marginTop: 5,}}>
+  //             <Col>
+  //               <Text style={styles.lottoWinningCountLabel}>횟수</Text>
+  //             </Col>
+  //             <Col>
+  //               <Text style={styles.lottoWinningCountText}>35</Text>
+  //             </Col>
+  //           </Row>
+  //
+  //           <Row>
+  //             <Col>
+  //               <Text style={styles.lottoWinningPrizeLabel}>순위</Text>
+  //             </Col>
+  //             <Col>
+  //               <Text style={styles.lottoWinningPrizeText}>3</Text>
+  //             </Col>
+  //           </Row>
+  //         </Grid>
+  //       </View>
+  //
+  //       <View style={styles.lottoWinningCard}>
+  //         <Grid>
+  //           <Col>
+  //             <Row style={{ alignItems: 'center'}}>
+  //               <Image style={{resizeMode: 'cover', width: 26, height: 33,}} source={require('../assets/ic_rank_2.jpg')} />
+  //             </Row>
+  //           </Col>
+  //
+  //           <Col>
+  //             <Row style={{alignItems: 'flex-end'}}>
+  //               <Text style={styles.lottoWinningPercentLabel}>확률</Text>
+  //             </Row>
+  //             <Row>
+  //               <Text>33%</Text>
+  //             </Row>
+  //
+  //           </Col>
+  //
+  //         </Grid>
+  //
+  //         <Text style={{fontSize: 12,marginTop: 5, marginBottom: 5}}>로또 당첨</Text>
+  //
+  //         <Grid>
+  //           <Row style={{marginTop: 5,}}>
+  //             <Col>
+  //               <Text style={styles.lottoWinningCountLabel}>횟수</Text>
+  //             </Col>
+  //             <Col>
+  //               <Text style={styles.lottoWinningCountText}>124</Text>
+  //             </Col>
+  //           </Row>
+  //
+  //           <Row>
+  //             <Col>
+  //               <Text style={styles.lottoWinningPrizeLabel}>순위</Text>
+  //             </Col>
+  //             <Col>
+  //               <Text style={styles.lottoWinningPrizeText}>1</Text>
+  //             </Col>
+  //           </Row>
+  //         </Grid>
+  //       </View>
+  //
+  //       <View style={styles.lottoWinningCard}>
+  //         <Grid>
+  //           <Col>
+  //             <Row style={{justifyContent: 'center', height: '20%'}}>
+  //               <Text style={{fontSize: 12,}}>로또투어 추천</Text>
+  //             </Row>
+  //             <Row style={{justifyContent: 'center'}}>
+  //               <Image style={{resizeMode: 'contain', width: 70, height: 50}} source={require('../assets/ic_recommend_good.png')} />
+  //             </Row>
+  //             <Row style={{justifyContent: 'center', marginTop: 30}}>
+  //               <Text style={{fontSize: 14, fontWeight: 'bold'}}>좋지 않아요</Text>
+  //             </Row>
+  //           </Col>
+  //         </Grid>
+  //       </View>
+  //     </View>
+  //
+  //     <View style={{marginTop: 30,}}>
+  //       <Text style={{fontSize: 18}}>자동 VS 수동</Text>
+  //     </View>
+  //
+  //     <View style={{paddingLeft: 15, marginTop: 30}}>
+  //       <Text>이번주 추천 방식은?</Text>
+  //     </View>
+  //
+  //     <View style={styles.lottoRecommendView}>
+  //       <View style={styles.lottoRecommendLeftView}>
+  //         <View style={styles.lottoRecommendPercentView}>
+  //           <View style={styles.lottoRecommendPercentBarAuto} />
+  //           <Text style={{marginLeft: 10}}>14% 자동</Text>
+  //         </View>
+  //         <View style={[styles.lottoRecommendPercentView,{marginTop: 10}]}>
+  //           <View style={styles.lottoRecommendPercentBarManual} />
+  //           <Text style={{marginLeft: 10}}>37% 수동</Text>
+  //         </View>
+  //       </View>
+  //
+  //       <View style={styles.lottoRecommendRightView}>
+  //         <Text style={styles.lottoRecommendRightText}>수동</Text>
+  //       </View>
+  //     </View>
+  //
+  //     <View style={{marginTop: 30,}}>
+  //       <Text style={{fontSize: 18}}>판매점 성적표</Text>
+  //     </View>
+  //
+  //     <View style={styles.storeWinningPrizeView}>
+  //       <Text style={styles.storeWinningPrizeTextLeft}>누적 당첨 금액</Text>
+  //       <Text style={styles.storeWinningPrizeTextRight}>19억 6472만원</Text>
+  //     </View>
+  //   </ScrollView>
+  // );
 };
 
 export default LottoStoreSheetContent;

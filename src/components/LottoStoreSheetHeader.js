@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { isIphoneX } from "react-native-iphone-x-helper";
 import { getDistance, getFontSize } from '../helpers/Utils';
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -30,8 +31,10 @@ const LottoStoreSheetHeader = (props) => {
   let storeDistance = 0;
   let storeDistanceText = '';
   
+  const isEmptyCurrentStore = Object.keys(currentStore).length === 0;
+  
   // 현재 선택된 로또판매점에 대한 정보를 하단 바텀시트에 렌더링.
-  if (Object.keys(currentStore).length !== 0 ) { // 빈 객체인지 확인
+  if (!isEmptyCurrentStore) { // 빈 객체인지 확인
     storeName = currentStore.name;
     firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
     secondPrizeCount = currentStore.Winnings.filter((item) => item.rank === 2).length;
@@ -50,6 +53,21 @@ const LottoStoreSheetHeader = (props) => {
   
   switch (props.bottomSheetState) {
     case 'bottom': {
+      if (isEmptyCurrentStore) {
+        return (
+          <View style={{width: '100%', height: 160, flexDirection: 'column-reverse'}}>
+            <View style={{marginBottom: 50}}>
+              <BannerAd unitId={TestIds.BANNER}
+                        size={BannerAdSize.FULL_BANNER}
+                        requestOptions={{
+                          requestNonPersonalizedAdsOnly: true,
+                        }}
+              />
+            </View>
+          </View>
+        );
+      }
+      
       return (
         <View style={styles.bottomContainer}>
           <View style={styles.topBarView}>
