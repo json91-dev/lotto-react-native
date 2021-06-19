@@ -76,7 +76,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - NMapsMap (3.7.0)
+  - NMapsMap (3.10.2)
   - Permission-Camera (2.1.5):
     - RNPermissions
   - PersonalizedAdConsent (1.0.5)
@@ -254,8 +254,8 @@ PODS:
     - React
   - react-native-geolocation (2.0.2):
     - React
-  - react-native-nmap (0.0.52):
-    - NMapsMap (~> 3.7.0)
+  - react-native-nmap (0.0.64):
+    - NMapsMap (~> 3.10.1)
     - React
   - react-native-safe-area-context (0.6.4):
     - React
@@ -485,7 +485,7 @@ SPEC CHECKSUMS:
   GoogleUserMessagingPlatform: b168e8c46cd8f92aa3e34b584c4ca78a411ce367
   GoogleUtilities: f8a43108b38a68eebe8b3540e1f4f2d28843ce20
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  NMapsMap: 46ce3d48d7976dd10c6ec63cd7eecf655a7dd955
+  NMapsMap: 2c092c6408c738774edea41e00f0fd1bad9e0ca9
   Permission-Camera: 53d46bd722aea28d796e20f05fb3cbe6cde6ccb6
   PersonalizedAdConsent: dbecabb3467df967c16d9cebc2ef4a8890e4bbd8
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
@@ -500,7 +500,7 @@ SPEC CHECKSUMS:
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-camera: 4e47bcac13263ef3cde5bbb4daa3c72703d6e256
   react-native-geolocation: cbd9d6bd06bac411eed2671810f454d4908484a8
-  react-native-nmap: 5d572d0318d0cecdc711e319b896604db349c880
+  react-native-nmap: a0756293b9cb41c3007a8eddbe6782d0fc790bdf
   react-native-safe-area-context: 042dfc9d4db17196841df962ba9497f6e7a5bd02
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76

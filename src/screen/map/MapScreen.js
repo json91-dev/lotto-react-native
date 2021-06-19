@@ -5,7 +5,7 @@ import {
   Dimensions,
   StatusBar,
   Platform,
-  Clipboard,
+  Clipboard, Image,
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,8 @@ import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 import { getCurrentPosition } from '../../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST } from '../../reducers/stores';
 import Toast from 'react-native-easy-toast';
+import FindLoadBottomSheet from '../../components/FindLoadBottomSheet';
+import MapCurrentLocationButton from '../../components/MapCurrentLocationButton';
 
 // const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -26,13 +28,9 @@ const windowHeight = Dimensions.get('window').height;
 const MapScreen = (props) => {
   const dispatch = useDispatch();
   const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
-  const mapSearchRadiusButtonRef = useRef();
   const toastRef = useRef();
   
   useEffect(() => {
-    setTimeout(() => {
-      console.log(mapSearchRadiusButtonRef);
-    }, 2000);
     
     getCurrentPosition().then(position => {
       const { latitude, longitude } = position;
@@ -104,7 +102,7 @@ const MapScreen = (props) => {
    * : 안드로이드일떄는 statusBarHeight도 추가하여 빼줘야 정상적으로 동작한다.
    */
   const getSheetBottomPosition = () => {
-    const bottomHeaderHeight = 160;
+    const bottomHeaderHeight = 136;
     const bottomTabBarHeight = 0;
     
     if (Platform.OS === 'android') {
@@ -117,7 +115,9 @@ const MapScreen = (props) => {
   return (
     <View style={styles.container}>
       <NMap/>
-      <MapSearchRadiusButton ref={mapSearchRadiusButtonRef.current}/>
+      <MapSearchRadiusButton />
+      {/*<MapCurrentLocationButton />*/}
+      <Image style={styles.storeAddressCopyImage} source={require('../../assets/ic_copy.png')} />
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
@@ -142,6 +142,7 @@ const MapScreen = (props) => {
              style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
       />
       
+      {/*<FindLoadBottomSheet/>*/}
       {/* 맵 링크 버튼 : deprecated */}
       {/* {isOpenedMapLinkButtons */}
       {/* ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/> */}

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, memo, useCallback} from 'react';
+import React, { useEffect, useRef, memo, useCallback } from 'react';
+import { Platform } from 'react-native'
 import NaverMapView, { Circle } from 'react-native-nmap';
 import { useSelector, useDispatch } from 'react-redux';
 import NMarker from '../components/NMarker';
@@ -52,6 +53,14 @@ const NMap = memo(() => {
     dispatch({ type: SET_MAP_TOUCH, data: true });
   };
   
+  const getMapPaddingByOs = () => {
+    if (Platform.OS === 'android') {
+      return 150;
+    }
+    
+    return 120;
+  };
+  
   // 초기에는 nmap을 그리지 않도록 예외처리
   if (currentLocationRef.current.latitude === 0 && currentLocationRef.current.longitude === 0) {
     return null;
@@ -64,8 +73,8 @@ const NMap = memo(() => {
       center={{ ...currentLocationRef.current, zoom: getZoom()}}
       onTouch={onMapTouch}
       // onMapClick={onMapClick}
-      mapPadding={{ bottom: 130 }}
-      logoGravity={0}
+      mapPadding={{ bottom: getMapPaddingByOs() }}
+      logoGravity={1}
       key={+new Date()}
     >
       <Circle

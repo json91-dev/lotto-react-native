@@ -18,6 +18,8 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* LottoProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* LottoProjectTests.m */; };
 		85CBAAA42646EAB800D668FB /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */; };
+		85FE517B267E4A1C0009BD34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85FE517A267E4A1C0009BD34 /* GoogleService-Info.plist */; };
+		85FE517C267E4A1C0009BD34 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 85FE517A267E4A1C0009BD34 /* GoogleService-Info.plist */; };
 		BBECEB107DF209B2060DE839 /* libPods-LottoProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C831448BF94252A6A5D2459 /* libPods-LottoProjectTests.a */; };
 		BCA6EE51A30E2000AA366D8E /* libPods-LottoProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81255D8E52D714D4C9F6266C /* libPods-LottoProject.a */; };
 		D69B4A3448E08C0FCD052488 /* libPods-LottoProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D08A6674B1EBE75E8AB95F52 /* libPods-LottoProject-tvOS.a */; };
@@ -60,6 +62,7 @@
 		754CEC2BB7DB86EC59557FC7 /* Pods-LottoProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject.debug.xcconfig"; path = "Target Support Files/Pods-LottoProject/Pods-LottoProject.debug.xcconfig"; sourceTree = "<group>"; };
 		81255D8E52D714D4C9F6266C /* libPods-LottoProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LottoProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		85FE517A267E4A1C0009BD34 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "LottoProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9C6B24FE578F2733C7E50187 /* Pods-LottoProject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-LottoProject-tvOSTests/Pods-LottoProject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C831448BF94252A6A5D2459 /* libPods-LottoProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LottoProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5E00BBEBE7CF8628BD8D1B /* Pods-LottoProject-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LottoProject-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-LottoProject-tvOS/Pods-LottoProject-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +130,7 @@
 		13B07FAE1A68108700A75B9A /* LottoProject */ = {
 			isa = PBXGroup;
 			children = (
+				85FE517A267E4A1C0009BD34 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				85CBAAA32646EAB800D668FB /* SplashScreen.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -343,6 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				85FE517B267E4A1C0009BD34 /* GoogleService-Info.plist in Resources */,
 				85CBAAA42646EAB800D668FB /* SplashScreen.storyboard in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -353,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				85FE517C267E4A1C0009BD34 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

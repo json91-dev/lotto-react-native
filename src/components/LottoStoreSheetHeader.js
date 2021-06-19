@@ -47,7 +47,6 @@ const LottoStoreSheetHeader = (props) => {
   }
   
   const onPressCopy = useCallback(() => {
-    console.log('copyImage');
     copyClipboard(storeAddress);
   }, [storeAddress]);
   
@@ -55,8 +54,8 @@ const LottoStoreSheetHeader = (props) => {
     case 'bottom': {
       if (isEmptyCurrentStore) {
         return (
-          <View style={{width: '100%', height: 160, flexDirection: 'column-reverse'}}>
-            <View style={{marginBottom: 50}}>
+          <View style={{width: '100%', height: 136, flexDirection: 'column-reverse'}}>
+            <View>
               <BannerAd unitId={TestIds.BANNER}
                         size={BannerAdSize.FULL_BANNER}
                         requestOptions={{
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: 'white',
-    height: 160,
+    height: 136,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
     justifyContent: 'center'
@@ -298,7 +297,6 @@ const styles = StyleSheet.create({
   findRoadImage: {
     width: 40,
     height: 40,
-    
     resizeMode: 'cover',
   },
   

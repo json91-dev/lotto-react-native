@@ -217,7 +217,7 @@ export default MapSearchRadiusButton;
 const styles = StyleSheet.create({
   radiusBoxView: {
     position: 'absolute',
-    bottom: 170,
+    bottom: 200,
     right: 10,
     width: 58,
     height: 40,
@@ -226,18 +226,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#EAEAEA',
     justifyContent: 'center'
-  },
-  
-  radiusBoxViewAnimated: {
-    position: 'absolute',
-    bottom: 170,
-    right: 10,
-    width: 58,
-    height: 40,
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#EAEAEA'
   },
   
   radiusBoxTouch: {
