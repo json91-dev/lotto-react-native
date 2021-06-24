@@ -217,7 +217,7 @@ export default MapSearchRadiusButton;
 const styles = StyleSheet.create({
   radiusBoxView: {
     position: 'absolute',
-    bottom: 200,
+    bottom: 151,
     right: 10,
     width: 58,
     height: 40,

@@ -10,7 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import AddressSearchForm from '../../containers/AddressSearchForm';
+import AddressSearchForm from '../../components/AddressSearchForm';
 
 import {
   SELECT_ADDRESS_ITEM,

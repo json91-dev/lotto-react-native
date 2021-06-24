@@ -1,16 +1,8 @@
-import NaverMapView, { Circle, Marker } from 'react-native-nmap';
-import React, { memo } from 'react';
+import { Marker } from 'react-native-nmap';
+import React, { memo , useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_STORE } from '../reducers/stores';
-import { Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const vh = windowHeight / 100;
-const vw = windowWidth / 100;
 
 const NMarker = memo(({store}) => {
   const { longitude, latitude } = store;
@@ -37,9 +29,9 @@ const NMarker = memo(({store}) => {
   const getMarkerImage = () => {
     if (stores.currentStore.id === store.id) {
       return require('../assets/ic_pin_active.png');
-    } else {
-      return require('../assets/ic_pin_inactive.png');
     }
+      return require('../assets/ic_pin_inactive.png');
+    
   };
   
   const onClickMarker = (store) => () => {

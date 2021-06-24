@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, memo} from 'react';
-import NMarker from '../components/NMarker';
+import NMarker from './NMarker';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   View,

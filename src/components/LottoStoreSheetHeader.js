@@ -19,7 +19,7 @@ const vh = windowHeight / 100;
 // const vw = windowWidth / 100;
 
 const LottoStoreSheetHeader = (props) => {
-  const { setIsOpenedMapLinkButtons, copyClipboard } = props;
+  const { setIsOpenedMapLinkButtons, copyClipboard, setShowFindLoadBottomSheet } = props;
   const currentStore = useSelector(state => state.stores.currentStore);
   const currentLatitude = useSelector(state => state.stores.currentLatitude);
   const currentLongitude = useSelector(state => state.stores.currentLongitude);
@@ -49,6 +49,10 @@ const LottoStoreSheetHeader = (props) => {
   const onPressCopy = useCallback(() => {
     copyClipboard(storeAddress);
   }, [storeAddress]);
+  
+  const onPressFindLoad = useCallback(() => {
+    setShowFindLoadBottomSheet(true);
+  });
   
   switch (props.bottomSheetState) {
     case 'bottom': {
@@ -84,7 +88,7 @@ const LottoStoreSheetHeader = (props) => {
                 <Text style={{color: '#74798a'}}>{secondPrizeCount}회</Text>
               </View>
             </View>
-            <TouchableOpacity style={{justifyContent: 'center'}}>
+            <TouchableOpacity style={{justifyContent: 'center'}} onPress={onPressFindLoad}>
               <Image style={styles.findRoadImage} source={require('../assets/ic_find_road.png')}/>
             </TouchableOpacity>
           </View>
@@ -195,6 +199,7 @@ LottoStoreSheetHeader.propTypes = {
   bottomSheetState: PropTypes.oneOf(['bottom', 'middle', 'top']),
   setIsOpenedMapLinkButtons: PropTypes.func.isRequired,
   copyClipboard: PropTypes.func.isRequired,
+  setShowFindLoadBottomSheet: PropTypes.func.isRequired,
 };
 
 export default LottoStoreSheetHeader;
@@ -327,7 +332,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     bottom: 3,
     left: windowWidth * 0.5 - 67
-    
   },
   
   bottomBarInnerView: {

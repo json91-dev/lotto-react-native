@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo, useCallback } from 'react';
 import { Platform } from 'react-native'
 import NaverMapView, { Circle } from 'react-native-nmap';
 import { useSelector, useDispatch } from 'react-redux';
-import NMarker from '../components/NMarker';
+import NMarker from './NMarker';
 import { getCurrentPosition } from '../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST } from '../reducers/stores';
 import { SET_MAP_TOUCH } from '../reducers/map';
@@ -55,10 +55,10 @@ const NMap = memo(() => {
   
   const getMapPaddingByOs = () => {
     if (Platform.OS === 'android') {
-      return 150;
+      return 105;
     }
     
-    return 120;
+    return 75;
   };
   
   // 초기에는 nmap을 그리지 않도록 예외처리

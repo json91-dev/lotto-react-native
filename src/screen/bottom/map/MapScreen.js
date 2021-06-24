@@ -10,7 +10,7 @@ import {
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../../components/LottoStoreSheetContent';
-import NMap from '../../../containers/NMap';
+import NMap from '../../../components/NMap';
 import MapLinkButtonsComponent from '../../../components/MapLinkButtonsComponent';
 
 // const windowWidth = Dimensions.get('window').width;

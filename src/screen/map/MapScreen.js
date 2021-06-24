@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
-import NMap from '../../containers/NMap';
+import NMap from '../../components/NMap';
 // import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 import { getCurrentPosition } from '../../helpers/Location';
@@ -25,13 +25,15 @@ import MapCurrentLocationButton from '../../components/MapCurrentLocationButton'
 // const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const MapScreen = (props) => {
+const MapScreen = () => {
   const dispatch = useDispatch();
   const [isOpenedMapLinkButtons, setIsOpenedMapLinkButtons] = useState(false);
+  const [showFindLoadBottomSheet, setShowFindLoadBottomSheet] = useState(false);
+  const [bottomSheetState, setBottomSheetState] = useState('bottom'); // bottom, middle, top
   const toastRef = useRef();
   
+  // 맨 처음 앱이 로딩될때 현재 위치를 얻어오고 현재 위치의 반경 1km의 로또 판매점을 가져옴.
   useEffect(() => {
-    
     getCurrentPosition().then(position => {
       const { latitude, longitude } = position;
       const radius = 1;
@@ -45,15 +47,13 @@ const MapScreen = (props) => {
         }
       });
     });
-  
   }, []);
+  
   
   // 바텀시트의 컨텐츠를 나타내는 함수.
   const renderContent = () => {
     return <LottoStoreSheetContent/>;
   };
-  
-  const [bottomSheetState, setBottomSheetState] = useState('bottom'); // bottom, middle, top
   
   // 바텀시트의 헤더를 나타내는 함수.
   const renderHeader = () => {
@@ -62,6 +62,7 @@ const MapScreen = (props) => {
         bottomSheetState={bottomSheetState}
         setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}
         copyClipboard={copyClipboard}
+        setShowFindLoadBottomSheet={setShowFindLoadBottomSheet}
       />
     );
   };
@@ -76,6 +77,7 @@ const MapScreen = (props) => {
     Clipboard.setString(text);
     showCopyToast();
   };
+  
   
   // 현재 BottomSheet의 상태를 반환하고 bottomSheetState를 업데이트하는 함수
   const onPressBottomSheetSettle = (state) => {
@@ -141,6 +143,11 @@ const MapScreen = (props) => {
              fadeOutDuration={1000}
              style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
       />
+  
+      {showFindLoadBottomSheet
+        ? <FindLoadBottomSheet setShowFindLoadBottomSheet={setShowFindLoadBottomSheet} copyClipboard={copyClipboard}/>
+        : null
+      }
       
       {/*<FindLoadBottomSheet/>*/}
       {/* 맵 링크 버튼 : deprecated */}
@@ -168,6 +175,8 @@ export default MapScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
+    width: '100%',
+    height: '100%',
   },
   
   /* 상단 버튼 */
