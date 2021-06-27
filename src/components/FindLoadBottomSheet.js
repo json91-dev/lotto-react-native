@@ -19,7 +19,6 @@ const FindLoadBottomSheet = (props) =>{
   const currentLatitude = useSelector(state => state.stores.currentLatitude);
   const currentLongitude = useSelector(state => state.stores.currentLongitude);
   
-  
   const currentStore = useSelector(state => state.stores.currentStore);
   const storeLatitude = currentStore.latitude;
   const storeLongitude = currentStore.longitude;
@@ -39,14 +38,15 @@ const FindLoadBottomSheet = (props) =>{
     Linking.openURL(url);
   }, [currentStore, currentLatitude, currentLongitude]);
   
-  const onPressKakaoNavi = useCallback(() => {
-    // const url = `kakaonavi://route?sX=${currentLongitude}&sY=${currentLatitude}&x=${storeLongitude}&y=${storeLatitude}`;
-    const url = `daummaps://search?q=${encodeURI(storeAddress)}&p=${storeLongitude},${storeLongitude}`
-    Linking.openURL(url);
-  }, [currentStore, currentLatitude, currentLongitude]);
+  // Kakao 네비기능 현재 구현 X
+  // const onPressKakaoNavi = useCallback(() => {
+  //   const url = `kakaonavi://route?sX=${currentLongitude}&sY=${currentLatitude}&x=${storeLongitude}&y=${storeLatitude}`;
+  //   // const url = `daummaps://search?q=${encodeURI(storeAddress)}&p=${storeLongitude},${storeLongitude}`
+  //   Linking.openURL(url);
+  // }, [currentStore, currentLatitude, currentLongitude]);
   
   const onPressNaverMap = useCallback(() => {
-    const url = `nmap://route/car?slat=${currentLongitude}&slng=${currentLongitude}&dlat=${storeLatitude}&dlng=${storeLongitude}&dname=${storeAddress}`;
+    const url = `nmap://route/car?slat=${currentLongitude}&slng=${currentLongitude}&dlat=${storeLatitude}&dlng=${storeLongitude}&dname=${encodeURI(storeAddress)}`;
     Linking.openURL(url);
   }, [currentStore, currentLatitude, currentLongitude]);
   
@@ -81,10 +81,10 @@ const FindLoadBottomSheet = (props) =>{
           <Text style={styles.linkTouchText}>카카오맵</Text>
         </TouchableOpacity>
   
-        <TouchableOpacity style={styles.linkTouch} onPress={onPressKakaoNavi}>
-          <Image style={styles.linkTouchImage} source={require('../assets/ic_kakao_navi.png')}/>
-          <Text style={styles.linkTouchText}>카카오내비</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity style={styles.linkTouch} onPress={onPressKakaoNavi}>*/}
+          {/*<Image style={styles.linkTouchImage} source={require('../assets/ic_kakao_navi.png')}/>*/}
+          {/*<Text style={styles.linkTouchText}>카카오내비</Text>*/}
+        {/*</TouchableOpacity>*/}
   
         <TouchableOpacity style={styles.linkTouch} onPress={onPressNaverMap}>
           <Image style={styles.linkTouchImage} source={require('../assets/ic_naver_map.png')}/>

@@ -119,7 +119,7 @@ const MapScreen = () => {
       <NMap/>
       <MapSearchRadiusButton />
       {/*<MapCurrentLocationButton />*/}
-      <Image style={styles.storeAddressCopyImage} source={require('../../assets/ic_copy.png')} />
+      
       <ScrollBottomSheet
         componentType="FlatList"
         contentContainerStyle={styles.contentContainerStyle}
