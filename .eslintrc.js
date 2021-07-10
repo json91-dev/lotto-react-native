@@ -25,6 +25,7 @@ module.exports = {
         extensions: [".js", ".jsx"]
       }
     ],
+    "spaced-comment": 0,
   
     // "prettier/prettier": [
     //   "error",

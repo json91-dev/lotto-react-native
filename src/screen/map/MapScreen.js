@@ -5,7 +5,8 @@ import {
   StatusBar,
   Platform,
   Clipboard,
-  SafeAreaView
+  SafeAreaView,
+  BackHandler,
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
@@ -31,8 +32,10 @@ const MapScreen = () => {
   const [showFindLoadBottomSheet, setShowFindLoadBottomSheet] = useState(false);
   const [bottomSheetState, setBottomSheetState] = useState('bottom'); // bottom, middle, top
   const toastRef = useRef();
+  const exitApp = useRef(false);
+  const exitTimeout = useRef();
   
-  // 맨 처음 앱이 로딩될때 현재 위치를 얻어오고 현재 위치의 반경 1km의 로또 판매점을 가져옴.
+  /** 맨 처음 앱이 로딩될때 현재 위치를 얻어오고 현재 위치의 반경 1km의 로또 판매점을 가져옴. **/
   useEffect(() => {
     getCurrentPosition().then(position => {
       const { latitude, longitude } = position;
@@ -47,16 +50,41 @@ const MapScreen = () => {
         }
       });
     });
+    
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    
+    return (() => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+    });
+  }, []);
+  
+  /** 백버튼 클릭시 2번 클릭시 앱 종료 **/
+  const handleBackButton = useCallback(() => {
+    // 2000(2초) 안에 back 버튼을 한번 더 클릭 할 경우 앱 종료
+    if (exitApp.current === undefined || !exitApp.current) {
+      toastRef.current.show('한번 더 누르시면 종료됩니다.');
+      exitApp.current = true;
+    
+      exitTimeout.current = setTimeout(() => {
+        exitApp.current = false;
+        }, 2000    // 2초
+      );
+    } else {
+      clearTimeout(exitTimeout.current);
+    
+      BackHandler.exitApp();  // 앱 종료
+    }
+    return true;
   }, []);
   
   
-  // 바텀시트의 컨텐츠를 나타내는 함수.
-  const renderContent = () => {
+  /** 바텀시트의 컨텐츠 출력.**/
+  const renderContent = useCallback(() => {
     return <LottoStoreSheetContent/>;
-  };
+  }, []);
   
-  // 바텀시트의 헤더를 나타내는 함수.
-  const renderHeader = () => {
+  /** 바텀시트의 헤더를 나타내는 함수. **/
+  const renderHeader = useCallback(() => {
     return (
       <LottoStoreSheetHeader
         bottomSheetState={bottomSheetState}
@@ -65,21 +93,21 @@ const MapScreen = () => {
         setShowFindLoadBottomSheet={setShowFindLoadBottomSheet}
       />
     );
-  };
+  }, []);
   
-  // 주소 복사 Toast 메세지 출력
+  /** 주소 복사 Toast 메세지 출력 **/
   const showCopyToast = useCallback(() => {
     toastRef.current.show('주소가 복사되었습니다.');
   }, []);
   
-  // Clipboard에 텍스트 저장 및 Toast 출력
+  /** Clipboard에 텍스트 저장 및 Toast 출력 **/
   const copyClipboard = (text) => {
     Clipboard.setString(text);
     showCopyToast();
   };
   
   
-  // 현재 BottomSheet의 상태를 반환하고 bottomSheetState를 업데이트하는 함수
+  /** 현재 BottomSheet의 상태를 반환하고 bottomSheetState를 업데이트하는 함수 **/
   const onPressBottomSheetSettle = (state) => {
     switch (state) {
       case 0:
