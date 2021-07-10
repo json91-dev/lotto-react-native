@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
-  View,
   Dimensions,
   StatusBar,
   Platform,
-  Clipboard, Image,
+  Clipboard,
+  SafeAreaView
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
@@ -115,7 +115,7 @@ const MapScreen = () => {
   };
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <NMap/>
       <MapSearchRadiusButton />
       {/*<MapCurrentLocationButton />*/}
@@ -166,7 +166,7 @@ const MapScreen = () => {
       {/* <Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/> */}
       {/* </TouchableOpacity> */}
       {/* </View> */}
-    </View>
+    </SafeAreaView>
   );
 };
 

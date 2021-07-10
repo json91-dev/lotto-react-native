@@ -31,7 +31,6 @@ const NMarker = memo(({store}) => {
       return require('../assets/ic_pin_active.png');
     }
       return require('../assets/ic_pin_inactive.png');
-    
   };
   
   const onClickMarker = (store) => () => {
