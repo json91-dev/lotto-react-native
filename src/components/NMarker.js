@@ -18,8 +18,8 @@ const NMarker = memo(({store}) => {
   
   useEffect(() => {
     if (stores.currentStore.id === store.id) {
-      setMarkerWidth(30);
-      setMarkerHeight(44);
+      setMarkerWidth(35);
+      setMarkerHeight(35);
     } else {
       setMarkerWidth(22);
       setMarkerHeight(22);
