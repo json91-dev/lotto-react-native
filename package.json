@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev-android": "NODE_ENV=development react-native run-android",
-    "prod-android": "NODE_ENV=production react-native run-android",
-    "dev-ios": "NODE_ENV=development react-native run-ios",
-    "prod-ios": "NODE_ENV=production react-native run-ios",
-    "start": "react-native start",
+    "dev-android": "./pre-build.sh development && react-native run-android",
+    "prod-android": "./pre-build.sh production && react-native run-android",
+    "dev-ios": "./pre-build.sh development && react-native run-ios",
+    "prod-ios": "./pre-build.sh production && react-native run-ios",
+
     "test": "jest",
     "lint": "eslint ."
   },

@@ -1,7 +1,12 @@
-// const backUrl = process.env.NODE_ENV === 'production' ? 'http://172.30.1.100:3000' : 'http://localhost:3000';
-/** TODO: NODE_ENV를 제대로 읽어오지 못함 **/
-const frontUrl = process.env.NODE_ENV === 'production' ? 'http://172.30.1.100:3000' : 'http://localhost:3000';
+import config from './config.json';
 
-const backUrl = 'http://172.30.1.100:3000';
+const ENV_MAP = {
+  development: {
+    API_URL: "http://172.30.1.100:3000"
+  },
+  production: {
+    API_URL: "https://lottotour.xyz"
+  }
+};
 
-export { backUrl, frontUrl };
+export default ENV_MAP[config.REACT_NATIVE_ENV] || ENV_MAP.development;
