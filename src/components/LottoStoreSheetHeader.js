@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import config from '../config/config';
 import {
   StyleSheet,
   View,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { isIphoneX } from "react-native-iphone-x-helper";
 import { getDistance, getFontSize } from '../helpers/Utils';
@@ -17,6 +19,11 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const vh = windowHeight / 100;
 // const vw = windowWidth / 100;
+
+let bannderId;
+if (config.ENV === 'development') bannderId =  TestIds.BANNER;
+if (Platform.OS === 'android') bannderId =  'ca-app-pub-4400769153197740/6845680922';
+if (Platform.OS === 'ios') bannderId =  'ca-app-pub-4400769153197740/7391394265';
 
 const LottoStoreSheetHeader = (props) => {
   const { setIsOpenedMapLinkButtons, copyClipboard, setShowFindLoadBottomSheet } = props;
@@ -60,11 +67,13 @@ const LottoStoreSheetHeader = (props) => {
         return (
           <View style={{width: '100%', height: 136, flexDirection: 'column-reverse'}}>
             <View>
-              <BannerAd unitId={TestIds.BANNER}
+              <BannerAd unitId={bannderId}
                         size={BannerAdSize.FULL_BANNER}
                         requestOptions={{
                           requestNonPersonalizedAdsOnly: true,
                         }}
+                        onAdLoader={() =>  console.log('Advert loaded')}
+                        onAdFailedToLoad={(error) => console.log('Admob Error: ', error)}
               />
             </View>
           </View>
