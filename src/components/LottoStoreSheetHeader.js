@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import config from '../config/config';
 import {
   StyleSheet,
   View,
@@ -12,18 +11,19 @@ import {
   Platform,
 } from 'react-native';
 import { isIphoneX } from "react-native-iphone-x-helper";
-import { getDistance, getFontSize } from '../helpers/Utils';
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+import { getDistance, getFontSize } from '../helpers/Utils';
+import config from '../config/config';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const vh = windowHeight / 100;
-// const vw = windowWidth / 100;
 
-let bannderId;
-if (config.ENV === 'development') bannderId =  TestIds.BANNER;
-if (Platform.OS === 'android') bannderId =  'ca-app-pub-4400769153197740/6845680922';
-if (Platform.OS === 'ios') bannderId =  'ca-app-pub-4400769153197740/7391394265';
+/** OS별 광고 Id 설정 **/
+let bannerId;
+if (config.ENV === 'development') bannerId = TestIds.BANNER;
+if (Platform.OS === 'android') bannerId = 'ca-app-pub-4400769153197740/6845680922';
+if (Platform.OS === 'ios') bannerId = 'ca-app-pub-4400769153197740/7391394265';
 
 const LottoStoreSheetHeader = (props) => {
   const { setIsOpenedMapLinkButtons, copyClipboard, setShowFindLoadBottomSheet } = props;
@@ -67,7 +67,7 @@ const LottoStoreSheetHeader = (props) => {
         return (
           <View style={{width: '100%', height: 136, flexDirection: 'column-reverse'}}>
             <View>
-              <BannerAd unitId={bannderId}
+              <BannerAd unitId={bannerId}
                         size={BannerAdSize.FULL_BANNER}
                         requestOptions={{
                           requestNonPersonalizedAdsOnly: true,
@@ -114,7 +114,7 @@ const LottoStoreSheetHeader = (props) => {
             </View>
           </View>
           
-          { !isIphoneX() ? // iPhoneX 일때는 하단선을 표시하지 않음
+          { !isIphoneX() ? /** iPhoneX 일때는 하단선을 표시하지 않음 **/
               <View style={styles.bottomBarView}>
                 <View style={styles.bottomBarInnerView} />
               </View>

@@ -15,13 +15,11 @@ import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../components/NMap';
-// import MapLinkButtonsComponent from '../../components/MapLinkButtonsComponent';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 import { getCurrentPosition } from '../../helpers/Location';
-import { GET_STORES_RADIUS_REQUEST } from '../../reducers/stores';
+import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_STORE } from '../../reducers/stores';
 import Toast from 'react-native-easy-toast';
 import FindLoadBottomSheet from '../../components/FindLoadBottomSheet';
-import MapCurrentLocationButton from '../../components/MapCurrentLocationButton';
 
 // const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -40,7 +38,16 @@ const MapScreen = () => {
     getCurrentPosition().then(position => {
       const { latitude, longitude } = position;
       const radius = 1;
+      
+      // STEP 1: 선택된 로또 판매점 선택 제거
+      // 혹시 앱 종료시 선택제거가 안됬을때의 방어코드이다.
+      // 광고 노출을 위해서 수행되어야 함.
+      dispatch({
+        type: SET_CURRENT_STORE,
+        data: {},
+      });
 
+      // STEP 2 : 반경 1km의 로또 판매점을 가져옴.
       dispatch({
         type: GET_STORES_RADIUS_REQUEST,
         data: {
@@ -55,6 +62,12 @@ const MapScreen = () => {
     
     return (() => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
+  
+      // 종료시 로또 판매점 선택 제거
+      dispatch({
+        type: SET_CURRENT_STORE,
+        data: {},
+      });
     });
   }, []);
   
@@ -146,7 +159,6 @@ const MapScreen = () => {
     <SafeAreaView style={styles.container}>
       <NMap/>
       <MapSearchRadiusButton />
-      {/*<MapCurrentLocationButton />*/}
       
       <ScrollBottomSheet
         componentType="FlatList"
@@ -177,23 +189,6 @@ const MapScreen = () => {
         : null
       }
       
-      {/*<FindLoadBottomSheet/>*/}
-      {/* 맵 링크 버튼 : deprecated */}
-      {/* {isOpenedMapLinkButtons */}
-      {/* ? <MapLinkButtonsComponent setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}/> */}
-      {/*: null */}
-      {/* } */}
-      {/* <View style={styles.backButtonView}> */}
-      {/* <TouchableOpacity style={styles.backButtonTouch} onPress={() => props.navigation.goBack()}> */}
-      {/* <Image style={styles.backButtonImage} source={require('../../assets/ic_black_back_arrow.png')}/> */}
-      {/* </TouchableOpacity> */}
-      {/* </View> */}
-      {/* <View style={styles.searchButtonView}> */}
-      {/* <TouchableOpacity style={styles.searchButtonTouch} */}
-      {/* onPress={() => props.navigation.navigate('SearchStoreScreen')}> */}
-      {/* <Image style={styles.searchButtonImage} source={require('../../assets/ic_black_search.png')}/> */}
-      {/* </TouchableOpacity> */}
-      {/* </View> */}
     </SafeAreaView>
   );
 };
