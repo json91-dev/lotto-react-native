@@ -7,9 +7,9 @@
     "prod-android": "./pre-build.sh production && react-native run-android",
     "dev-ios": "./pre-build.sh development && react-native run-ios",
     "prod-ios": "./pre-build.sh production && react-native run-ios",
-
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "react-native start"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.0",
