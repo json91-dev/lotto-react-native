@@ -90,12 +90,12 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true // 4가지의 아키텍쳐별 apk 생성
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true // Java 바이트코드 크기 줄이기
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -131,8 +131,8 @@ android {
         applicationId "com.lottoproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4.0"
 
         // for react-native-qrcode-scanner
         missingDimensionStrategy 'react-native-camera', 'general'
@@ -171,6 +171,7 @@ android {
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
+            // shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }

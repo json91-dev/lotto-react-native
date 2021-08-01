@@ -22,8 +22,8 @@ const vh = windowHeight / 100;
 /** OS별 광고 Id 설정 **/
 let bannerId;
 if (config.ENV === 'development') bannerId = TestIds.BANNER;
-if (Platform.OS === 'android') bannerId = 'ca-app-pub-4400769153197740/6845680922';
-if (Platform.OS === 'ios') bannerId = 'ca-app-pub-4400769153197740/7391394265';
+else if (Platform.OS === 'android') bannerId = 'ca-app-pub-4400769153197740/6845680922';
+else if (Platform.OS === 'ios') bannerId = 'ca-app-pub-4400769153197740/7391394265';
 
 const LottoStoreSheetHeader = (props) => {
   const { setIsOpenedMapLinkButtons, copyClipboard, setShowFindLoadBottomSheet } = props;
