@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react';
-import { Col, Row, Grid } from "react-native-easy-grid";
 
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const LottoStoreSheetContent = () =>{
   
