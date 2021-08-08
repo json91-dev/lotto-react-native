@@ -24,32 +24,37 @@ const FindLoadBottomSheet = (props) =>{
   const storeLongitude = currentStore.longitude;
   const storeAddress = currentStore.address;
   
+  /** 취소 버튼 클릭시 FindLoad 화면 제거 **/
   const onPressCancelTouch = useCallback(() => {
     setShowFindLoadBottomSheet(false);
   }, []);
   
+  /** 주소 복사 **/
   const onPressCopy = useCallback(() => {
     copyClipboard(storeAddress);
   }, [currentStore]);
   
+  /** 카카오 맵 경로 안내 **/
   const onPressKakaoMap = useCallback(() => {
     // Check: 카카오맵도 차량경로를 안내해야 할지
     const url = `kakaomap://route?sp=${currentLatitude},${currentLongitude}&ep=${storeLatitude},${storeLongitude}&by=CAR`;
     Linking.openURL(url);
   }, [currentStore, currentLatitude, currentLongitude]);
   
-  // Kakao 네비기능 현재 구현 X
+  /** Kakao 네비기능 현재 구현 X **/
   // const onPressKakaoNavi = useCallback(() => {
   //   const url = `kakaonavi://route?sX=${currentLongitude}&sY=${currentLatitude}&x=${storeLongitude}&y=${storeLatitude}`;
   //   // const url = `daummaps://search?q=${encodeURI(storeAddress)}&p=${storeLongitude},${storeLongitude}`
   //   Linking.openURL(url);
   // }, [currentStore, currentLatitude, currentLongitude]);
   
+  /** 네이버 지도 경로 안내 **/
   const onPressNaverMap = useCallback(() => {
     const url = `nmap://route/car?slat=${currentLongitude}&slng=${currentLongitude}&dlat=${storeLatitude}&dlng=${storeLongitude}&dname=${encodeURI(storeAddress)}`;
     Linking.openURL(url);
   }, [currentStore, currentLatitude, currentLongitude]);
   
+  /** Tmap 경로 안내 **/
   const onPressTmap = useCallback(() => {
     const url = `tmap://route?goalx=${storeLongitude}6&goaly=${storeLatitude}`;
     Linking.openURL(url);
@@ -62,13 +67,13 @@ const FindLoadBottomSheet = (props) =>{
       </View>
       
       <View style={styles.titleView}>
-        <Text style={styles.titleText}>가든 파이브점</Text>
+        <Text style={styles.titleText}>{currentStore.name}</Text>
         <TouchableOpacity style={styles.cancelTouch} onPress={onPressCancelTouch}>
           <Image style={styles.cancelTouchImage} source={require('../assets/ic_cancel.png')}/>
         </TouchableOpacity>
       </View>
       
-      <Text style={styles.subTitleText} numberOfLines={1} ellipsizeMode="tail">서울 성북구 종암동 132 종암우림카이저펠리1층</Text>
+      <Text style={styles.subTitleText} numberOfLines={1} ellipsizeMode="tail">{currentStore.address}</Text>
       
       <View style={styles.linkView}>
         <TouchableOpacity style={styles.linkTouch} onPress={onPressCopy}>

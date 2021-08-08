@@ -150,7 +150,8 @@ const MapScreen = () => {
     
     if (Platform.OS === 'android') {
       const statusBarHeight = StatusBar.currentHeight;
-      return windowHeight - (bottomHeaderHeight + bottomTabBarHeight + statusBarHeight);
+      const innerHeight = windowHeight - statusBarHeight;
+      return innerHeight - (bottomHeaderHeight + bottomTabBarHeight);
     }
     return windowHeight - (bottomHeaderHeight + bottomTabBarHeight);
   };

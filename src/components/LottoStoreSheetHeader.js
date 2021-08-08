@@ -10,9 +10,9 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import { isIphoneX } from "react-native-iphone-x-helper";
+
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
-import { getDistance, getFontSize } from '../helpers/Utils';
+import { getDistance } from '../helpers/Utils';
 import config from '../config/config';
 
 const windowWidth = Dimensions.get('window').width;
@@ -26,7 +26,7 @@ else if (Platform.OS === 'android') bannerId = 'ca-app-pub-4400769153197740/6845
 else if (Platform.OS === 'ios') bannerId = 'ca-app-pub-4400769153197740/7391394265';
 
 const LottoStoreSheetHeader = (props) => {
-  const { setIsOpenedMapLinkButtons, copyClipboard, setShowFindLoadBottomSheet } = props;
+  const { setIsOpenedMapLinkButtons, setShowFindLoadBottomSheet } = props;
   const currentStore = useSelector(state => state.stores.currentStore);
   const currentLatitude = useSelector(state => state.stores.currentLatitude);
   const currentLongitude = useSelector(state => state.stores.currentLongitude);
@@ -40,29 +40,28 @@ const LottoStoreSheetHeader = (props) => {
   
   const isEmptyCurrentStore = Object.keys(currentStore).length === 0;
   
-  // 현재 선택된 로또판매점에 대한 정보를 하단 바텀시트에 렌더링.
+  /** 바텀 시트에 출력시킬 선택된 로또판매점에 대한 데이터 파싱 **/
   if (!isEmptyCurrentStore) { // 빈 객체인지 확인
     storeName = currentStore.name;
     firstPrizeCount = currentStore.Winnings.filter((item) => item.rank === 1).length;
     secondPrizeCount = currentStore.Winnings.filter((item) => item.rank === 2).length;
     storeDistance = getDistance(currentLatitude, currentLongitude, currentStore.latitude, currentStore.longitude);
+    
     if (storeDistance < 1000) {
-      storeDistanceText = `${storeDistance}m`;
+      storeDistanceText = `${storeDistance}m`; // 1000미터 이하면 m로 표시
     } else {
-      storeDistanceText = `${(storeDistance / 1000).toFixed(2)}km`;
+      storeDistanceText = `${(storeDistance / 1000).toFixed(2)}km`; // 1000미터 이상이면 소숫점 셋째 자리에서 반올림
     }
   }
   
-  const onPressCopy = useCallback(() => {
-    copyClipboard(storeAddress);
-  }, [storeAddress]);
-  
+  /** 길찾기 안내 하단 바텀 시트 출력 **/
   const onPressFindLoad = useCallback(() => {
     setShowFindLoadBottomSheet(true);
   });
   
   switch (props.bottomSheetState) {
     case 'bottom': {
+      // 광고 표시
       if (isEmptyCurrentStore) {
         return (
           <View style={{width: '100%', height: 136, flexDirection: 'column-reverse'}}>
@@ -79,13 +78,10 @@ const LottoStoreSheetHeader = (props) => {
           </View>
         );
       }
-      
+  
+      // 일반 바텀시트 표시
       return (
         <View style={styles.bottomContainer}>
-          <View style={styles.topBarView}>
-            <View style={styles.topBarInnerView} />
-          </View>
-          
           <View style={styles.storeTitleView}>
             <View>
               <Text style={styles.storeNameText}>{storeName}</Text>
@@ -105,21 +101,12 @@ const LottoStoreSheetHeader = (props) => {
           <View style={styles.storeAddressView}>
             <View style={styles.storeAddressViewLeft}>
               <Text style={styles.storeAddressText} numberOfLines={1} ellipsizeMode="tail">{storeAddress} </Text>
-              <TouchableOpacity style={styles.storeAddressCopyTouch} onPress={onPressCopy}>
-                <Image style={styles.storeAddressCopyImage} source={require('../assets/ic_copy.png')} />
-              </TouchableOpacity>
+
             </View>
             <View style={styles.storeAddressViewRight}>
               <Text style={styles.moreDetailDistanceText}>{storeDistanceText}</Text>
             </View>
           </View>
-          
-          { !isIphoneX() ? /** iPhoneX 일때는 하단선을 표시하지 않음 **/
-              <View style={styles.bottomBarView}>
-                <View style={styles.bottomBarInnerView} />
-              </View>
-            : null
-          }
         </View>
       );
     }
@@ -223,7 +210,7 @@ const styles = StyleSheet.create({
     height: 136,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   
   storeTitleView: {
@@ -237,18 +224,17 @@ const styles = StyleSheet.create({
   },
   
   storeNameText: {
-    fontSize: getFontSize() + 6,
+    fontSize: 20,
     marginBottom: vh,
   },
   
   storeDetailView: {
-    fontSize: getFontSize(),
     flexDirection: 'row',
     marginBottom: 10,
   },
   
   storeAddressText: {
-    fontSize: getFontSize(),
+    fontSize: 12,
     color: "#74798a",
     width: '90%',
   },

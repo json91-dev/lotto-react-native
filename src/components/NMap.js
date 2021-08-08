@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, memo, useCallback } from 'react';
-import { Platform } from 'react-native'
-import NaverMapView, { Circle } from 'react-native-nmap';
+import { Platform } from 'react-native';
+import NaverMapView,  { Circle } from 'react-native-nmap';
 import { useSelector, useDispatch } from 'react-redux';
 import NMarker from './NMarker';
 import { getCurrentPosition } from '../helpers/Location';
@@ -70,6 +70,7 @@ const NMap = memo(() => {
     <NaverMapView
       style={{ width: '100%', height: '100%' }}
       showsMyLocationButton
+      locationTrackingMode={1}
       center={{ ...currentLocationRef.current, zoom: getZoom()}}
       onTouch={onMapTouch}
       // onMapClick={onMapClick}

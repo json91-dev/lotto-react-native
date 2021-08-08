@@ -5,6 +5,7 @@
   "scripts": {
     "dev-android": "./pre-build.sh development && react-native run-android",
     "prod-android": "./pre-build.sh production && react-native run-android",
+    "deploy-android": "./pre-build.sh production && cd android && ./gradlew bundleRelease",
     "dev-ios": "./pre-build.sh development && react-native run-ios",
     "prod-ios": "./pre-build.sh production && react-native run-ios",
     "test": "jest",
