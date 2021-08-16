@@ -37,7 +37,9 @@ const store = configureStore();
 const App  = () => {
   useEffect(() => {
     try {
-      SplashScreen.hide();
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 2000); // 스플래시 시간 조절
     } catch(e) {
       console.warn('에러발생');
       console.warn(e);
