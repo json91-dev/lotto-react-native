@@ -14,8 +14,8 @@ const InitialState = {
   stores: [],
   currentStore: {},
   currentRadius: 1,
-  currentLatitude: 0.0,
-  currentLongitude: 0.0,
+  currentLatitude: 37.555615,
+  currentLongitude: 126.9693655,
   getStoresErrorReason: '',
   isGettingStores: false,
   getStoresRadiusErrorReason: '',
@@ -65,16 +65,17 @@ export default (state = InitialState, action) => {
       return {
         ...state,
         isGettingStoresRadius: true,
-        currentLatitude: action.data.latitude,
-        currentLongitude: action.data.longitude,
       };
     }
   
     case GET_STORES_RADIUS_SUCCESS : {
       return {
         ...state,
-        stores: action.data,
+        stores: action.data.stores,
         isGettingStoresRadius: false,
+        currentLatitude: action.data.latitude,
+        currentLongitude: action.data.longitude,
+        currentRadius: action.data.radius,
       };
     }
   

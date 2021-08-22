@@ -1,35 +1,66 @@
-import React, { useEffect, useRef, memo, useCallback } from 'react';
+import React, { useEffect, useRef, memo, useCallback, useState } from 'react';
 import { Platform } from 'react-native';
 import NaverMapView,  { Circle } from 'react-native-nmap';
 import { useSelector, useDispatch } from 'react-redux';
 import NMarker from './NMarker';
-import { getCurrentPosition } from '../helpers/Location';
-import { GET_STORES_RADIUS_REQUEST } from '../reducers/stores';
 import { SET_MAP_TOUCH } from '../reducers/map';
+import { getCurrentPosition } from '../helpers/Location';
+import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_STORE } from '../reducers/stores';
 
 const NMap = memo(() => {
   const stores  = useSelector(state => state.stores.stores); // state.stores를 사용하면 stores가 reducer가 바뀔때마다 리렌더링됨.
-  const currentRadius = useSelector(state => state.stores.currentRadius); // 지도 현재 반경.
-  const dispatch = useDispatch(); //
-  const currentLocationRef = useRef({ latitude: 0, longitude: 0 }); // 지도 현재 위치
   
-  // console.log(`[${Platform.OS}] nmapView 호출`);
-  // Nmap이 처음 렌더링될때 반경 1km내의 상점 정보를 가져옴.
+  const currentLongitude = useSelector(state => state.stores.currentLongitude);
+  const currentLatitude = useSelector(state => state.stores.currentLatitude);
+  const currentRadius = useSelector(state => state.stores.currentRadius); // 지도 현재 반경.
+  const locationTrackingMode = useRef(0);
+  const dispatch = useDispatch();
+  
+  console.log('Nmap: 리렌더링');
+  
   useEffect(() => {
-    console.log('GET_STORE_RADIUS_REQUEST 호출');
-    // const position = await getCurrentPosition();
+    console.log('Nmap: useEffect');
+    
     getCurrentPosition().then(position => {
-      const { latitude, longitude } = position;
       const radius = 1;
-      currentLocationRef.current = {latitude, longitude};
       
+      /** 위치정보를 얻어왔을때 **/
+      if (position) {
+        // STEP 2 : 반경 1km의 로또 판매점을 가져옴.
+        dispatch({
+          type: GET_STORES_RADIUS_REQUEST,
+          data: {
+            latitude: position.latitude,
+            longitude: position.longitude,
+            radius,
+          }
+        });
+        locationTrackingMode.current = 1;
+      }
+      
+      /** 위치정보를 못얻어왔을때 **/
+      else {
+        console.log('호출 222');
+        locationTrackingMode.current = 0;
+  
+        /** 주소를 못알아 왔을시 서울역의 좌표를 지도에 표시 **/
+        dispatch({
+          type: GET_STORES_RADIUS_REQUEST,
+          data: {
+            latitude: 37.555615,
+            longitude: 126.9693655,
+            radius,
+          }
+        });
+      }
+  
+      /**
+       * 선택된 로또 판매점 선택 제거, 혹시 앱 종료시 선택제거가 안됬을때의 방어코드이다.
+       * 광고 노출을 위해서 수행되어야 함.
+       */
       dispatch({
-        type: GET_STORES_RADIUS_REQUEST,
-        data: {
-          latitude,
-          longitude,
-          radius,
-        }
+        type: SET_CURRENT_STORE,
+        data: {},
       });
     });
   }, []);
@@ -61,17 +92,13 @@ const NMap = memo(() => {
     return 75;
   };
   
-  // 초기에는 nmap을 그리지 않도록 예외처리
-  if (currentLocationRef.current.latitude === 0 && currentLocationRef.current.longitude === 0) {
-    return null;
-  }
-  
+
   return (
     <NaverMapView
       style={{ width: '100%', height: '100%' }}
       showsMyLocationButton
-      locationTrackingMode={1}
-      center={{ ...currentLocationRef.current, zoom: getZoom()}}
+      locationTrackingMode={locationTrackingMode.current}
+      center={{ ...{latitude: currentLatitude, longitude: currentLongitude}, zoom: getZoom()}}
       onTouch={onMapTouch}
       // onMapClick={onMapClick}
       mapPadding={{ bottom: getMapPaddingByOs() }}
@@ -79,7 +106,7 @@ const NMap = memo(() => {
       key={+new Date()}
     >
       <Circle
-        coordinate={currentLocationRef.current}
+        coordinate={{latitude: currentLatitude, longitude: currentLongitude}}
         color="rgba(33, 87, 243, 0.15)"
         radius={1000 * currentRadius}
         outlineWidth={10}

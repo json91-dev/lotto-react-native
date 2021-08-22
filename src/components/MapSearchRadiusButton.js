@@ -2,7 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Animated} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentPosition } from '../helpers/Location';
-import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_RADIUS } from '../reducers/stores';
+import { GET_STORES_RADIUS_REQUEST } from '../reducers/stores';
 import { SET_MAP_TOUCH } from '../reducers/map';
 
 const viewHeightAnim = new Animated.Value(40);
@@ -89,11 +89,6 @@ const MapSearchRadiusButton = () => {
           longitude,
           radius,
         }
-      });
-  
-      dispatch({
-        type: SET_CURRENT_RADIUS,
-        data: radius,
       });
     });
   };

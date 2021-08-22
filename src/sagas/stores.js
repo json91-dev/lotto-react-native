@@ -174,7 +174,12 @@ function* getStoresRadius(action) {
     
     yield put({
       type: GET_STORES_RADIUS_SUCCESS,
-      data: result.data,
+      data: {
+        stores: result.data,
+        latitude: action.data.latitude,
+        longitude: action.data.longitude,
+        radius: action.data.radius,
+      },
     });
     
   } catch(e) {

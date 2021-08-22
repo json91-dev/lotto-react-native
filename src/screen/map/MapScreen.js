@@ -33,36 +33,14 @@ const MapScreen = () => {
   const exitApp = useRef(false);
   const exitTimeout = useRef();
   
-  /** 맨 처음 앱이 로딩될때 현재 위치를 얻어오고 현재 위치의 반경 1km의 로또 판매점을 가져옴. **/
+  console.log('MapScreen 리렌더링');
+  
   useEffect(() => {
-    getCurrentPosition().then(position => {
-      const { latitude, longitude } = position;
-      const radius = 1;
-      
-      // STEP 1: 선택된 로또 판매점 선택 제거
-      // 혹시 앱 종료시 선택제거가 안됬을때의 방어코드이다.
-      // 광고 노출을 위해서 수행되어야 함.
-      dispatch({
-        type: SET_CURRENT_STORE,
-        data: {},
-      });
-
-      // STEP 2 : 반경 1km의 로또 판매점을 가져옴.
-      dispatch({
-        type: GET_STORES_RADIUS_REQUEST,
-        data: {
-          latitude,
-          longitude,
-          radius,
-        }
-      });
-    });
-    
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    
+
     return (() => {
       BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
-  
+
       // 종료시 로또 판매점 선택 제거
       dispatch({
         type: SET_CURRENT_STORE,

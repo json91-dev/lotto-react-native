@@ -20,6 +20,7 @@ function getCurrentPositionPromise() {
  */
 export const getCurrentPosition = async () => {
   try {
+    console.log('getCurrentPostiion 호출');
     const position = await getCurrentPositionPromise();
 
     if (position.coords) {
@@ -30,22 +31,10 @@ export const getCurrentPosition = async () => {
       };
     }
     
-    console.error('gerCurrentPosition 에러 발생');
     return null;
-    
-    /*문정동의 주소 좌표를 넘겨줌.
-    return {
-      latitude: 37.4831105026791,
-      longitude: 127.125427813036,
-    };*/
   } catch (error) {
-    console.error(error)
+    /** 위치 권한을 못받아 왔을 시 **/
+    console.log(error);
     return null;
-    
-    /* 문정동 주소
-    return {
-      latitude: 37.4831105026791,
-      longitude: 127.125427813036,
-    };*/
   }
 };
