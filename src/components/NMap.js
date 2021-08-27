@@ -6,17 +6,17 @@ import NMarker from './NMarker';
 import { SET_MAP_TOUCH } from '../reducers/map';
 import { getCurrentPosition } from '../helpers/Location';
 import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_STORE } from '../reducers/stores';
+import { PropTypes } from 'prop-types';
 
-const NMap = memo(() => {
-  const stores  = useSelector(state => state.stores.stores); // state.stores를 사용하면 stores가 reducer가 바뀔때마다 리렌더링됨.
+const NMap = memo((props) => {
+  const { setShowFindLoadBottomSheet } = props;
   
+  const stores  = useSelector(state => state.stores.stores); // state.stores를 사용하면 stores가 reducer가 바뀔때마다 리렌더링됨.
   const currentLongitude = useSelector(state => state.stores.currentLongitude);
   const currentLatitude = useSelector(state => state.stores.currentLatitude);
   const currentRadius = useSelector(state => state.stores.currentRadius); // 지도 현재 반경.
   const locationTrackingMode = useRef(0);
   const dispatch = useDispatch();
-  
-  console.log('Nmap: 리렌더링');
   
   useEffect(() => {
     console.log('Nmap: useEffect');
@@ -117,7 +117,7 @@ const NMap = memo(() => {
         stores ?
           stores.map((item) => {
             return (
-              <NMarker key={+new Date() + item.id + Math.random()} store={item} />
+              <NMarker key={+new Date() + item.id + Math.random()} store={item} setShowFindLoadBottomSheet={setShowFindLoadBottomSheet} />
             );
           })
           : null
@@ -126,5 +126,9 @@ const NMap = memo(() => {
     </NaverMapView>
   );
 });
+
+NMap.propTypes = {
+  setShowFindLoadBottomSheet: PropTypes.func.isRequired,
+};
 
 export default NMap;

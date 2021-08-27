@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_CURRENT_STORE } from '../reducers/stores';
 
-const NMarker = memo(({store}) => {
+const NMarker = memo(({store, setShowFindLoadBottomSheet}) => {
   const { longitude, latitude } = store;
   const coordinate = {
     longitude,
@@ -34,6 +34,8 @@ const NMarker = memo(({store}) => {
   };
   
   const onClickMarker = (store) => () => {
+    setShowFindLoadBottomSheet(false);
+    
     dispatch({
       type: SET_CURRENT_STORE,
       data: store,

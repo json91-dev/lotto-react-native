@@ -10,14 +10,12 @@ import {
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
-
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../components/NMap';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
-import { getCurrentPosition } from '../../helpers/Location';
-import { GET_STORES_RADIUS_REQUEST, SET_CURRENT_STORE } from '../../reducers/stores';
+import { SET_CURRENT_STORE } from '../../reducers/stores';
 import Toast from 'react-native-easy-toast';
 import FindLoadBottomSheet from '../../components/FindLoadBottomSheet';
 
@@ -136,7 +134,7 @@ const MapScreen = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-      <NMap/>
+      <NMap setShowFindLoadBottomSheet={setShowFindLoadBottomSheet}/>
       <MapSearchRadiusButton />
       
       <ScrollBottomSheet
