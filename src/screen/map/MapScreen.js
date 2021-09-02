@@ -10,16 +10,18 @@ import {
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-easy-toast';
 import ScrollBottomSheet from 'react-native-scroll-bottom-sheet';
 import LottoStoreSheetHeader from '../../components/LottoStoreSheetHeader';
 import LottoStoreSheetContent from '../../components/LottoStoreSheetContent';
 import NMap from '../../components/NMap';
 import MapSearchRadiusButton from '../../components/MapSearchRadiusButton';
 import { SET_CURRENT_STORE } from '../../reducers/stores';
-import Toast from 'react-native-easy-toast';
 import FindLoadBottomSheet from '../../components/FindLoadBottomSheet';
+import MapBottom from '../../components/MapBottom';
 
 // const windowWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('screen').height;
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = () => {
@@ -124,6 +126,7 @@ const MapScreen = () => {
     const bottomHeaderHeight = 136;
     const bottomTabBarHeight = 0;
     
+    /** TODO 안드로이드 기기마다 screenHeight, windowHeight의 기준이 다름 **/
     if (Platform.OS === 'android') {
       const statusBarHeight = StatusBar.currentHeight;
       const innerHeight = windowHeight - statusBarHeight;
@@ -136,26 +139,29 @@ const MapScreen = () => {
     <SafeAreaView style={styles.container}>
       <NMap setShowFindLoadBottomSheet={setShowFindLoadBottomSheet}/>
       <MapSearchRadiusButton />
+      <MapBottom setIsOpenedMapLinkButtons={setIsOpenedMapLinkButtons}
+                 copyClipboard={copyClipboard}
+                 setShowFindLoadBottomSheet={setShowFindLoadBottomSheet}/>
       
-      <ScrollBottomSheet
-        componentType="FlatList"
-        contentContainerStyle={styles.contentContainerStyle}
-        snapPoints={[getSheetBottomPosition(), getSheetBottomPosition(), getSheetBottomPosition()]}
-        initialSnapIndex={2}
-        renderHandle={() => (
-          renderHeader()
-        )}
-        data={Array.from({ length: 1 }).map((_, i) => String(i))}
-        keyExtractor={i => i}
-        renderItem={({ item }) => (
-          renderContent()
-        )}
-        // onSettle={onPressBottomSheetSettle} // 추후 Scroll 바텀시트 구현시 사용
-      />
-  
+      {/*<ScrollBottomSheet*/}
+        {/*componentType="FlatList"*/}
+        {/*contentContainerStyle={styles.contentContainerStyle}*/}
+        {/*snapPoints={[getSheetBottomPosition(), getSheetBottomPosition(), getSheetBottomPosition()]}*/}
+        {/*initialSnapIndex={2}*/}
+        {/*renderHandle={() => (*/}
+          {/*renderHeader()*/}
+        {/*)}*/}
+        {/*data={Array.from({ length: 1 }).map((_, i) => String(i))}*/}
+        {/*keyExtractor={i => i}*/}
+        {/*renderItem={({ item }) => (*/}
+          {/*renderContent()*/}
+        {/*)}*/}
+        {/*// onSettle={onPressBottomSheetSettle} // 추후 Scroll 바텀시트 구현시 사용*/}
+      {/*/>*/}
+      
   
       <Toast ref={toastRef}
-             positionValue={windowHeight * 0.55}
+             positionValue={screenHeight * 0.55}
              fadeInDuration={200}
              fadeOutDuration={1000}
              style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
