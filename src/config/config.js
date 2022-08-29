@@ -7,7 +7,7 @@ const ENV_MAP = {
   },
   production: {
     ENV: 'production',
-    API_URL: "https://lottotour.xyz"
+    API_URL: "https://lottotour2.xyz"
   }
 };
 

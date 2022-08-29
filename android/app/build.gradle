@@ -131,8 +131,8 @@ android {
         applicationId "com.lottoproject"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 8
-        versionName "8.0"
+        versionCode 10
+        versionName "10.0"
 
         // for react-native-qrcode-scanner
         missingDimensionStrategy 'react-native-camera', 'general'
